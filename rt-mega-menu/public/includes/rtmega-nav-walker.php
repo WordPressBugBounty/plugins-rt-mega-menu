@@ -31,7 +31,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         $style = '';
 
         $classes = array(
-            'sub-menu',
+            'sub-menu default',
             ( $display_depth % 2 ? 'menu-odd' : 'menu-even' ),
             ( $display_depth >=2 ? 'sub-menu' : '' ),
             'menu-depth-' . $display_depth

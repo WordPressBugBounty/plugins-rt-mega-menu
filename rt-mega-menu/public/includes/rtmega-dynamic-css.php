@@ -47,7 +47,7 @@ function rtmega_menu_dynamic_css(){
         }
         if(!empty($submenu_color)){
             ?>
-            .rtmega-menu-container .rtmega-megamenu.default-nav .menu-item ul.sub-menu .menu-item > .menu-link {
+            .rtmega-menu-container .rtmega-megamenu.default-nav .menu-item ul.sub-menu > .menu-item > .menu-link {
                 color: <?php echo sanitize_hex_color( $submenu_color )?>;
             }
             <?php

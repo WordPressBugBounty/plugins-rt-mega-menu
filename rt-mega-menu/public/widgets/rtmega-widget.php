@@ -382,7 +382,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'menu_layout' => 'vertical'
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded .sub-menu' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded .sub-menu:not(.rtmegamenu-contents)' => 'width: {{SIZE}}{{UNIT}};',
 					],
 			]
 		);
@@ -650,8 +650,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item .menu-link' => 'color: {{VALUE}}',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item .menu-link' => 'color: {{VALUE}}',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}} !important',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}} !important',
 					],
 				]
 			);
@@ -663,8 +663,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}}',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}}',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}} !important',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}} !important',
 					],
 					
 				]
@@ -685,8 +685,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'label'     => __( 'Hover Text Color', 'rt-mega-menu' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}} !important',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}} !important',
 						],
 					]
 				);	
@@ -697,8 +697,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item:hover > .menu-link' => 'background-color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item:hover > .menu-link' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item:hover > .menu-link' => 'background-color: {{VALUE}} !important',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item:hover > .menu-link' => 'background-color: {{VALUE}} !important',
 						],
 						
 					]
@@ -719,8 +719,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item.current-menu-item > .menu-link' => 'color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item.current-menu-item > .menu-link' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item.current-menu-item > .menu-link' => 'color: {{VALUE}} !important',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item.current-menu-item > .menu-link' => 'color: {{VALUE}} !important',
 						],
 					]
 				);
@@ -731,8 +731,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item.current-menu-item > .menu-link' => 'background-color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item.current-menu-item > .menu-link' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item.current-menu-item > .menu-link' => 'background-color: {{VALUE}} !important',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item.current-menu-item > .menu-link' => 'background-color: {{VALUE}} !important',
 						],
 						
 					]
@@ -746,7 +746,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			[
 				'name' => 'border_menu_item',
 				'label' => esc_html__( 'Border', 'rt-mega-menu' ),
-				'selector' => '{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link, .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link',
+				'selector' => '{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link, {{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link',
 				'separator' => 'before',
 			]
 		);
@@ -1078,8 +1078,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'unit' => 'px',
 				],
 				'selectors'          => [						
-					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)' => 'min-width: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)' => 'min-width: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents):not(.rtmegamenu-contents)' => 'min-width: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents):not(.rtmegamenu-contents)' => 'min-width: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}',
 					
 				],
 				'condition'          => [
@@ -1110,8 +1110,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					
 				],
 				'selectors' => [
-					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link' => 'text-align: {{VALUE}}',
-					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link' => 'text-align: {{VALUE}}'
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link' => 'text-align: {{VALUE}}'
 				],
 			]
 		);
@@ -1135,8 +1135,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
-								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link' => 'color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link' => 'color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) > .menu-item > .menu-link' => 'color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) > .menu-item > .menu-link' => 'color: {{VALUE}}',
 							],
 						]
 					);
@@ -1147,8 +1147,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
-								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu' => 'background-color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu' => 'background-color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)' => 'background-color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)' => 'background-color: {{VALUE}}',
 							],
 							
 						]
@@ -1170,13 +1170,13 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
-								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:hover> a 
+								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > ul.sub-menu:not(.rtmegamenu-contents) .menu-item:hover> a 
 								' => 'color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:hover> a 
+								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > ul.sub-menu:not(.rtmegamenu-contents) .menu-item:hover> a 
 								' => 'color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:after 
+								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > ul.sub-menu:not(.rtmegamenu-contents):after 
 								' => 'border-bottom-color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:after 
+								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > ul.sub-menu:not(.rtmegamenu-contents):after 
 								' => 'border-bottom-color: {{VALUE}}',
 							],
 						]
@@ -1189,8 +1189,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
-								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:hover > .menu-link' => 'background-color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:hover > .menu-link' => 'background-color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item > ul.sub-menu:not(.rtmegamenu-contents) > .menu-item:hover > .menu-link' => 'background-color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item > ul.sub-menu:not(.rtmegamenu-contents) > .menu-item:hover > .menu-link' => 'background-color: {{VALUE}}',
 							],
 							
 						]
@@ -1212,10 +1212,10 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item.current-menu-item > a' => 'color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item.current-menu-item > a a' => 'color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item.current-menu-ancestor >  a a' => 'color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item.current-menu-ancestor >  a a' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item.current-menu-item > a' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item.current-menu-item > a a' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item.current-menu-ancestor >  a a' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item.current-menu-ancestor >  a a' => 'color: {{VALUE}}',
 
 						],
 					]
@@ -1227,8 +1227,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
-								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item.current-menu-item' => 'background-color: {{VALUE}}',
-								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item.current-menu-item' => 'background-color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item.current-menu-item' => 'background-color: {{VALUE}}',
+								'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item.current-menu-item' => 'background-color: {{VALUE}}',
 							],
 							
 						]
@@ -1245,8 +1245,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'name'      => 'dropdown_typography',
 					'separator' => 'before',
 					'selector'  => '
-							{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link, 
-							{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link',
+							{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item > ul.sub-menu:not(.rtmegamenu-contents) > .menu-item > .menu-link, 
+							{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item > ul.sub-menu:not(.rtmegamenu-contents) > .menu-item > .menu-link',
 				]
 			);
 			$this->add_responsive_control(
@@ -1256,8 +1256,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > ul.sub-menu:not(.rtmegamenu-contents)'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > ul.sub-menu:not(.rtmegamenu-contents)'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1269,8 +1269,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'name' => 'border',
 					'label' => esc_html__( 'Border', 'rt-mega-menu' ),
 					'selector' => '
-								{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu,
-								{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu',
+								{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents),
+								{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)',
 				]
 			);
 			
@@ -1281,8 +1281,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1296,8 +1296,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'box_shadow_position',
 					],
 					'selector'  => '
-									{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu,
-									{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu',
+									{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents),
+									{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents)',
 					'separator' => 'after',
 				]
 			);
@@ -1317,8 +1317,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1330,8 +1330,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1343,8 +1343,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item'  => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item'  => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1356,8 +1356,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1378,8 +1378,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'dashed' => __( 'Dashed', 'rt-mega-menu' ),
 					],
 					'selectors'   => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:not(:last-child)' => 'border-bottom-style: {{VALUE}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:not(:last-child)' => 'border-bottom-style: {{VALUE}};',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:not(:last-child)' => 'border-bottom-style: {{VALUE}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:not(:last-child)' => 'border-bottom-style: {{VALUE}};',
 					],
 				]
 			);
@@ -1390,8 +1390,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '#c4c4c4',
 					'selectors' => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:not(:last-child)' => 'border-bottom-color: {{VALUE}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:not(:last-child)' => 'border-bottom-color: {{VALUE}};',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:not(:last-child)' => 'border-bottom-color: {{VALUE}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:not(:last-child)' => 'border-bottom-color: {{VALUE}};',
 					],
 					'condition' => [
 						'dropdown_divider_border!' => 'none',
@@ -1414,8 +1414,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'unit' => 'px',
 					],
 					'selectors' => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:not(:last-child)' => 'border-bottom-width: {{SIZE}}{{UNIT}}',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:not(:last-child)' => 'border-bottom-width: {{SIZE}}{{UNIT}}',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:not(:last-child)' => 'border-bottom-width: {{SIZE}}{{UNIT}}',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:not(:last-child)' => 'border-bottom-width: {{SIZE}}{{UNIT}}',
 					],
 					'condition' => [
 						'dropdown_divider_border!' => 'none',
@@ -1448,8 +1448,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '#497696',
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link .menu-desc' => 'color: {{VALUE}}',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link .menu-desc' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link .menu-desc' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link .menu-desc' => 'color: {{VALUE}}',
 						],
 					]
 				);				
@@ -1469,8 +1469,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:hover> a .menu-desc' => 'color: {{VALUE}}', 
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item:hover> a .menu-desc ' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:hover> a .menu-desc' => 'color: {{VALUE}}', 
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item:hover> a .menu-desc ' => 'color: {{VALUE}}',
 						],
 					]
 				);
@@ -1484,8 +1484,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			[
 				'name'      => 'dropdown_desc_typography',
 				'separator' => 'before',
-				'selector'  => '{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link .menu-desc',
-				'selector'  => '{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu .menu-item .menu-link .menu-desc'
+				'selector'  => '{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link .menu-desc',
+				'selector'  => '{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link .menu-desc'
 			]
 		);
 
@@ -2217,7 +2217,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children.rtmega_menu > .sub-menu' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children.rtmega_menu > .sub-menu:not(.rtmegamenu-contents)' => 'width: {{SIZE}}{{UNIT}};',
 					],
 			]
 		);
@@ -2239,7 +2239,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents)' => 'left: {{SIZE}}{{UNIT}};',
 					],
 			]
 		);
@@ -2255,7 +2255,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents)' => 'left: {{SIZE}}{{UNIT}};',
 					],
 			]
 		);
@@ -2271,7 +2271,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents)' => 'top: {{SIZE}}{{UNIT}};',
 					],
 			]
 		);
