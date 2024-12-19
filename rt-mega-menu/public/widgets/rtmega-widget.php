@@ -650,8 +650,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}} !important',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}} !important',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}}',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}}',
 					],
 				]
 			);
@@ -685,8 +685,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'label'     => __( 'Hover Text Color', 'rt-mega-menu' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}} !important',
-							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}} !important',
+							'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}} ',
+							'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item:hover > .menu-link' => 'color: {{VALUE}}',
 						],
 					]
 				);	

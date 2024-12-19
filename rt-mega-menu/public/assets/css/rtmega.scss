@@ -517,3 +517,21 @@ ul.menu li.menu-item-has-children:after {
         padding-top: 30px;
     }
 }
+
+body.rtl{
+    .rtmega-menu-area{
+        .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children{
+            
+            .menu-link .submenu-parent-icon svg{
+                margin-left: 0;
+                margin-right: 5px;
+            } 
+        }
+        ul.rtmega-megamenu ul.sub-menu{
+            padding: 0;
+        }
+    }
+    .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item {
+        text-align: right;
+    }
+}
