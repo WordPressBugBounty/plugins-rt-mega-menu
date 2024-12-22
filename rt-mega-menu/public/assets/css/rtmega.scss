@@ -534,4 +534,8 @@ body.rtl{
     .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item {
         text-align: right;
     }
+    .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .sub-menu .menu-item-has-children .sub-menu{
+        left: -100%;
+        right: unset;
+    }
 }
