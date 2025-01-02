@@ -2276,6 +2276,22 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 			]
 		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'mega_submenu_bg_color',
+				'types' => [ 'classic', 'gradient', 'video' ],
+				'selector' => '{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .sub-menu',
+			]
+		);
+		
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'mega_submenu_box_shadow',
+				'selector' => '{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .sub-menu',
+			]
+		);
 		$this->end_controls_section();
 		if(class_exists('RTMEGA_MENU_PRO')){
             $RTMEGA_MENU_PRO = new RTMEGA_MENU_PRO();
