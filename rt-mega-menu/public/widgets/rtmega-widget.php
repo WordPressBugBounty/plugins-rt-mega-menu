@@ -583,13 +583,42 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				],
 				'selectors'          => [
 					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item:not(:last-child)' => 'margin-right:{{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item:not(:last-child)' => 'margin-right:{{SIZE}}{{UNIT}}',
 				],
 				'condition'          => [
 					'menu_layout' => 'horizontal',
 				],
 				'frontend_available' => true,
 			]
-		);			
+		);		
+		// text align control
+		$this->add_control(
+			'menu_item_text_align',
+			[
+				'label'     => __( 'Item Text Align', 'rt-mega-menu' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'default'   => 'left',
+				'toggle'    => true,
+				'options'   => [
+					'left'   => [
+						'title' => __( 'Left', 'rt-mega-menu' ),
+						'icon'  => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => __( 'Center', 'rt-mega-menu' ),
+						'icon'  => 'eicon-text-align-center',
+					],
+					'right'  => [
+						'title' => __( 'Right', 'rt-mega-menu' ),
+						'icon'  => 'eicon-text-align-right',
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'text-align: {{VALUE}}',
+				],
+			]	
+		);
 		$this->add_responsive_control(
 			'menu_item_margin',
 			[
@@ -603,8 +632,177 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'frontend_available' => true,
 			]
 		);
+		$this->add_responsive_control(
+			'menu_item_padding',
+			[
+				'label'              => __( 'Item Padding', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px', '%' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+				],
+				'frontend_available' => true,
+			]	
+		);
+
+		// Menu Item Max Width
+		$this->add_responsive_control(
+			'menu_item_max_width',
+			[
+				'label'              => __( 'Item Max Width', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::SLIDER,
+				'size_units'         => [ 'px', '%' ],
+				'description'        => __( 'If you need to set the maximum width for the menu item. ', 'rt-mega-menu' ),
+				'range'              => [
+					'%' => [
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'max-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		// max-height control
+		$this->add_responsive_control(
+			'menu_item_max_height',
+			[
+				'label'              => __( 'Item Max Height', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::SLIDER,
+				'size_units'         => [ 'px', '%' ],
+				'description'        => __( 'If you need to set the maximum height for the menu item. ', 'rt-mega-menu' ),
+				'range'              => [
+					'px' => [
+						'max' => 500,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]	
+		);
+
+		// display flex control
+		$this->add_responsive_control(
+			'display_direction',
+			[
+				'label' => __( 'Direction', 'rt-mega-menu' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'row' => [
+						'title' => __( 'Row', 'rt-mega-menu' ),
+						'icon' => 'eicon-arrow-right',
+					],
+					'column' => [
+						'title' => __( 'Column', 'rt-mega-menu' ),
+						'icon' => 'eicon-arrow-down',
+					],
+					'row-reverse' => [
+						'title' => __( 'Row Reverse', 'rt-mega-menu' ),
+						'icon' => 'eicon-arrow-left',
+					],
+					'column-reverse' => [
+						'title' => __( 'Column Reverse', 'rt-mega-menu' ),
+						'icon' => 'eicon-arrow-up',
+					],
+				],
+				'default' => 'row',
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'display: flex; flex-direction: {{VALUE}};',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'display: flex; flex-direction: {{VALUE}};',
+				],
+				'condition' => [
+					'menu_item_max_width[size]!' => '',
+				],
+			]
+		);
+		// Justify Content Control (Choose)
 		$this->add_control(
-			'pointer_menu_item',
+			'justify_content',
+			[
+				'label' => __( 'Justify Content', 'rt-mega-menu' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'flex-start' => [
+						'title' => __( 'Start', 'rt-mega-menu' ),
+						'icon' => 'eicon-flex eicon-justify-start-h',
+					],
+					'center' => [
+						'title' => __( 'Center', 'rt-mega-menu' ),
+						'icon' => 'eicon-flex eicon-justify-center-h',
+					],
+					'flex-end' => [
+						'title' => __( 'End', 'rt-mega-menu' ),
+						'icon' => 'eicon-flex eicon-justify-end-h',
+					],
+					'space-between' => [
+						'title' => __( 'Space Between', 'rt-mega-menu' ),
+						'icon' => 'eicon-flex eicon-justify-space-between-h',
+					],
+					'space-around' => [
+						'title' => __( 'Space Around', 'rt-mega-menu' ),
+						'icon' => 'eicon-flex eicon-justify-space-around-h',
+					],
+					'space-evenly' => [
+						'title' => __( 'Space Evenly', '' ),
+						'icon' => 'eicon-flex eicon-justify-space-evenly-h',
+					],
+				],
+				'default' => 'flex-start',
+				'toggle' => true,
+				'condition'   => [
+					'menu_item_max_width[size]!' => '',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'justify-content: {{VALUE}};',
+				],
+				
+			]
+		);
+	
+		// Align Items Control (Choose)
+		$this->add_control(
+			'align_items',
+			[
+				'label' => __( 'Align Items', 'rt-mega-menu' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'flex-start' => [
+						'title' => __( 'Start', 'rt-mega-menu' ),
+						'icon' => 'eicon-v-align-top',
+					],
+					'center' => [
+						'title' => __( 'Center', 'rt-mega-menu' ),
+						'icon' => 'eicon-v-align-middle',
+					],
+					'flex-end' => [
+						'title' => __( 'End', 'rt-mega-menu' ),
+						'icon' => 'eicon-v-align-bottom',
+					],
+					'stretch' => [
+						'title' => __( 'Stretch', 'rt-mega-menu' ),
+						'icon' => 'eicon-v-align-stretch',
+					],
+				],
+				'default' => 'stretch',
+				'toggle' => true,
+				'condition'   => [
+					'menu_item_max_width[size]!' => '',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'align-items: {{VALUE}};',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'align-items: {{VALUE}};',
+				],
+			]
+		);
+
+
+		$this->add_control(
+		'pointer_menu_item',
 			[
 				'label'     => __( 'Link Hover Effect', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::SELECT,
