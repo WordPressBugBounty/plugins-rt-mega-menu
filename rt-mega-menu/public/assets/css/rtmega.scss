@@ -398,6 +398,40 @@ ul.menu li.menu-item-has-children:after {
                     fill: var(--titleColor);
                 }
             }
+            &.expand-position-bottom{
+                max-width: 320px;
+            }
+            &.expand-position-top{
+                left: 0;
+                right: 0;
+                top: 0;
+                height: 0;
+                background: #000000e6;
+                transition: all .5s ease;
+                .rtmega-menu-mobile-navigation{                    
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                .rtmega-menu-top-cls{
+                    position: fixed;
+                    top: 24px;
+                    right: 24px;
+                    border: 1px solid #ff0000;
+                    display: block;
+                    width: 25px;
+                    text-align: center;
+                    border-radius: 100%;
+                    color: red;
+                    cursor: pointer;
+                }
+                &.opened{
+                    height: 100vh;
+                }
+            }
         }
         ul.rtmega-megamenu {
             display: block;
@@ -507,6 +541,9 @@ ul.menu li.menu-item-has-children:after {
                     }
             }
             
+        }
+        &.vertical-expaned-menu-area-top{
+            position: unset;
         }
     }
 }

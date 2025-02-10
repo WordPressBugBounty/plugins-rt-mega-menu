@@ -5,7 +5,7 @@
  * Plugin URI:  https://rtmega.themewant.com/
  * Author:      Themewant
  * Author URI:  http://themewant.com/
- * Version:     1.2.0
+ * Version:     1.2.1
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: rt-mega-menu

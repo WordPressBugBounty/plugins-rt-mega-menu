@@ -4,7 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 use Elementor\Controls_Manager;
 use Elementor\Utils;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
@@ -276,7 +275,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'bottom',
 				'options' => [
-					'left' => __( 'left', 'rt-mega-menu' ),
+					'top' => __( 'Top', 'rt-mega-menu' ),
+					'left' => __( 'Left', 'rt-mega-menu' ),
 					'bottom'   => __( 'Bottom', 'rt-mega-menu' )
 				],
 				'condition' => [
@@ -284,7 +284,50 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'vertical_menu_expand_mode' => 'click'
 				]
 			]
-		);						
+		);	
+
+		$this->add_control(
+			'bg_color_ovr',
+			[
+				'label'     => __( 'Overlay Bg Color', 'rt-mega-menu' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top' => 'background-color: {{VALUE}} !important',
+				],
+				'condition' => [
+					'vertical_menu_expand_position' => 'top'
+				]
+			]
+		);
+
+		$this->add_control(
+			'_color_icon',
+			[
+				'label'     => __( 'Close Icon Color', 'rt-mega-menu' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-top-cls' => 'color: {{VALUE}} !important',
+				],
+				'condition' => [
+					'vertical_menu_expand_position' => 'top'
+				]
+			]
+		);
+
+		$this->add_control(
+			'_color_bdr',
+			[
+				'label'     => __( 'Close Icon Border Color', 'rt-mega-menu' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-top-cls' => 'border-color: {{VALUE}} !important',
+				],
+				'condition' => [
+					'vertical_menu_expand_position' => 'top'
+				]
+			]
+		);
+
 		$this->add_responsive_control(
 			'vertical_menu_position_left',
 			[
@@ -354,11 +397,11 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'px' => [						
 						'max' => 3000,
 						'step' => 10,
-					],
-					
+					],					
 				],
 				'condition' => [
-					'menu_layout' => 'vertical'
+					'menu_layout' => 'vertical',
+					'vertical_menu_expand_position!' => 'top'
 				],
 				'selectors'          => [
 					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded' => 'width: {{SIZE}}{{UNIT}};',
@@ -379,7 +422,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					
 				],
 				'condition' => [
-					'menu_layout' => 'vertical'
+					'menu_layout' => 'vertical',
+					'vertical_menu_expand_position!' => 'top'
 				],
 				'selectors'          => [
 					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded .sub-menu:not(.rtmegamenu-contents)' => 'width: {{SIZE}}{{UNIT}};',
@@ -2860,8 +2904,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click'){
 					$rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area '.$unique_id.' vertical-expaned-menu-area-'.$menu_expand_position.'">
 						<div class="rtmega-menu-vertical-expanded '. $menu_expand_position_class .'">
-							<div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul></div>
-							</div>
+							<div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul> <span class="rtmega-menu-top-cls"> X </span> </div>
+							</div>							
 						</div>';
 				 }			
 				 if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'always_expand'){
@@ -2928,32 +2972,28 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					}
 					
 					if($settings['enable_mobile_menu_view'] == 'yes'){
-						
 						?>
-						<div class="rtmega-menu-area rtmega-menu-mobile-button-wrapper enabled-mobile-menu">
-							
-									<?php
-									if(!empty($settings['menu_btn_icon']['value'])){
-										?>
-										<a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
-										<?php \Elementor\Icons_Manager::render_icon( $settings['menu_btn_icon'], [ 'aria-hidden' => 'true' ]); ?>
-										</a>
-										<?php
-									}else{
-										?>
-										<a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
-											<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<rect y="14" width="18" height="2" fill="#000000"></rect>
-												<rect y="7" width="18" height="2" fill="#000000"></rect>
-												<rect width="18" height="2" fill="#000000"></rect>
-											</svg>
-										</a>
-										<?php
-									}
+						<div class="rtmega-menu-area rtmega-menu-mobile-button-wrapper enabled-mobile-menu">							
+								<?php
+								if(!empty($settings['menu_btn_icon']['value'])){
 									?>
-								
-						</div>
-							
+									<a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
+									<?php \Elementor\Icons_Manager::render_icon( $settings['menu_btn_icon'], [ 'aria-hidden' => 'true' ]); ?>
+									</a>
+									<?php
+								}else{
+									?>
+									<a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
+										<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect y="14" width="18" height="2" fill="#000000"></rect>
+											<rect y="7" width="18" height="2" fill="#000000"></rect>
+											<rect width="18" height="2" fill="#000000"></rect>
+										</svg>
+									</a>
+									<?php
+								}
+								?>								
+						</div>							
 						<?php
 					}
 

@@ -7,6 +7,10 @@ function closeRTMEGAmobile() {
     document.querySelector('.enabled-mobile-menu .mobile-menu-area').classList.remove('opened');
 }
 
+function closeRTMEGAmobile() { 
+    document.querySelector('.rtmega-menu-top-cls').classList.remove('opened');
+}
+
 
 (function($) {
 
@@ -53,5 +57,12 @@ function closeRTMEGAmobile() {
 
     }
     RTmegaMenu.init();
+
+    if ($('.rtmega-menu-vertical-expanded').length) {
+        function closeRTMEGAmobile_top() {
+            $(".rtmega-menu-vertical-expanded").removeClass("opened");
+        }
+        $(".rtmega-menu-top-cls").click(closeRTMEGAmobile_top);
+    }
 
 })(jQuery);

@@ -372,6 +372,40 @@ ul.menu li.menu-item-has-children:after {
   margin-left: 5px;
   fill: var(--titleColor);
 }
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-bottom {
+  max-width: 320px;
+}
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  background: rgba(0, 0, 0, 0.9019607843);
+  transition: all 0.5s ease;
+}
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-mobile-navigation {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-top-cls {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  border: 1px solid #ff0000;
+  display: block;
+  width: 25px;
+  text-align: center;
+  border-radius: 100%;
+  color: red;
+  cursor: pointer;
+}
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top.opened {
+  height: 100vh;
+}
 .rtmega-menu-area .vertical-expaned-menu-area ul.rtmega-megamenu {
   display: block;
 }
@@ -467,6 +501,9 @@ ul.menu li.menu-item-has-children:after {
 .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-always-expanded ul.rtmega-megamenu.vertical > .menu-item .sub-menu .menu-item .menu-link {
   border: none;
   padding: 12px 0 12px 0;
+}
+.rtmega-menu-area .vertical-expaned-menu-area.vertical-expaned-menu-area-top {
+  position: unset;
 }
 
 @media (max-width: 1024px) {
