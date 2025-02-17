@@ -286,6 +286,21 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			]
 		);	
 
+        $this->add_control(
+			'vertical_menu_tops',
+			[
+				'label' => esc_html__( 'Menu Close Icon', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::ICONS,
+				'default' => [
+					'value' => 'fas fa-window-close',
+					'library' => 'fa-solid',
+				],
+				'condition' => [
+					'vertical_menu_expand_position' => 'top'
+				]
+			]
+		);
+
 		$this->add_control(
 			'bg_color_ovr',
 			[
@@ -306,7 +321,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'Close Icon Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-top-cls' => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .rtmega-menu-top-style-cls.expand-position-top i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rtmega-menu-top-style-cls.expand-position-top svg path' => 'fill: {{VALUE}}',
 				],
 				'condition' => [
 					'vertical_menu_expand_position' => 'top'
@@ -314,19 +330,81 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'_color_bdr',
-			[
-				'label'     => __( 'Close Icon Border Color', 'rt-mega-menu' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-top-cls' => 'border-color: {{VALUE}} !important',
-				],
-				'condition' => [
-					'vertical_menu_expand_position' => 'top'
-				]
-			]
+
+		$this->add_responsive_control(
+		    'close__icon_size',
+		    [
+		        'label'      => __( 'Close Icon Size (Only Expand Top)', 'rt-mega-menu' ),
+		        'type'       => Controls_Manager::SLIDER,
+		        'size_units' => [ 'px' ],
+		        'range'      => [
+		            'px' => [                        
+		                'max'  => 100,
+		                'step' => 1,
+		            ],                    
+		        ],
+		        'condition'  => [
+		            'vertical_menu_expand_position' => 'top'
+		        ],
+		        'selectors'  => [
+		            '{{WRAPPER}} .rtmega-menu-top-style-cls.expand-position-top svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+		            '{{WRAPPER}} .rtmega-menu-top-style-cls.expand-position-top i'   => 'font-size: {{SIZE}}{{UNIT}};',
+		        ],
+		    ]
 		);
+
+
+		$this->add_responsive_control(
+		    'logo____size',
+		    [
+		        'label'      => __( 'Logo Height (Only Expand Top)', 'rt-mega-menu' ),
+		        'type'       => Controls_Manager::SLIDER,
+		        'size_units' => [ 'px' ],
+		        'range'      => [
+		            'px' => [                        
+		                'max'  => 200,
+		                'step' => 1,
+		            ],                    
+		        ],
+		        'condition'  => [
+		            'vertical_menu_expand_position' => 'top'
+		        ],
+		        'selectors'  => [
+		            '{{WRAPPER}} .rtmega-custom-logo img' => 'height: {{SIZE}}{{UNIT}}; width: auto;',
+		        ],
+		    ]
+		);
+
+		$this->add_control(
+			'logo_align',
+			[
+				'label'     => __( 'Item Text Align', 'rt-mega-menu' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'default'   => '',
+				'toggle'    => true,
+				'options'   => [
+					'left'   => [
+						'title' => __( 'Left', 'rt-mega-menu' ),
+						'icon'  => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => __( 'Center', 'rt-mega-menu' ),
+						'icon'  => 'eicon-text-align-center',
+					],
+					'right'  => [
+						'title' => __( 'Right', 'rt-mega-menu' ),
+						'icon'  => 'eicon-text-align-right',
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-custom-logo' => 'text-align: {{VALUE}}',
+				],
+				'condition'  => [
+				    'vertical_menu_expand_position' => 'top'
+				],
+			]	
+		);
+
 
 		$this->add_responsive_control(
 			'vertical_menu_position_left',
@@ -347,7 +425,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				],
 				'selectors'          => [
 					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-left' => 'left: {{SIZE}}{{UNIT}};',
-					],
+				],
 			]
 		);
 		$this->add_responsive_control(
@@ -2862,7 +2940,19 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$rtmega_mobile_menu_html = '';
 		$menu_expand_position = $settings['vertical_menu_expand_position'];
 		$menu_expand_position_class = ' expand-position-' . $settings['vertical_menu_expand_position'];
+
+		$custom_logo_id = get_theme_mod('custom_logo');
+		$logo_url = wp_get_attachment_image_src($custom_logo_id, 'full');
+
 		$unique_id = uniqid();
+
+			if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click'){
+				if (!empty($settings['vertical_menu_tops'])) {
+					?>
+					<span class="rtmega-menu-top-cls rtmega-menu-top-style-cls <?php echo esc_attr($menu_expand_position_class); ?>"> <?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_tops'], [ 'aria-hidden' => 'true' ] ); ?> </span>
+					<?php
+				}
+			}
 
 				$menus = $this->get_available_menus();
 				if ( empty( $menus ) ) {
@@ -2901,20 +2991,29 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				}			
 				
 				// Vertical Expaned Menu
-				if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click'){
-					$rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area '.$unique_id.' vertical-expaned-menu-area-'.$menu_expand_position.'">
-						<div class="rtmega-menu-vertical-expanded '. $menu_expand_position_class .'">
-							<div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul> <span class="rtmega-menu-top-cls"> X </span> </div>
-							</div>							
-						</div>';
-				 }			
-				 if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'always_expand'){
+				if ($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click') {
+				    $custom_logo = get_custom_logo();				    
+				    $custom_logo = (!empty($custom_logo)) ? '<li class="rtmega-custom-logo">' . $custom_logo . '</li>' : '';				    
+				    $rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area ' . $unique_id . ' vertical-expaned-menu-area-' . $menu_expand_position . '">
+				        <div class="rtmega-menu-vertical-expanded ' . $menu_expand_position_class . '">
+				            <div class="rtmega-menu-mobile-navigation"> 
+				                <ul id="%1$s" class="%2$s">
+				                    ' . $custom_logo . '
+				                    %3$s
+				                </ul> 
+				            </div>
+				        </div>                            
+				    </div>';
+				}
+
+			
+				if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'always_expand'){
 					$rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area '.$unique_id.' vertical-expaned-menu-area-'.$menu_expand_position.'">
 						<div class="rtmega-menu-vertical-always-expanded rtmega-menu-vertical-expanded opened '. $menu_expand_position_class .'">
 							<div class="rtmega-menu-mobile-navigation '. $menu_arrow_verticale .' '.$menu_arrow_verticale_right.'"><ul id="%1$s" class="%2$s">%3$s</ul></div>
 							</div>
 						</div>';
-				 }	
+				}	
 				
 				// Desktop Menu
 				$items_wrap = '<div class="desktop-menu-area"><ul id="%1$s" class="%2$s">%3$s</ul></div>'.$rtmega_mobile_menu_html;
@@ -2971,6 +3070,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						<?php
 					}
 					
+					
+
 					if($settings['enable_mobile_menu_view'] == 'yes'){
 						?>
 						<div class="rtmega-menu-area rtmega-menu-mobile-button-wrapper enabled-mobile-menu">							

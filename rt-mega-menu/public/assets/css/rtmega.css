@@ -39,6 +39,10 @@ ul.menu li.menu-item-has-children:after {
   width: 20px;
 }
 
+.rtmega-menu-top-cls {
+  display: none;
+}
+
 .rtmega-menu-area {
   width: -moz-fit-content;
   width: fit-content;
@@ -382,6 +386,7 @@ ul.menu li.menu-item-has-children:after {
   height: 0;
   background: rgba(0, 0, 0, 0.9019607843);
   transition: all 0.5s ease;
+  z-index: 999;
 }
 .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-mobile-navigation {
   margin: 0 auto;
@@ -391,20 +396,11 @@ ul.menu li.menu-item-has-children:after {
   flex-wrap: wrap;
   justify-content: center;
 }
-.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-menu-top-cls {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  border: 1px solid #ff0000;
-  display: block;
-  width: 25px;
-  text-align: center;
-  border-radius: 100%;
-  color: red;
-  cursor: pointer;
-}
 .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top.opened {
   height: 100vh;
+}
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .vertical_menu_active_icon {
+  display: none;
 }
 .rtmega-menu-area .vertical-expaned-menu-area ul.rtmega-megamenu {
   display: block;
@@ -504,6 +500,37 @@ ul.menu li.menu-item-has-children:after {
 }
 .rtmega-menu-area .vertical-expaned-menu-area.vertical-expaned-menu-area-top {
   position: unset;
+}
+
+.rtmega-menu-top-style-cls.expand-position-top {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  text-align: center;
+  border-radius: 100%;
+  color: red;
+  cursor: pointer;
+  display: none;
+  z-index: 99999;
+}
+.rtmega-menu-top-style-cls.expand-position-top svg {
+  height: 1em;
+}
+.rtmega-menu-top-style-cls.expand-position-top.top-opened {
+  display: block;
+}
+
+li.rtmega-custom-logo {
+  display: none;
+}
+
+.rtmega-menu-vertical-expanded.expand-position-top li.rtmega-custom-logo {
+  display: block;
+}
+
+.rtmega-custom-logo {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 1024px) {

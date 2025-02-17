@@ -37,7 +37,9 @@ ul.menu li.menu-item-has-children:after {
             width: 20px;
     }
 }
-
+.rtmega-menu-top-cls{
+    display: none;
+}
 .rtmega-menu-area {
     width: fit-content;
     display: flex;
@@ -408,6 +410,7 @@ ul.menu li.menu-item-has-children:after {
                 height: 0;
                 background: #000000e6;
                 transition: all .5s ease;
+                z-index: 999;
                 .rtmega-menu-mobile-navigation{                    
                     margin: 0 auto;
                     display: flex;
@@ -415,21 +418,12 @@ ul.menu li.menu-item-has-children:after {
                     height: 100%;
                     flex-wrap: wrap;
                     justify-content: center;
-                }
-                .rtmega-menu-top-cls{
-                    position: fixed;
-                    top: 24px;
-                    right: 24px;
-                    border: 1px solid #ff0000;
-                    display: block;
-                    width: 25px;
-                    text-align: center;
-                    border-radius: 100%;
-                    color: red;
-                    cursor: pointer;
-                }
+                }                
                 &.opened{
                     height: 100vh;
+                }
+                .vertical_menu_active_icon{
+                    display: none;
                 }
             }
         }
@@ -546,6 +540,34 @@ ul.menu li.menu-item-has-children:after {
             position: unset;
         }
     }
+}
+
+.rtmega-menu-top-style-cls.expand-position-top{
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    text-align: center;
+    border-radius: 100%;
+    color: red;
+    cursor: pointer;
+    display: none;
+    z-index: 99999;
+    svg{
+        height: 1em;
+    }
+    &.top-opened{
+        display: block;
+    }
+}
+li.rtmega-custom-logo{
+    display: none;
+}
+.rtmega-menu-vertical-expanded.expand-position-top li.rtmega-custom-logo{
+    display: block;
+}
+.rtmega-custom-logo{
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 1024px) { 

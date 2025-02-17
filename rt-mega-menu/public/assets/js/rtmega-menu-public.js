@@ -49,8 +49,8 @@ function closeRTMEGAmobile() {
                 $('.sub-menu.rtmegamenu-contents.full-width-mega-menu').css('max-width', headerInnerWidth+'px');
             });
         }
-
     }
+    
     RTmegaMenu.init();
 
     if ($('.rtmega-menu-vertical-expanded').length) {
@@ -58,6 +58,28 @@ function closeRTMEGAmobile() {
             $(".rtmega-menu-vertical-expanded").removeClass("opened");
         }
         $(".rtmega-menu-top-cls").click(closeRTMEGAmobile_top);
+    }
+    
+
+    if ($('.expand-position-top').length) {
+        function closeRTMEGAmobile_top_cls() {            
+           $(".rtmega-menu-top-cls").removeClass("top-opened");
+        }
+        $(document).on("click", ".rtmega-menu-top-style-cls", closeRTMEGAmobile_top_cls);
+    }
+
+    if ($('.expand-position-top').length) {
+        function closeRTMEGAmobile_top_clopen() {            
+           $(".rtmega-menu-top-style-cls").addClass("top-opened");
+        }
+        $(document).on("click", ".enabled-vertical-menu", closeRTMEGAmobile_top_clopen);
+    }
+
+    if ($('.mobile-menu-area, .expand-position-top').length) {
+        function closeRTMEGAmobile_mobile_close() {
+            $(".mobile-menu-area, .expand-position-top").removeClass("opened");
+        }
+        $("ul.rtmega-megamenu .menu-item .menu-text span:not(.submenu-parent-icon), .expand-position-top ul.rtmega-megamenu .menu-item .menu-text span:not(.submenu-parent-icon)").click(closeRTMEGAmobile_mobile_close);
     }
 
 })(jQuery);
