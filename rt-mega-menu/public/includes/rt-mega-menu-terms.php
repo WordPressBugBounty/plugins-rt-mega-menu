@@ -123,7 +123,55 @@ class RTMEGA_MENU_Term_Meta{
         $locations = get_nav_menu_locations();
         return isset( $locations[ $location ] ) ? $locations[ $location ] : false;
     }
-
 }
 
 RTMEGA_MENU_Term_Meta::instance();
+
+
+// Topbar Hide
+use Elementor\Controls_Manager;
+use Elementor\Element_Base;
+
+defined('ABSPATH') || die();
+
+class RT_WIDGET_INJECTION_STICKY {
+    public static function init() {
+        add_action('elementor/element/container/section_layout/after_section_end', [__CLASS__, 'rt_inject_sticky_topbar_option'], 1);
+    }
+
+    public static function rt_inject_sticky_topbar_option(Element_Base $element) {
+        $element->start_controls_section(
+            '_section_sticky_settings',
+            [
+                'label' => __('Topbar Hide', 'rt-mega-menu'),
+                'tab'   => Controls_Manager::TAB_ADVANCED,
+            ]
+        );
+
+        $element->add_control(
+            'sticky_topbar_description',
+            [
+                'type' => Controls_Manager::RAW_HTML,
+                'raw'  => __('Note: If there is a topbar, You can hide the top bar by turning on Sticky.', 'rt-mega-menu'),
+                'content_classes' => 'elementor-descriptor',
+            ]
+        );
+
+        $element->add_control(
+            'rt__topbar_hide',
+            [
+                'label'        => esc_html__('Topbar Hide', 'rt-mega-menu'),
+                'type'         => Controls_Manager::SWITCHER,
+                'label_on'     => esc_html__('Yes', 'rt-mega-menu'),
+                'label_off'    => esc_html__('No', 'rt-mega-menu'),
+                'return_value' => 'rt-topbar-hide',
+                'default'      => '',
+                'prefix_class' => '',
+            ]
+        );
+
+        $element->end_controls_section();
+    }
+}
+
+RT_WIDGET_INJECTION_STICKY::init();

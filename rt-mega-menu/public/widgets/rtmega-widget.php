@@ -1254,7 +1254,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'header.sticky-header .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item-has-children > .menu-link .menu-text .submenu-parent-icon svg' => 'fill: {{VALUE}} !important',
+						'header.rt-show-shadow .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item-has-children > .menu-link .menu-text .submenu-parent-icon svg' => 'fill: {{VALUE}} !important',
 						
 					],
 					'condition' => ['enable_submenu_icon!' => 'none'],
@@ -1280,7 +1280,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							],
 							'default'   => '',
 							'selectors' => [
-								'header.sticky-header .rtmega-menu-container .desktop-menu-area > .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}} !important',
+								'header.rt-show-shadow .rtmega-menu-container .desktop-menu-area > .rtmega-megamenu > .menu-item > .menu-link' => 'color: {{VALUE}} !important',
 							],
 						]
 					);
@@ -1305,7 +1305,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 								'default' => Global_Colors::COLOR_ACCENT,
 							],
 							'selectors' => [
-								'header.sticky-header .rtmega-menu-container .desktop-menu-area > .rtmega-megamenu > .menu-item:hover > .menu-link' => 'color: {{VALUE}} !important',
+								'header.rt-show-shadow .rtmega-menu-container .desktop-menu-area > .rtmega-megamenu > .menu-item:hover > .menu-link' => 'color: {{VALUE}} !important',
 							],
 						]
 					);					
@@ -1327,13 +1327,10 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
-								'header.sticky-header .rtmega-menu-container .desktop-menu-area > .rtmega-megamenu > .menu-item.current-menu-item > .menu-link' => 'color: {{VALUE}}',
+								'header.rt-show-shadow .rtmega-menu-container .desktop-menu-area > .rtmega-megamenu > .menu-item.current-menu-item > .menu-link' => 'color: {{VALUE}}',
 							],
 						]
 					);
-
-				
-					
 
 				$this->end_controls_tab();
 
@@ -1349,7 +1346,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 					'default'   => '',
 					'selectors' => [
-						'header.sticky-header' => 'background: {{VALUE}} !important',
+						'#reactheme-header.sticky-header-on.rt-show-shadow' => 'background: {{VALUE}} !important',
 					],
 				]
 			);	
@@ -3101,34 +3098,72 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					if($settings['enable_sticky_header'] == 'yes'){
 						?>
 							<script>
-								(function($) {
+							    (function($) {
 
-									// sticky menu
-									  // Select header element
-									var header = $('header');
-                                    header.addClass("sticky-header-on");
-									// Select window element
-									var win = $(window);
-									// Function to handle scrolling
-									function handleScroll() {
-										// Get the current scroll position
-										var scroll = win.scrollTop();
-										// Check if the scroll position is greater than 0
-										if (scroll > 100) {
-											// If yes, add the 'sticky-header' class to the header
-											header.addClass("sticky-header");
-										} else {
-											// If no, remove the 'sticky-header' class from the header
-											header.removeClass("sticky-header");
-										}
-									}
-									// Bind the handleScroll function to the scroll event
-									win.on('scroll', handleScroll);
+							        var header = $('header');
+							        var page = $('#page');
+							        var topbar = $('.rt-topbar-hide');
+							        header.addClass("sticky-header-on");
+							        function updatePaddingAndMargin() {
+							            var headerHeight = header.outerHeight();
+							            var topbarHeight = topbar.length ? topbar.outerHeight() : 0;
 
-								})(jQuery);
+							            if (!header.hasClass('fixed-header')) {
+					                        page.css('padding-top', headerHeight + 'px');
+					                    } else {
+					                        page.css('padding-top', '');
+					                    }
+							           
+							            if (header.hasClass('sticky-header')) {
+							                header.css('margin-top', `-${topbarHeight}px`);
+							            } else {
+							                header.css('margin-top', '0px');
+							            }
+							        }
+
+							        if ($('.sticky-header-on').length) {
+							            let lastScroll = 0;
+
+							            function sticky_header() {
+							                var headerHeight = header.innerHeight();
+							                let scroll = $(window).scrollTop();
+
+							                if (scroll > 10 ) {
+							                    header.addClass('rt-show-shadow');
+							                } else {
+							                    header.removeClass('rt-show-shadow');
+							                }
+
+							                if (scroll > 10 && scroll > lastScroll) {
+							                    header.addClass('sticky-header');
+							                } else if (scroll < lastScroll) {
+							                    header.removeClass('sticky-header');
+							                }
+
+							                lastScroll = scroll;
+							                updatePaddingAndMargin();
+							            }
+
+							            $(document).ready(() => {
+							                updatePaddingAndMargin();
+							                sticky_header();
+							            });
+
+							            window.onload = () => {
+							                updatePaddingAndMargin();
+							                sticky_header();
+							            };
+
+							            $(window).on('scroll resize', () => {
+							                sticky_header();
+							                updatePaddingAndMargin();
+							            });
+							        }
+
+							    })(jQuery);
 							</script>
+
 						<?php
 					}
-
 				}		
 }
