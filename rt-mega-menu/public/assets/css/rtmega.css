@@ -19,10 +19,11 @@
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.0509803922);
 }
 
-body.logged-in #reactheme-header.sticky-header-on {
-  top: 32px;
+@media (min-width: 992px) {
+  body.logged-in #reactheme-header.sticky-header-on {
+    top: 32px;
+  }
 }
-
 .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu > .menu-item .menu-link {
   transition: unset;
 }
@@ -511,6 +512,10 @@ ul.menu li.menu-item-has-children:after {
 }
 .rtmega-menu-area .vertical-expaned-menu-area.vertical-expaned-menu-area-top {
   position: unset;
+}
+
+.hfe-site-logo {
+  line-height: 0;
 }
 
 .rtmega-menu-top-style-cls.expand-position-top {

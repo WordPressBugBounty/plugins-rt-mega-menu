@@ -1355,7 +1355,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				Group_Control_Box_Shadow::get_type(),
 				[
 					'name'      => 'stikcy_box_shadow',				
-					'selector'  => 'header.sticky-header',
+					'selector'  => '#reactheme-header.sticky-header-on.rt-show-shadow',
 					'separator' => 'after',
 				]
 			);
@@ -2275,7 +2275,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header .rtmega-menu-mobile-button' => 'color: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow .rtmega-menu-mobile-button' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -2285,7 +2285,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'SVG PATH Fill Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header .rtmega-menu-mobile-button svg path' => 'fill: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow .rtmega-menu-mobile-button svg path' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -2295,7 +2295,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'SVG RECT Fill Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header {{WRAPPER}} .rtmega-menu-mobile-button svg rect' => 'fill: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow {{WRAPPER}} .rtmega-menu-mobile-button svg rect' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -2305,7 +2305,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'Background Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header .rtmega-menu-mobile-button' => 'background: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow .rtmega-menu-mobile-button' => 'background: {{VALUE}}',
 				],
 			]
 		);
@@ -2324,7 +2324,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header .rtmega-menu-mobile-button:hover' => 'color: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow .rtmega-menu-mobile-button:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -2334,7 +2334,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'SVG PATH Fill Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header .rtmega-menu-mobile-button:hover svg path' => 'fill: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow .rtmega-menu-mobile-button:hover svg path' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -2344,7 +2344,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'SVG RECT Fill Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header {{WRAPPER}} .rtmega-menu-mobile-button:hover svg rect' => 'fill: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow {{WRAPPER}} .rtmega-menu-mobile-button:hover svg rect' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -2354,7 +2354,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label'     => __( 'Background Color', 'rt-mega-menu' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'header.sticky-header .rtmega-menu-mobile-button:hover' => 'background: {{VALUE}}',
+					'#reactheme-header.sticky-header-on.rt-show-shadow .rtmega-menu-mobile-button:hover' => 'background: {{VALUE}}',
 				],
 			]
 		);
@@ -3128,13 +3128,13 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							                var headerHeight = header.innerHeight();
 							                let scroll = $(window).scrollTop();
 
-							                if (scroll > 10 ) {
+							                if (scroll > headerHeight ) {
 							                    header.addClass('rt-show-shadow');
 							                } else {
 							                    header.removeClass('rt-show-shadow');
 							                }
 
-							                if (scroll > 10 && scroll > lastScroll) {
+							                if (scroll > headerHeight && scroll > lastScroll) {
 							                    header.addClass('sticky-header');
 							                } else if (scroll < lastScroll) {
 							                    header.removeClass('sticky-header');
