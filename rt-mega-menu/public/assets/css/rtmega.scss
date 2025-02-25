@@ -4,22 +4,33 @@
 }
 
 #reactheme-header.sticky-header-on{
-    position: fixed;
+    position: fixed !important;
     top: 0;
-    z-index: 9999;
+    z-index: 9999 !important;
     width: 100%;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 #reactheme-header.sticky-header-on:not(.fixed-header){
     background: #fff;
 }
 
-#reactheme-header.sticky-header-on.rt-show-shadow {
+#reactheme-header.sticky-header-on.sticky-header {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.0509803922);
 }
+.hfe-site-sticky-logo-img{
+    display: none !important;
+}
+.sticky-header{
+    .hfe-site-sticky-logo-img{
+        display: inline-block !important;
+    }
+    .hfe-site-logo-img.hide_logo_desktop{
+        display: none !important;
+    }
+}
 @media (min-width: 992px) { 
-    body.logged-in #reactheme-header.sticky-header-on {
+    body.logged-in:not(.elementor-editor-active) #reactheme-header.sticky-header-on {
         top: 32px;
     }
 }

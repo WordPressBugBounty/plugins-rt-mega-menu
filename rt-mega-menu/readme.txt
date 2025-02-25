@@ -3,7 +3,7 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
 Requires at least: 6.3
 Tested up to: 6.7.1
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,7 +107,10 @@ See https://rtmega.themewant.com for more screenshots
 
 == Changelog ==
 
-= 1.2.4 =
+= 1.2.6 =
+* 2025-02-25 fix - Sticky Menu Option Added.
+
+= 1.2.5 =
 * 2025-02-23 fix - Sticky Menu Color Update.
 
 = 1.2.4 =
