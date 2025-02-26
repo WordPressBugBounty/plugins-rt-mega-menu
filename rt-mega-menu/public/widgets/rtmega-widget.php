@@ -300,6 +300,50 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			]
 		);	
 
+		$this->add_control(
+			'logo__image',
+			[
+				'label' => esc_html__( 'Choose Custom Logo', 'rt-mega-menu' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'condition' => [
+					'vertical_menu_expand_position' => 'top'
+				]
+			]
+		);
+
+		$this->add_responsive_control(
+		    'cutom__logo_gap',
+		    [
+		        'label'      => __( 'Margin Bottom', 'rt-mega-menu' ),
+		        'type'       => Controls_Manager::SLIDER,
+		        'size_units' => [ 'px' ],
+		        'range'      => [
+		            'px' => [                        
+		                'max'  => 100,
+		                'step' => 1,
+		            ],                    
+		        ],
+		        'condition'  => [
+		            'vertical_menu_expand_position' => 'top'
+		        ],
+		        'selectors'  => [
+		            '{{WRAPPER}} .rtmega-custom-logo'   => 'margin-bottom: {{SIZE}}{{UNIT}};',
+		        ],
+		    ]
+		);
+
+		$this->add_control(
+            'vertical_menu_top_icon',
+            [
+                'label'     => esc_html__('Menu Hamburger Icon', 'rt-mega-menu'),
+                'type' => Controls_Manager::ICONS,
+                'separator' => 'before',
+				'condition' => [
+					'vertical_menu_expand_position' => 'top'
+				]
+            ]
+        );
+
         $this->add_control(
 			'vertical_menu_tops',
 			[
@@ -1285,7 +1329,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				);
 
 				$this->add_control(
-					'sticky_color_s_item',
+					'sticky_color_menu_item',
 					[
 						'label'     => __( 'Text Color', 'rt-mega-menu' ),
 						'type'      => Controls_Manager::COLOR,
@@ -3000,8 +3044,13 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				
 				// Vertical Expaned Menu
 				if ($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click') {
-				    $custom_logo = get_custom_logo();				    
-				    $custom_logo = (!empty($custom_logo)) ? '<li class="rtmega-custom-logo">' . $custom_logo . '</li>' : '';				    
+
+					$custom_logo = '';
+
+				    if (!empty($settings['logo__image']['url'])) {
+				        $custom_logo = '<li class="rtmega-custom-logo"><a href="'.get_home_url().'"><img src="' . esc_url($settings['logo__image']['url']) . '" alt="Custom Logo"></a></li>';
+				    }
+
 				    $rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area ' . $unique_id . ' vertical-expaned-menu-area-' . $menu_expand_position . '">
 				        <div class="rtmega-menu-vertical-expanded ' . $menu_expand_position_class . '">
 				            <div class="rtmega-menu-mobile-navigation"> 
@@ -3053,25 +3102,31 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						?>
 						<div class="rtmega-menu-area rtmega-menu-vertical-expand-button-wrapper enabled-vertical-menu">
 							
-									<?php
-									if(!empty($settings['vertical_menu_btn_icon']['value'])){
-										?>
-										<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
-										<?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_btn_icon'], [ 'aria-hidden' => 'true' ]); ?>
-										</a>
-										<?php
-									}else{
-										?>
-										<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
-											<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<rect y="14" width="18" height="2" fill="#000000"></rect>
-												<rect y="7" width="18" height="2" fill="#000000"></rect>
-												<rect width="18" height="2" fill="#000000"></rect>
-											</svg>
-										</a>
-										<?php
-									}
+							<?php
+							if($settings['vertical_menu_top_icon']['value']){ ?>
+								<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+									<?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_top_icon'], [ 'aria-hidden' => 'true' ]); ?>
+								</a>
+							<?php } else {
+								if(!empty($settings['vertical_menu_btn_icon']['value'])){
 									?>
+									<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+									<?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_btn_icon'], [ 'aria-hidden' => 'true' ]); ?>
+									</a>
+									<?php
+								}else{
+									?>
+									<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+										<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect y="14" width="18" height="2" fill="#000000"></rect>
+											<rect y="7" width="18" height="2" fill="#000000"></rect>
+											<rect width="18" height="2" fill="#000000"></rect>
+										</svg>
+									</a>
+									<?php
+								}
+							}
+							?>
 								
 						</div>
 							

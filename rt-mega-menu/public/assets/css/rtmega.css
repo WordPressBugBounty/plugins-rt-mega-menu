@@ -270,7 +270,7 @@ ul.menu li.menu-item-has-children:after {
 }
 .rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar {
   position: fixed;
-  z-index: 9999;
+  z-index: 99999;
   width: 80%;
   right: 0;
   top: 0;
@@ -284,6 +284,7 @@ ul.menu li.menu-item-has-children:after {
   max-width: 460px;
   overflow-y: auto;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  height: 100vh;
 }
 .rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-menu-mobile-close {
   position: absolute;
@@ -563,7 +564,7 @@ li.rtmega-custom-logo {
 @media (max-width: 1024px) {
   .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .sub-menu {
     margin: 0;
-    padding-top: 30px;
+    padding-top: 10px;
   }
 }
 body.rtl .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .menu-link .submenu-parent-icon svg {

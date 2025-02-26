@@ -1,11 +1,13 @@
-
 function openRTMEGAmobile() { 
     document.querySelector('.enabled-mobile-menu .mobile-menu-area').classList.add('opened');
+    event.preventDefault();
 }
 
 function closeRTMEGAmobile() { 
     document.querySelector('.enabled-mobile-menu .mobile-menu-area').classList.remove('opened');
+    event.preventDefault();
 }
+
 
 (function($) {
 
@@ -53,19 +55,29 @@ function closeRTMEGAmobile() {
     
     RTmegaMenu.init();
 
+
     if ($('.rtmega-menu-vertical-expanded').length) {
         function closeRTMEGAmobile_top() {
             $(".rtmega-menu-vertical-expanded").removeClass("opened");
         }
         $(".rtmega-menu-top-cls").click(closeRTMEGAmobile_top);
     }
-    
+
 
     if ($('.expand-position-top').length) {
         function closeRTMEGAmobile_top_cls() {            
            $(".rtmega-menu-top-cls").removeClass("top-opened");
         }
         $(document).on("click", ".rtmega-menu-top-style-cls", closeRTMEGAmobile_top_cls);
+    }
+
+    if ($('.expand-position-top').length) {
+        $(".expand-position-top ul.rtmega-megamenu .menu-item .menu-text span:not(.submenu-parent-icon), .rtmega-menu-top-cls").on("click", function () {
+           $(".rtmega-menu-top-cls").hide();
+        });
+        $(".rtmega-menu-mobile-button").on("click", function () {
+           $(".rtmega-menu-top-cls").show();
+        });
     }
 
     if ($('.expand-position-top').length) {
@@ -79,7 +91,7 @@ function closeRTMEGAmobile() {
         function closeRTMEGAmobile_mobile_close() {
             $(".mobile-menu-area, .expand-position-top").removeClass("opened");
         }
-        $("ul.rtmega-megamenu .menu-item .menu-text span:not(.submenu-parent-icon), .expand-position-top ul.rtmega-megamenu .menu-item .menu-text span:not(.submenu-parent-icon)").click(closeRTMEGAmobile_mobile_close);
+        $("ul.rtmega-megamenu .menu-item:not(.menu-item-has-children) .menu-text span:not(.submenu-parent-icon), .expand-position-top ul.rtmega-megamenu .menu-item:not(.menu-item-has-children) .menu-text span:not(.submenu-parent-icon)").click(closeRTMEGAmobile_mobile_close);
     }
 
 })(jQuery);
