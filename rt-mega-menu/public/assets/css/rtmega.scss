@@ -627,4 +627,17 @@ body.rtl{
         left: -100%;
         right: unset;
     }
+    .rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-menu-mobile-close {
+        left:  inherit;
+        right: 0;
+    }
+
+    .rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar {
+        right: inherit !important;
+        left: 0;
+        transform: translate3d(-520px, 0, 0);
+    }
+    .rtmega-menu-area .mobile-menu-area.opened .rtmega-menu-mobile-sidebar {
+        transform: translate3d(-0px, 0, 0);
+    }
 }
