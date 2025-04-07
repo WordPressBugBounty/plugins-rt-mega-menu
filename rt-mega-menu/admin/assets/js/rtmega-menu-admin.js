@@ -121,8 +121,10 @@
             },
             cache: false,
             success: function(response) {
+                console.log(response);
+                
                 $(that).parent().parent().find('.ajax-loader').removeClass('show');
-                location.reload();
+                //location.reload();
             }
         });
 

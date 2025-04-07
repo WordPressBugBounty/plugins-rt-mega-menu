@@ -36,6 +36,7 @@ class RTMEGA_MENU {
 	public function __construct() {
 		add_action( 'init', [ $this, 'i18n' ] );
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
+		add_action( 'admin_init',    [$this, 'rtmega_register_settings'] );
 	}
 
 	/**
@@ -81,6 +82,13 @@ class RTMEGA_MENU {
 
 	}
 
+
+	public function rtmega_register_settings() {
+		register_setting(
+			'rtmega_menu_settings_group',
+			'rtmega_menu_settings',
+		);
+	}
 	
 
 	public function rtmega_plugin_action_links( $plugin_actions, $plugin_file, $plugin_data, $context ) {
@@ -131,12 +139,17 @@ class RTMEGA_MENU {
         require_once ( RTMEGA_MENU_PL_PATH.'/public/widgets/rtmega-widget.php' );
 		\Elementor\Plugin::instance()->widgets_manager->register( new \RTMEGA_MENU_INLINE() );	
 
-
-
 		// Register widget				
 		add_action( 'elementor/elements/categories_registered', [$this, 'add_category'] );
 		
 
 	}
 
+	
+
 }
+
+
+
+
+

@@ -27,56 +27,48 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
         }
 
-        public function rtmega_update_menu_options($menu_id) {
+        public function rtmega_update_menu_options() {
 
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
-            
-            if(isset($_POST['settings']) && isset($_POST['menu_id']) && isset($_POST['actualAction'])){
-
-
-                $actual_action = sanitize_text_field($_POST['actualAction']);
-
-                $menu_id = sanitize_text_field($_POST['menu_id']);
-  
-
-                
-                $menu_id = absint( $_POST['menu_id'] );
-
-                if($actual_action == 'saveMenuOptions'){
-
-                    $settings = isset( $_POST['settings'] ) ?  $_POST['settings'] : array();
-                    update_option( 'rtmega_menu_settings_' . $menu_id, $settings );
-
-                }else{
-
-                    $menu_item_id = sanitize_text_field($_POST['menu_item_id']);
-
-                    $settings = '';
-
-                    if( isset( $_POST['settings'] ) && !empty( $_POST['settings'] ) ) {
-                        $settings = array_map('sanitize_text_field', $_POST['settings']);
-                    } 
-
-                    $css = '';
-
-                    if( isset($_POST['css']) && !empty( $_POST['css'] ) ) {
-                        $css = array_map('sanitize_text_field', $_POST['css']);
-                    }
-
-                    
-                    update_post_meta( $menu_item_id, 'rtmega_menu_settings', ['switch' => 'on', 'content' => $settings, 'css' => $css] );
-
-                }
-
-                wp_send_json_success([
-                    'message' => esc_html__( 'Successfully data saved','rt-mega-menu' )
-                ]);
-                
+        
+            if (!isset($_POST['settings'], $_POST['menu_id'], $_POST['actualAction'])) {
+                wp_send_json_error(['message' => esc_html__('Invalid request.', 'rt-mega-menu')]);
                 wp_die();
-
             }
+        
+            $actual_action = sanitize_text_field($_POST['actualAction']);
+            $menu_id = absint($_POST['menu_id']); // No need to sanitize twice
+        
+            if ($actual_action === 'saveMenuOptions') {
+        
+                $menu = wp_get_nav_menu_object($menu_id);
 
+                if ($menu) {
+
+                    $menu_slug = $menu->slug;
+
+                    $settings = isset($_POST['settings']) ? array_map('sanitize_text_field', (array)$_POST['settings']) : [];
+                    update_option("rtmega_menu_settings_$menu_slug", $settings);
+                }
+        
+            } else {
+                if (!isset($_POST['menu_item_id'])) {
+                    wp_send_json_error(['message' => esc_html__('Menu item ID is missing.', 'rt-mega-menu')]);
+                    wp_die();
+                }
+        
+                $menu_item_id = absint($_POST['menu_item_id']); // Ensure it's a valid integer
+        
+                $settings = !empty($_POST['settings']) ? array_map('sanitize_text_field', (array)$_POST['settings']) : [];
+                $css = !empty($_POST['css']) ? array_map('sanitize_text_field', (array)$_POST['css']) : [];
+        
+                update_post_meta($menu_item_id, 'rtmega_menu_settings', ['switch' => 'on', 'content' => $settings, 'css' => $css]);
+            }
+        
+            wp_send_json_success(['message' => esc_html__('Successfully saved data.', 'rt-mega-menu'), 'settings', $prev_settings, 'actual_action' => $actual_action, 'menu-slug' => $menu_slug, 'menu_id' => $menu_id]);
+            wp_die();
         }
+        
 
         public function rtmega_set_menu_item_mega_button() {
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');

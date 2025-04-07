@@ -20,7 +20,14 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
 
             $selected_menu_id = isset( $_REQUEST['menu_id'] ) ? absint( $_REQUEST['menu_id'] ) : 0;
 
-            $rtmega_menu_options = get_option( 'rtmega_menu_settings_'.$selected_menu_id);
+            $menu = wp_get_nav_menu_object($selected_menu_id);
+
+            $rtmega_menu_options = array();
+
+            if ($menu) {
+                $menu_slug = $menu->slug;
+                $rtmega_menu_options = get_option( 'rtmega_menu_settings_'.$menu_slug);
+            } 
 
             $rtmega_menu_options_switch = isset($rtmega_menu_options['enable_menu']) ? $rtmega_menu_options['enable_menu'] : '';
 
@@ -198,10 +205,5 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
     }
     $RTMEGA_MENU_Nav = new RTMEGA_MENU_Nav();
 }
-
-
-
-
-
 
 

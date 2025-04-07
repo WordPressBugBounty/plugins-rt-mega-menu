@@ -69,8 +69,16 @@ class RTMEGA_MENU_Term_Meta{
         if (!isset($menu) || is_wp_error($menu) || !is_object($menu)) {
             return $args;
         }
+        
+        $settings = [];	
+        $menu = wp_get_nav_menu_object($menu_id);
 
-        $settings = get_option( "rtmega_menu_settings_" . $menu_id );
+        if ($menu) {
+            $menu_slug = $menu->slug;
+            $settings = get_option( 'rtmega_menu_settings_'.$menu_slug);
+        } 
+       
+
         if ( isset ( $settings['enable_menu'] ) && $settings['enable_menu'] == 'on' ) {
 
 

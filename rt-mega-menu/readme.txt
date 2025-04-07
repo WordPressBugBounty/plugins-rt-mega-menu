@@ -1,34 +1,39 @@
-=== RT Mega Menu - WordPress Mega Menu Builder for Elementor ===
+=== RT Mega Menu - Advanced WordPress Mega Menu Builder for Elementor ===
 Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
 Requires at least: 6.3
 Tested up to: 6.7.1
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The RT Mega Menu for Elementor page builder is a powerful tool designed to enhance the navigation experience on your website.
 
 == Description ==
-The RT Mega Menu for Elementor page builder is a powerful tool designed to enhance the navigation experience on your website. This feature-rich mega menu offers a multitude of customization options, allowing you to create dynamic and visually appealing navigation menus with ease.
+RT Mega Menu is a powerful and easy-to-use WordPress mega menu builder plugin that transforms your navigation into an engaging, highly customizable menu experience. Designed with flexibility and performance in mind, RT Mega Menu lets you create stunning mega menus using your favorite page builders—without writing a single line of code.
 
-In addition to traditional text-based menu items, the RT Mega Menu also supports multimedia content such as videos, images, and tabs. This allows you to create engaging and interactive menus that showcase your content in a visually compelling way. Whether you want to highlight your latest promotional video, showcase your product images, or display additional information within tabs, the RT Mega Menu gives you the flexibility to do so without any coding knowledge required.
+Whether you're building a complex eCommerce navigation, a magazine layout, or a clean corporate menu, RT Mega Menu gives you the tools to do it fast and beautifully.
 
 [Demo](https://rtmega.themewant.com/) | [Documentation](https://themewant.com/docs/rt-mega-menu-wordpress-plugins/) | [Upgrade to Pro](https://themewant.com/downloads/rt-mega-menu-pro/)
 
 
-== Features ==
+== 🔥 Create Menus That Convert == 
 
-* **Flexible Layout Options:** Create mega menus with multiple columns and rows to organize your menu items in a structured and visually appealing way.
-* **Customizable Design:** Easily customize the appearance of your mega menu to match your website's branding and style using the intuitive interface of Elementor.
-* **Multimedia Support:** Incorporate multimedia content such as videos, images, and tabs into your mega menu to create engaging and interactive navigation experiences.
-* **Tabbed Menus:** Organize your menu items into tabs to conserve space and provide a cleaner navigation structure for your website visitors.
-* **Dynamic Content:** Display dynamic content within your mega menu, such as recent posts, product listings, or custom content, to keep your menu up-to-date and relevant.
-* **Responsive Design:** Ensure your mega menu looks great on all devices with responsive design options that adapt to different screen sizes and resolutions.
-* **Elementor Template Support:** Add Elementor Templates under a menu.
-* **Individual Menu Control Options:** Control options like width, left, right, and top position.
-* **Sub Menu Position:** Customize submenu positions.
+With RT Mega Menu, you’re no longer limited to basic dropdowns. Easily design visually rich menus that guide users with stunning layouts, custom icons, images, widgets, or even full templates. The plugin is built for speed and flexibility—perfect for modern websites that demand more than the basics.
+
+== 🌟 Top Features ==
+
+* **Drag-and-Drop Builder:** Seamlessly create complex menus using Gutenberg, Elementor, or your preferred builder.
+* **Full-Width & Boxed Layouts:** Design horizontal, vertical, or expandable mega menus to match any site style.
+* **Multiple Menu Skins:** Choose from pre-designed skins or create your own using a live preview interface.
+* **Mobile Responsive:** Fully responsive and touch-friendly across all devices and screen sizes.
+* **Icon & Label:** Add icons, images, or even shortcodes to enhance each menu item visually.
+* **Sticky Menu Options** Keep menus visible while scrolling for enhanced navigation and UX.
+* **Widget-Ready Menus:** Insert WordPress widgets directly into your mega menus—no limits.
+* **Customizable Triggers:** Choose hover or click triggers, delays, animation styles, and more.
+* **WoCommerce Compatible:** Show product categories, featured items, or custom product layouts right in your menu.
 * **Elementor Widget Included:** Includes a widget with lots of options.
+* **RTL & Translation Ready:** Compatible with RTL languages and ready to translate into any language.
 
 == Pro Version Extra Features ==
 
@@ -37,17 +42,49 @@ In addition to traditional text-based menu items, the RT Mega Menu also supports
 * Menu Badge Option. You can add custom badge text for menu item
 * You can set position for menu badge
 * Flexible Option for menu icon and badge
-* **Flexible Layout Options:** Create mega menus with multiple columns and rows to organize your menu items in a structured and visually appealing way.
-* **Customizable Design:** Easily customize the appearance of your mega menu to match your website's branding and style using the intuitive interface of Elementor.
-* **Multimedia Support:** Incorporate multimedia content such as videos, images, and tabs into your mega menu to create engaging and interactive navigation experiences.
-* **Tabbed Menus:** Organize your menu items into tabs to conserve space and provide a cleaner navigation structure for your website visitors.
-* **Dynamic Content:** Display dynamic content within your mega menu, such as recent posts, product listings, or custom content, to keep your menu up-to-date and relevant.
-* **Responsive Design:** Ensure your mega menu looks great on all devices with responsive design options that adapt to different screen sizes and resolutions.
-* **Elementor Template Support:** Add Elementor Templates under a menu.
-* **Individual Menu Control Options:** Control options like width, left, right, and top position.
-* **Sub Menu Position:** Customize submenu positions.
-* **Elementor Widget Included:** Includes a widget with lots of options.
 
+== ✅ Why Choose RT Mega Menu? ==
+
+**User-Friendly Yet Powerful**
+RT Mega Menu brings advanced features wrapped in an intuitive UI. It's beginner-friendly for non-techies and flexible enough for developers who want to go deep.
+
+**Design Without Code**
+No need to touch CSS or HTML. Use Elementor, Gutenberg, or other popular builders to design your mega menus effortlessly.
+
+**Performance-Optimized**
+Built for speed, RT Mega Menu is lightweight and doesn’t slow down your site—no matter how big or complex your menus get.
+
+== 🛠️ Use Cases ==
+
+* Build a WooCommerce product navigation with banners and promotions.
+* Create a magazine-style category menu for blogs or news sites.
+* Design a corporate menu with service highlights, team info, and quick contact.
+* Craft a multi-language navigation for global audiences.
+
+==  📲 Fully Mobile Responsive ==
+RT Mega Menu ensures a flawless experience across devices. Whether it’s mobile, tablet, or desktop—your menu looks and works great everywhere.
+
+== 🔌 Compatible With ==
+
+* Elementor
+* Gutenberg
+* WooCommerce
+* WPML & Polylang
+* All major WordPress themes (Astra, Divi, OceanWP, Avada, Hello, etc.)
+
+==🎯 Who Should Use RT Mega Menu?  ==
+
+* Bloggers and content creators
+* WooCommerce store owners
+* Marketing agencies and freelancers
+* Theme developers
+* Corporate website managers
+
+== 💬 Support & Community ==
+
+Need help? We’ve got your back. Our expert support team is available to assist with any issue.
+
+ 👉 [Support Forum](https://wordpress.org/support/plugin/rt-mega-menu/) | [Documentation](https://themewant.com/docs/rt-mega-menu-wordpress-plugins/) | [Upgrade to Pro](https://themewant.com/downloads/rt-mega-menu-pro/)
 
 
 == Frequently Asked Questions ==
@@ -106,6 +143,9 @@ See https://rtmega.themewant.com for more screenshots
 10. Menu with Map
 
 == Changelog ==
+
+= 1.2.9 =
+* 2025-04-7 update - description content.
 
 = 1.2.7 =
 * 2025-02-26 fix - Mobile Menu Minor Issue.
