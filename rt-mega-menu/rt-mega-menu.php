@@ -5,7 +5,7 @@
  * Plugin URI:  https://rtmega.themewant.com/
  * Author:      Themewant
  * Author URI:  http://themewant.com/
- * Version:     1.2.9
+ * Version:     1.3.0
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: rt-mega-menu
@@ -15,7 +15,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
-    define( 'RTMEGA_MENU_VERSION', '1.2.8' );
+    define( 'RTMEGA_MENU_VERSION', '1.3.0' );
     define( 'RTMEGA_MENU_PL_ROOT', __FILE__ );
     define( 'RTMEGA_MENU_PL_URL', plugins_url( '/', RTMEGA_MENU_PL_ROOT ) );
     define( 'RTMEGA_MENU_PL_PATH', plugin_dir_path( RTMEGA_MENU_PL_ROOT ) );

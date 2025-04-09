@@ -95,7 +95,7 @@ class rtmega_NOTICE{
 
         $all_notice = $this->get_rtmega_notice($args); 
 
-        if(!empty($all_notice)){
+        if(!empty($all_notice) && is_array($all_notice) && $all_notice != '[]' && count($all_notice) > 0){
 
             $today_date = gmdate('Y-m-d');
             $today_timestamp = strtotime($today_date);
