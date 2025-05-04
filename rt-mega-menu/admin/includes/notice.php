@@ -14,7 +14,7 @@ class rtmega_NOTICE{
 
     function __construct(){
         if(! class_exists('RTMEGA_MENU_PRO')){
-            add_action('admin_notices', array($this, 'rtmega_pro_plugin_available_notice'));
+           // add_action('admin_notices', array($this, 'rtmega_pro_plugin_available_notice'));
         }
         add_action('admin_notices', array($this, 'add_notice_to_notice_bar'));
         add_action('wp_dashboard_setup', array($this, 'add_notice_to_dashboard_widget'), 0);

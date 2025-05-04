@@ -113,8 +113,9 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
                                     </div>
                                     <p class="form-status"></p>
                                     <div class="tab-footer">
-                                        <button type="button" class="button delete-rt-menu-item-options">Disable Mega Menu</button>
-                                        <button type="button" class="button save-rt-menu-item-options">Save</button>
+                                        <button type="button" data-action="save" class="button save-rt-menu-item-options">Save</button>
+                                        <button type="button" data-action="save-close" class="button save-rt-menu-item-options">Save & Close</button>
+                                        <button type="button" data-action="disable" class="button delete-rt-menu-item-options">Disable Mega Menu</button>
                                     </div>
                                 </div> <!-- END tabs -->
                             

@@ -98,7 +98,6 @@
     },
 
     saveMenuOptions: function( that ){
-
         var spinner = $(this).parent().parent().find('.ajax-loader');
         spinner.addClass('show');
         
@@ -121,10 +120,8 @@
             },
             cache: false,
             success: function(response) {
-                console.log(response);
-                
-                $(that).parent().parent().find('.ajax-loader').removeClass('show');
-                //location.reload();
+                // $('.rtmega-menu-switch-wrapper .ajax-loader').removeClass('show');
+                location.reload();
             }
         });
 
@@ -132,6 +129,7 @@
 
     updateRtmegaMenuItemSettings: function( that ){
 
+        let footerAction = $(this).attr('data-action');
         RTMegaMenuAdmin.showMegaMenuModalAjaxLoader($(this));
         let menu_id = $("#nav-menu-meta-object-id").val();
         let menu_item_id = $(this).attr('data-menu_item_id');
@@ -160,9 +158,6 @@
             }
         });
 
-       
-        console.log('settings', settings);
-        console.log('css', css);
 
         $.ajax({
             type: 'POST',
@@ -179,14 +174,15 @@
             cache: false,
             success: function(response) {
 
-                console.log(response);
-                
                 if(response.success == true){
                     $(status_form).html('<span class="rtmega-text-success">Settings Saved!</span>');
                     setTimeout(() => {
                         $(status_form).html('');
                     }, 2000);
                     RTMegaMenuAdmin.hideMegaMenuModalAjaxLoader($(this));
+                    if(footerAction == 'save-close') {
+                        RTMegaMenuAdmin.closeMegaMenuModal();
+                    }
                 }
                 
             }

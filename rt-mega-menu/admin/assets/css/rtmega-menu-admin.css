@@ -160,6 +160,10 @@ div#rtmega-menu-setting-modal a#edit-remega-selected-template {
 }
 div#rtmega-menu-setting-modal .tab-footer {
     padding: 10px 40px;
+    padding: 10px 40px;
+    display: flex;
+    gap: 7px;
+    justify-content: end;
 }
 div#rtmega-menu-setting-modal .tab-footer .save-rt-menu-item-options{
     background: #28a700;
@@ -178,7 +182,6 @@ div#rtmega-menu-setting-modal .tab-footer .delete-rt-menu-item-options {
     color: #ffff;
     float: right;
     margin-bottom: 9px;
-    margin-left: 10px;
     width: auto;
 }
 div#rtmega-menu-setting-modal .tab-footer .delete-rt-menu-item-options:hover {
