@@ -312,6 +312,14 @@ ul.menu li.menu-item-has-children:after {
 .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu {
   display: block;
 }
+.rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item .submenu-parent-icon {
+  padding: 10px;
+  line-height: 1;
+}
+.rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item .submenu-parent-icon svg {
+  height: 12px;
+  fill: currentColor;
+}
 .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.current-menu-item a.menu-link {
   color: var(--primaryColor);
 }
@@ -339,11 +347,6 @@ ul.menu li.menu-item-has-children:after {
 .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .menu-text {
   display: flex;
   justify-content: space-between;
-}
-.rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .menu-text .submenu-parent-icon svg {
-  height: 12px;
-  margin-left: 5px;
-  fill: currentColor;
 }
 .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item:nth-last-child(1) .menu-link {
   border-bottom: none !important;

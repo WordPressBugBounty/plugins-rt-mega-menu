@@ -25,7 +25,7 @@ function closeRTMEGAmobile() {
             $('.enabled-vertical-menu .vertical-expaned-menu-area'+'.'+widgetID+ ' .rtmega-menu-vertical-expanded').toggleClass('opened');
         },
         enableAccordion: function(){
-            $(".rtmega-menu-area .mobile-menu-area .rtmega-megamenu .menu-item-has-children > .menu-link").removeAttr('href', '#');
+            //$(".rtmega-menu-area .mobile-menu-area .rtmega-megamenu .menu-item-has-children > .menu-link").removeAttr('href', '#');
             if($(".rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-megamenu").length){
                 $(".rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-megamenu").mgaccordion({
                     theme: 'tree',

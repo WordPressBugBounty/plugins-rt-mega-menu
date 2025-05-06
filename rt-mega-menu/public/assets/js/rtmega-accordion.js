@@ -27,12 +27,21 @@
 			} else {
 				this.addClass('mg-flat');
 			}
+			
 			$.each(this.find('li'), function () {
-				var $this = $(this);
-				if ($this.children('ul').length) {
-					$this.addClass('dropdown')
-						.children('a')
-						.bind('click', function (e) {
+				var $li = $(this);
+				var $a = $li.children('a');
+				var $icon = $a.find('.submenu-parent-icon');
+			
+				if ($li.children('ul').length) {
+					$li.addClass('dropdown');
+					$li.find('ul').addClass('submenu');
+			
+					var href = $a.attr('href');
+			
+					if (typeof href === 'undefined' || href === '' || href === '#') {
+						// No valid URL — allow entire <a> click
+						$a.on('click', function (e) {
 							e.preventDefault();
 							if (leaveOpen === false) {
 								closeOther($(this));
@@ -41,12 +50,25 @@
 								$(this).toggleClass('closed', $(this).is(':visible'));
 							});
 							updateIcons($(this));
-						}
-						);
-					$this.find('ul').addClass('submenu');
-					
+						});
+					} else {
+						// Has a valid URL — allow only .submenu-parent-icon to toggle dropdown
+						$icon.on('click', function (e) {
+							e.preventDefault();
+							e.stopPropagation();
+							if (leaveOpen === false) {
+								closeOther($a);
+							}
+							$a.siblings('ul.submenu').slideToggle(function () {
+								$(this).toggleClass('closed', $(this).is(':visible'));
+							});
+							updateIcons($a);
+						});
+					}
 				}
 			});
+			
+			
 
 			return this;
 

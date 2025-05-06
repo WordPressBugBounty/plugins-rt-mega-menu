@@ -16,6 +16,17 @@
          // Importer Modal
          $('.rt-mega-template-actions .import_btn').click(function () {
             let template_id = $(this).attr('data-template_id');
+            let is_premium = $(this).attr('data-is_premium');
+            let license = $(this).attr('data-license');
+
+            if(is_premium && license != 'active'){
+                $('.rtmega-template-imoporter-form .premium-notice').addClass('show');
+                $('.rtmega-template-imoporter-form .form-groups').addClass('hide');
+            }else{
+                $('.rtmega-template-imoporter-form .premium-notice').removeClass('show');
+                $('.rtmega-template-imoporter-form .form-groups').removeClass('hide');
+            }
+
             $('.rtmega-template-imoporter-form .importer-status').removeClass('show');
             $('.rtmega-template-imoporter-form input[name="template-id"]').val(template_id);
             $('#template-previewer').css('display', 'none');
@@ -31,6 +42,7 @@
                 pageTitle = ( $('.rtmega-template-imoporter-form input[name="page-title"]').val() ) ? ( $('.rtmega-template-imoporter-form input[name="page-title"]').val() ) : '',
                 template_id = $('.rtmega-template-imoporter-form input[name="template-id"]').val();
 
+                
 
             $.ajax({
                 url: ajaxurl,
@@ -42,18 +54,19 @@
                 },
                 //dataType: 'JSON',
                 beforeSend: function(){
-                    $('.rtmega-template-imoporter-form .form-groups').addClass('hide');
+                   
                     $('.rtmega-template-imoporter-form .ajax-loader').addClass('show');
                 },
-                success:function(data) {
-                    console.log(data);
-                    var template_edit_url = rtmegamenu_ajax.adminURL+"/post.php?post="+ data.id +"&action=elementor";
-                    //$('.httemplate-edit').html('<a href="'+ template_edit_url +'" target="_blank">'+ data.edittxt +'</a>');
-                },
-                complete:function(data){
-                    
-                    $('.rtmega-template-imoporter-form .ajax-loader').removeClass('show');
+                success:function(response) {
+                    console.log(response);
+                    if(response.success == false){
+                        $('.rtmega-template-imoporter-form .form-groups').addClass('hide');
+                        $('.rtmega-template-imoporter-form .ajax-loader').removeClass('show');
+                        $('.rtmega-template-imoporter-form .premium-notice').addClass('show');
+                    }else{
+                        $('.rtmega-template-imoporter-form .ajax-loader').removeClass('show');
                     $('.rtmega-template-imoporter-form .importer-status.success-status').addClass('show');
+                    }
                 },
                 error: function(errorThrown){
                     console.log(errorThrown);

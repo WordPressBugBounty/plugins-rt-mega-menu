@@ -330,6 +330,14 @@ ul.menu li.menu-item-has-children:after {
         ul.rtmega-megamenu {
             display: block;
             .menu-item {
+                .submenu-parent-icon {
+                    padding: 10px;
+                    line-height: 1;
+                    svg {
+                        height: 12px;
+                        fill: currentColor;
+                    }
+                }
                 &.current-menu-item{
                     a.menu-link{
                         color: var(--primaryColor);
@@ -357,13 +365,7 @@ ul.menu li.menu-item-has-children:after {
                     .menu-text {
                         display: flex;
                         justify-content: space-between;
-                        .submenu-parent-icon {
-                            svg {
-                                height: 12px;
-                                margin-left: 5px;
-                                fill: currentColor;
-                            }
-                        }
+                        
                     }
                 }
                 &:nth-last-child(1){

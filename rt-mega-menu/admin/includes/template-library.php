@@ -2,6 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 define('RTMEGA_TEMPLATES_SOURCE_SITE_URL', 'https://rtmega.themewant.com');
+define('RTMEGA_PRO_SITE_URL', 'https://themewant.com/downloads/rt-mega-menu-pro/#pricing_section');
 class RTMEGA_MENU_Template_Library{ 
 
     public static $templateapi = '';
@@ -48,9 +49,9 @@ class RTMEGA_MENU_Template_Library{
 
     public static function get_rtmega_templates() {
 
-         $TEMPLATES_SOURCE_URL = RTMEGA_TEMPLATES_SOURCE_SITE_URL . '/wp-json/reacthemes/v1/get_rt_el_templates';
+        $TEMPLATES_SOURCE_URL = RTMEGA_TEMPLATES_SOURCE_SITE_URL . '/wp-json/reacthemes/v1/get_rt_el_templates';
          
-         $body = [];
+        $body = [];
 
         $response = wp_remote_post( $TEMPLATES_SOURCE_URL, array(
             'headers'     => [
@@ -100,7 +101,31 @@ class RTMEGA_MENU_Template_Library{
 
 
             $response_data = $this->get_rtmega_template_by_id( $template_id );
-           
+            $is_premium = $response_data['is_premium'];
+
+            if($is_premium){
+                $license_status = '';
+
+                if(class_exists('RTMEGA_MENU_PRO')){
+                    $rtmega_pro = new RTMEGA_MENU_PRO();
+                    $license_status = $rtmega_pro->check_license();
+                    if($license_status != 'active'){
+                        wp_send_json_error(
+                            array(
+                            'license' => $license_status, 
+                            'message' => 'Please acivate RTMega Premium License to import this template!',
+                            )
+                        );
+                    }
+                }else{
+                    wp_send_json_error(
+                        array(
+                        'license' => $license_status, 
+                        'message' => 'Please acivate RTMega Premium License to import this template!',
+                        )
+                    );
+                }
+            }
 
 
             $default_title = !empty( $response_data['title'] ) ? $response_data['title'] : __( 'New Template RTMEGA', 'rt-mega-menu' );
@@ -114,7 +139,7 @@ class RTMEGA_MENU_Template_Library{
 
             $new_post_id = wp_insert_post( $args );
 
-            update_post_meta( $new_post_id, '_elementor_data', $response_data['content'] );
+            update_post_meta( $new_post_id, '_elementor_data', $response_data['elementor_data'] );
             update_post_meta( $new_post_id, '_elementor_page_settings', $response_data['page_settings'] );
             update_post_meta( $new_post_id, '_elementor_template_type', $response_data['template_type'] );
             update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );

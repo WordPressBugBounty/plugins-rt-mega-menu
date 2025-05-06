@@ -64,7 +64,6 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
 
                         let seleceted_menu = $('input[name="menu"]').val();
 
-                   
                         $.ajax({
                             type: 'POST',
                             url: rtmegamenu_ajax.ajaxurl,
@@ -76,9 +75,38 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
                             cache: false,
                             success: function(response) {
                                 $('#nav-menus-frame').prepend(response);
+                                let checkRTMegaMneu = $('input.rt_mega_menu_switch').val();
+
+                                if(checkRTMegaMneu == 'on'){
+    
+                                    $('#menu-to-edit li').each(function () {
+                                        let menuItemId = $(this).find('.menu-item-checkbox').attr('data-menu-item-id');
+                                        $(this).addClass('has-rt-mega-menu');
+                                        $(this).find('label.item-title').append('<span class="rtmega-menu-opener" data-menu_item_id="'+menuItemId+'"><span class="dashicons dashicons-welcome-widgets-menus"></span>RT Mega Menu</span>')
+                                   
+                                   
+                                        let rtMegaMenuOpener =  $(this).find('.rtmega-menu-opener');
+                                        // Set Menu Item Mega Buttons
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: rtmegamenu_ajax.ajaxurl,
+                                            data: {
+                                                action          : "rtmega_set_menu_item_mega_button",
+                                                menu_item_id    : menuItemId,
+                                                nonce : rtmegamenu_ajax.nonce,
+                                            },
+                                            cache: false,
+                                            success: function(response) {
+                                                if(response.data !='' && response.data.content.rtmega_template){
+                                                    $(rtMegaMenuOpener).addClass('has-mega-menu');
+                                                }
+                                            }
+                                        });
+                                   
+                                    })
+                                }
                             }
                         });
-
 
                     });
                     
@@ -128,43 +156,6 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
                 (function($){
 
                     $(document).ready(function () {
-                        setTimeout(() => {
-                            let checkRTMegaMneu = $('input.rt_mega_menu_switch').val();
-
-                            if(checkRTMegaMneu == 'on'){
-
-                                $('#menu-to-edit li').each(function () {
-                                    let menuItemId = $(this).find('.menu-item-checkbox').attr('data-menu-item-id');
-                                    $(this).addClass('has-rt-mega-menu');
-                                    $(this).find('label.item-title').append('<span class="rtmega-menu-opener" data-menu_item_id="'+menuItemId+'"><span class="dashicons dashicons-welcome-widgets-menus"></span>RT Mega Menu</span>')
-                               
-                               
-                                    let rtMegaMenuOpener =  $(this).find('.rtmega-menu-opener');
-                                    // Set Menu Item Mega Buttons
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: rtmegamenu_ajax.ajaxurl,
-                                        data: {
-                                            action          : "rtmega_set_menu_item_mega_button",
-                                            menu_item_id    : menuItemId,
-                                            nonce : rtmegamenu_ajax.nonce,
-                                        },
-                                        cache: false,
-                                        success: function(response) {
-                                            if(response.data !='' && response.data.content.rtmega_template){
-                                                $(rtMegaMenuOpener).addClass('has-mega-menu');
-                                            }
-                                        }
-                                    });
-                               
-                                })
-
-                                
-
-
-
-                            }
-                        }, 1500);
 
                         // Show the first tab and hide the rest
                         $('div#rtmega-menu-setting-modal #tabs-nav li:first-child').addClass('active');

@@ -190,7 +190,6 @@
 
     },
 
-
    }
 
    RTMegaMenuAdmin.init();

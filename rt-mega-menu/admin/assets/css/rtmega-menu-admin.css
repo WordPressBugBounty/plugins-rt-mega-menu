@@ -317,11 +317,18 @@ padding: 30px 0;
     color: red;
 }
 /* templates library */
+.rtmega-templates-library {
+    margin-top: 50px;
+    margin-right: 20px;
+}
 .rtmega-templates-library .section-header {
     display: flex;
     background: #1d2327;
     padding: 10px 20px;
     margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 .rtmega-templates-library .section-header h1 {
     color: #fff;
@@ -331,9 +338,38 @@ padding: 30px 0;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
+@media (max-width: 991.98px) {
+    .rtmega-templates-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 767.98px) { 
+    .rtmega-templates-library {
+        margin-right: 10px;
+    }
+    .rtmega-templates-row {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 .rtmega-templates-row .rtmega-templates-item {
     position: relative;
     text-align: center;
+    background: #fff;
+    height: 274px;
+    overflow: hidden;
+}
+.rtmega-templates-row .rtmega-templates-item span.template-badege {
+    background: yellowgreen;
+    padding: 4px 21px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #fff;
+}
+.rtmega-templates-row .rtmega-templates-item span.template-badege.badge-premium {
+    background: magenta;
+    color: #000;
 }
 .rtmega-templates-row .rtmega-templates-item img {
     width: 100%;
@@ -342,7 +378,7 @@ padding: 30px 0;
     background: #0000005c;
     position: absolute;
     width: 100%;
-    bottom: 5px;
+    bottom: 0;
 }
 .rtmega-templates-row .rt-mega-template-actions .buttons {
     padding: 5px;
@@ -366,6 +402,9 @@ form#rtmega-template-imoporter-form {
 }
 form#rtmega-template-imoporter-form .form-group {
     padding: 20px 0;
+}
+form#rtmega-template-imoporter-form .form-groups.hide {
+    display: none;
 }
 form#rtmega-template-imoporter-form .form-group h2 {
     margin-top: 0;
@@ -422,6 +461,20 @@ form#rtmega-template-imoporter-form .form-group .button {
 #rtmega-menu-setting-modal #template-previewer,
 #rtmega-menu-setting-modal #rtmega-template-imoporter-form {
     display: none;
+}
+
+.rtmega-template-imoporter-form .premium-notice {
+    display: none;
+}
+.rtmega-template-imoporter-form .premium-notice.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.rtmega-template-imoporter-form .premium-notice img {
+    width: 100px;
+    height: auto;
 }
 
 /* notice */

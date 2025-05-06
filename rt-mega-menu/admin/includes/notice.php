@@ -340,6 +340,3 @@ class rtmega_NOTICE{
 if ( class_exists( 'rtmega_NOTICE' ) ) {
     $rtmega_NOTICE = new rtmega_NOTICE();
 }
-
-
-
