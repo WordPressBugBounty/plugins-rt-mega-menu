@@ -3,7 +3,7 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,10 @@ See https://rtmega.themewant.com for more screenshots
 10. Menu with Map
 
 == Changelog ==
+
+= 1.3.3 =
+* 2025-05-31 Improved - Dropdown padding issues.
+* 2025-05-6 Fixed templates library issues.
 
 = 1.3.2 =
 * 2025-05-6 Improved - admin ajax & Dropdown.

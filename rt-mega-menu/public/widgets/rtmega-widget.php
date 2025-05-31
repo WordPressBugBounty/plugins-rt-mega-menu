@@ -2612,7 +2612,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents)' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents), {{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .sub-menu.rtmegamenu-contents' => 'left: {{SIZE}}{{UNIT}}; width: auto;',
 					],
 			]
 		);
@@ -2628,7 +2628,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents)' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .rtmegamenu-contents.sub-menu:not(.rtmegamenu-contents), {{WRAPPER}} .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .sub-menu.rtmegamenu-contents' => 'right: {{SIZE}}{{UNIT}}; width: auto;',
 					],
 			]
 		);
