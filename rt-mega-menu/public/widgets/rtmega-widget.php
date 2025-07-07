@@ -347,7 +347,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
         $this->add_control(
 			'vertical_menu_tops',
 			[
-				'label' => esc_html__( 'Menu Close Icon', 'textdomain' ),
+				'label' => esc_html__( 'Menu Close Icon', 'rt-mega-menu' ),
 				'type' => \Elementor\Controls_Manager::ICONS,
 				'default' => [
 					'value' => 'fas fa-window-close',
@@ -567,16 +567,16 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			]
 		);
 		$this->add_control(
-            'vertical_menu_btn_icon',
-            [
-                'label'     => esc_html__('Menu Button Icon', 'rt-mega-menu'),
-                'type' => Controls_Manager::ICONS,
-                'separator' => 'before',
+			'vertical_menu_btn_icon',
+			[
+				'label'     => esc_html__('Menu Button Icon', 'rt-mega-menu'),
+				'type' => Controls_Manager::ICONS,
+				'separator' => 'before',
 				'condition'    => [
 					'enable_mobile_menu_view' => [ 'yes'],
 				],
-            ]
-        );
+			]
+		);
 		$this->add_responsive_control(
 			'vertical_menu_btn_icon_size',
 			[
@@ -591,7 +591,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					
 				],
 				'condition' => [
-					'menu_layout' => 'vertical'
+					'menu_layout' => 'vertical',
+					'vertical_menu_expand_mode' => 'click'
 				],
 				'selectors'          => [
 					'{{WRAPPER}} .rtmega-menu-area.rtmega-menu-vertical-expand-button-wrapper a svg' => 'width: {{SIZE}}{{UNIT}};',
@@ -614,19 +615,48 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		);
 
 		$this->add_control(
+			'vertical_menu_arrow_type', 
+			[
+				'label' => esc_html__( 'Icon Type', 'rt-mega-menu' ),
+				'type' => \Elementor\Controls_Manager::SELECT,				
+				'default' => 'rtmega-single-arrow',
+				'options' => [
+					'rtmega-single-arrow' => esc_html__( 'Single Arrow', 'rt-mega-menu' ),
+					'rtmega-double-arrow' => esc_html__( 'Double Arrow', 'rt-mega-menu' ),
+				],
+				'condition' => [
+					'enable_vertical_menu_arrow' => 'yes'
+				]
+			]
+		);
+
+		$this->add_control(
 			'enable_vertical_menu_arrow_right',
 			[
 				'label' => esc_html__( 'Enable Position Right Icon', 'rt-mega-menu' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Yes', 'rt-mega-menu' ),
 				'label_off' => esc_html__( 'No', 'rt-mega-menu' ),
-				'return_value' => 'yes',
+				'return_value' => 'yes',				
 				'condition' => [
-					'menu_layout' => 'vertical'
-				],
+					'enable_vertical_menu_arrow' => 'yes'
+				]
 			]
 		);
-
+		$this->add_control(
+			'vertical_menu_hover_left_space',
+			[
+				'label' => esc_html__( 'Hover Left Space', 'rt-mega-menu' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} .vertical-expaned-menu-area .rtmega-menu-vertical-always-expanded ul.rtmega-megamenu.vertical>.menu-item:hover a' => 'margin-left: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'enable_vertical_menu_arrow' => 'yes'
+				]
+			]
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -2993,6 +3023,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$menu_expand_position = $settings['vertical_menu_expand_position'];
 		$menu_expand_position_class = ' expand-position-' . $settings['vertical_menu_expand_position'];
 
+		$menu_arrow_vertical_type = ( $settings['vertical_menu_arrow_type'] == 'rtmega-double-arrow' ) ? 'rtmega-double-arrow' : 'rtmega-single-arrow';
+
 		$custom_logo_id = get_theme_mod('custom_logo');
 		$logo_url = wp_get_attachment_image_src($custom_logo_id, 'full');
 
@@ -3067,7 +3099,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'always_expand'){
 					$rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area '.$unique_id.' vertical-expaned-menu-area-'.$menu_expand_position.'">
 						<div class="rtmega-menu-vertical-always-expanded rtmega-menu-vertical-expanded opened '. $menu_expand_position_class .'">
-							<div class="rtmega-menu-mobile-navigation '. $menu_arrow_verticale .' '.$menu_arrow_verticale_right.'"><ul id="%1$s" class="%2$s">%3$s</ul></div>
+							<div class="rtmega-menu-mobile-navigation '. $menu_arrow_verticale .' '. $menu_arrow_vertical_type .' '.$menu_arrow_verticale_right.'"><ul id="%1$s" class="%2$s">%3$s</ul></div>
 							</div>
 						</div>';
 				}	

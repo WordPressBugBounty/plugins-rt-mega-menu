@@ -42,11 +42,10 @@ a.openItem{
 .rt-mega-arrow-add ul li a{
 	position: relative;
 }
-.rt-mega-arrow-add ul li a{
+.rt-mega-arrow-add ul li a {
 	padding-left: 20px !important;
 }
-
-.rt-mega-arrow-add ul li a::before{
+.rt-mega-arrow-add.rtmega-single-arrow ul li a::before{
 	content: '\e80e';
     font-family: "rt-icons";
     position: absolute;
@@ -58,8 +57,26 @@ a.openItem{
     font-weight: 600;
     transform: translate(-50%);
 }
+.rt-mega-arrow-add.rtmega-double-arrow ul li a::before{
+	content: '\e842';
+    font-family: "rt-icons";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 0;
+    line-height: 0;
+    font-size: 14px;
+    font-weight: 600;
+    transform: translate(-50%);
+}
+.rt-mega-arrow-add.rtmega-double-arrow ul li a {
+	padding-left: 17px !important;
+}
 
 .rt-mega-arrow-add-right.rt-mega-arrow-add ul li a::before{
 	left: auto;
-	right: 14px;
+	right: 0px;
+}
+.rt-mega-arrow-add-right.rt-mega-arrow-add ul li a{
+	padding-left: 0 !important;
 }
