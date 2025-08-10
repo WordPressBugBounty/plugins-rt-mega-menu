@@ -3,7 +3,7 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
 Requires at least: 6.3
 Tested up to: 6.8.1
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,10 @@ See https://rtmega.themewant.com for more screenshots
 10. Menu with Map
 
 == Changelog ==
+
+= 1.3.5 =
+* Add Overlay Menu.
+* Add vertical menu with different options
 
 = 1.3.4 =
 * Add Icon Option for Vertical Menu.

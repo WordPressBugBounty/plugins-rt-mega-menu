@@ -252,8 +252,6 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			        'default' => '',
 			    ]
 			);
-
-
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -265,6 +263,46 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				]
             ]
         );
+		$this->add_control(
+			'vertical_menu_background',
+			[
+				'label'     => __( 'Vertical Menu Background', 'rt-mega-menu' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded' => 'background: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'vertical_menu_padding',
+			[
+				'label'              => __( 'Vertical Menu Padding', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px', '%' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => [
+					'menu_layout' => 'vertical'
+				],
+				'frontend_available' => true,
+			]
+		);
+		$this->add_responsive_control(
+			'vertical_menu_border_radius',
+			[
+				'label'              => __( 'Vertical Menu Border Radius', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px', '%' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => [
+					'menu_layout' => 'vertical'
+				],
+				'frontend_available' => true,
+			]
+		);
 
 		$this->add_control(
 			'vertical_menu_expand_mode',
@@ -289,13 +327,33 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'bottom',
 				'options' => [
-					'top' => __( 'Top', 'rt-mega-menu' ),
-					'left' => __( 'Left', 'rt-mega-menu' ),
-					'bottom'   => __( 'Bottom', 'rt-mega-menu' )
+					'top' 	 => __( 'Overlay', 'rt-mega-menu' ),					
+					'bottom' => __( 'Bottom', 'rt-mega-menu' ),
+					'left' 	 => __( 'Left', 'rt-mega-menu'),
+					'right'  => __( 'Right', 'rt-mega-menu'),
 				],
 				'condition' => [
 					'menu_layout' => 'vertical',
 					'vertical_menu_expand_mode' => 'click'
+				]
+			]
+		);	
+		$this->add_control(
+			'vertical_menu_expand_overlay_position',
+			[
+				'label'   => __( 'Menu Expand Overlay Position', 'rt-mega-menu' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'top',
+				'options' => [
+					'top' 	 => __( 'Top', 'rt-mega-menu' ),					
+					'bottom' => __( 'Bottom', 'rt-mega-menu' ),
+					'left' 	 => __( 'Left', 'rt-mega-menu'),
+					'right'  => __( 'Right', 'rt-mega-menu'),
+				],
+				'condition' => [
+					'menu_layout' => 'vertical',
+					'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 				]
 			]
 		);	
@@ -306,7 +364,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label' => esc_html__( 'Choose Custom Logo', 'rt-mega-menu' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
 				'condition' => [
-					'vertical_menu_expand_position' => 'top'
+					'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 				]
 			]
 		);
@@ -324,7 +383,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		            ],                    
 		        ],
 		        'condition'  => [
-		            'vertical_menu_expand_position' => 'top'
+		            'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 		        ],
 		        'selectors'  => [
 		            '{{WRAPPER}} .rtmega-custom-logo'   => 'margin-bottom: {{SIZE}}{{UNIT}};',
@@ -339,7 +399,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
                 'type' => Controls_Manager::ICONS,
                 'separator' => 'before',
 				'condition' => [
-					'vertical_menu_expand_position' => 'top'
+					'menu_layout' => 'vertical',
+					'vertical_menu_expand_mode' => 'click',
 				]
             ]
         );
@@ -348,13 +409,14 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			'vertical_menu_tops',
 			[
 				'label' => esc_html__( 'Menu Close Icon', 'rt-mega-menu' ),
-				'type' => \Elementor\Controls_Manager::ICONS,
+				'type' => Controls_Manager::ICONS,
 				'default' => [
 					'value' => 'fas fa-window-close',
 					'library' => 'fa-solid',
 				],
 				'condition' => [
-					'vertical_menu_expand_position' => 'top'
+					'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 				]
 			]
 		);
@@ -368,7 +430,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top' => 'background-color: {{VALUE}} !important',
 				],
 				'condition' => [
-					'vertical_menu_expand_position' => 'top'
+					'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 				]
 			]
 		);
@@ -383,7 +446,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'{{WRAPPER}} .rtmega-menu-top-style-cls.expand-position-top svg path' => 'fill: {{VALUE}}',
 				],
 				'condition' => [
-					'vertical_menu_expand_position' => 'top'
+					'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 				]
 			]
 		);
@@ -402,7 +466,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		            ],                    
 		        ],
 		        'condition'  => [
-		            'vertical_menu_expand_position' => 'top'
+		            'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 		        ],
 		        'selectors'  => [
 		            '{{WRAPPER}} .rtmega-menu-top-style-cls.expand-position-top svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
@@ -415,7 +480,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$this->add_responsive_control(
 		    'logo____size',
 		    [
-		        'label'      => __( 'Logo Height (Only Expand Top)', 'rt-mega-menu' ),
+		        'label'      => __( 'Logo Size (Only Expand Top)', 'rt-mega-menu' ),
 		        'type'       => Controls_Manager::SLIDER,
 		        'size_units' => [ 'px' ],
 		        'range'      => [
@@ -425,10 +490,11 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		            ],                    
 		        ],
 		        'condition'  => [
-		            'vertical_menu_expand_position' => 'top'
+		            'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 		        ],
 		        'selectors'  => [
-		            '{{WRAPPER}} .rtmega-custom-logo img' => 'height: {{SIZE}}{{UNIT}}; width: auto;',
+		            '{{WRAPPER}} .rtmega-custom-logo img' => 'width: {{SIZE}}{{UNIT}};',
 		        ],
 		    ]
 		);
@@ -458,8 +524,10 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'{{WRAPPER}} .rtmega-custom-logo' => 'text-align: {{VALUE}}',
 				],
 				'condition'  => [
-				    'vertical_menu_expand_position' => 'top'
+				   'vertical_menu_expand_mode' => 'click',
+					'vertical_menu_expand_position' => 'top',
 				],
+				'separator' => 'after',
 			]	
 		);
 
@@ -467,44 +535,69 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$this->add_responsive_control(
 			'vertical_menu_position_left',
 			[
-				'label'              => __( 'Position Left', 'rt-mega-menu' ),
+				'label'              => __( 'Menu Horizontal Position', 'rt-mega-menu' ),
 				'type'               => Controls_Manager::SLIDER,
-				'size_units'         => [ 'px'],
+				'size_units'         => ['px','%'],
 				'range'              => [
 					'px' => [						
-						'max' => 500,
-						'step' => 10,
+						'max' => 1000,
+						'min' => -1000,
 					],
 					
 				],
 				'condition' => [
-					'vertical_menu_expand_position' => 'left',
+					'vertical_menu_expand_position!' => 'top',
 					'vertical_menu_expand_mode' => 'click'
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-left' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-bottom,
+					 {{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-left' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-right' => 'right: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
 		$this->add_responsive_control(
 			'vertical_menu_position_top',
 			[
-				'label'              => __( 'Position Top', 'rt-mega-menu' ),
+				'label'              => __( 'Menu Vertical Position', 'rt-mega-menu' ),
 				'type'               => Controls_Manager::SLIDER,
-				'size_units'         => [ 'px'],
+				'size_units'         => [ 'px','%'],
 				'range'              => [
 					'px' => [						
-						'max' => 500,
-						'step' => 10,
+						'max' => 1000,
+						'min' => -1000,
 					],
 					
 				],
 				'condition' => [
-					'vertical_menu_expand_position' => 'left',
+					'vertical_menu_expand_position!' => 'top',
 					'vertical_menu_expand_mode' => 'click'
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-left' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-bottom' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-left,
+					{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-right' => '--rtmega-menu-translate-y: {{SIZE}}{{UNIT}}; top: {{SIZE}}{{UNIT}} !important;',
+					],
+			]
+		);
+		$this->add_responsive_control(
+			'vertical_menu_width',
+			[
+				'label'              => __( 'Menu Width', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::SLIDER,
+				'size_units'         => [ 'px','%'],
+				'range'              => [
+					'px' => [						
+						'max' => 3000,
+						'step' => 10,
+					],					
+				],
+				'condition' => [
+					'menu_layout' => 'vertical',
+				],
+				'selectors'          => [
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded:not(.expand-position-top)' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded.expand-position-top .rtmega-megamenu' => 'width: {{SIZE}}{{UNIT}};',
 					],
 			]
 		);
@@ -522,34 +615,29 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'menu_layout' => 'vertical'
 				]
 			]
-		);			
-		$this->add_responsive_control(
-			'vertical_menu_width',
+		);
+		$this->add_control(
+			'vertical_menu_submenu_expad_mode_type', 
 			[
-				'label'              => __( 'Menu Width', 'rt-mega-menu' ),
-				'type'               => Controls_Manager::SLIDER,
-				'size_units'         => [ 'px'],
-				'range'              => [
-					'px' => [						
-						'max' => 3000,
-						'step' => 10,
-					],					
+				'label' => esc_html__( 'Sub Menu Position', 'rt-mega-menu' ),
+				'type' => \Elementor\Controls_Manager::SELECT,				
+				'default' => 'left',
+				'options' => [
+					'left' => esc_html__( 'Left', 'rt-mega-menu' ),
+					'right' => esc_html__( 'Right', 'rt-mega-menu' ),
 				],
 				'condition' => [
 					'menu_layout' => 'vertical',
-					'vertical_menu_expand_position!' => 'top'
-				],
-				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded' => 'width: {{SIZE}}{{UNIT}};',
-					],
+					'vertical_menu_submenu_expad_mode' => 'hover',
+				]
 			]
-		);
+		);	
 		$this->add_responsive_control(
 			'sub_menu_width',
 			[
 				'label'              => __( 'SubMenu Width', 'rt-mega-menu' ),
 				'type'               => Controls_Manager::SLIDER,
-				'size_units'         => [ 'px'],
+				'size_units'         => ['px','%'],
 				'range'              => [
 					'px' => [						
 						'max' => 3000,
@@ -559,7 +647,6 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				],
 				'condition' => [
 					'menu_layout' => 'vertical',
-					'vertical_menu_expand_position!' => 'top'
 				],
 				'selectors'          => [
 					'{{WRAPPER}} .rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-expanded .sub-menu:not(.rtmegamenu-contents)' => 'width: {{SIZE}}{{UNIT}};',
@@ -609,8 +696,9 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label_off' => esc_html__( 'No', 'rt-mega-menu' ),
 				'return_value' => 'yes',
 				'condition' => [
-					'menu_layout' => 'vertical'
+					'menu_layout' => 'vertical',
 				],
+				'separator' => 'before',
 			]
 		);
 
@@ -623,12 +711,27 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'options' => [
 					'rtmega-single-arrow' => esc_html__( 'Single Arrow', 'rt-mega-menu' ),
 					'rtmega-double-arrow' => esc_html__( 'Double Arrow', 'rt-mega-menu' ),
+					'verticla_custom_menu_icon' => esc_html__( 'Custom Icon', 'rt-mega-menu' ),
 				],
 				'condition' => [
-					'enable_vertical_menu_arrow' => 'yes'
+					'menu_layout' => 'vertical',
+					'enable_vertical_menu_arrow' => 'yes',
 				]
 			]
 		);
+		$this->add_control(
+            'vertical_menu_custom_icon',
+            [
+                'label'     => esc_html__('Custom Icon Type', 'rt-mega-menu'),
+                'type' => Controls_Manager::ICONS,
+                'separator' => 'before',
+				'condition' => [
+					'menu_layout' => 'vertical',
+					'enable_vertical_menu_arrow' => 'yes',
+					'vertical_menu_arrow_type' => 'verticla_custom_menu_icon',
+				]
+            ]
+        );
 
 		$this->add_control(
 			'enable_vertical_menu_arrow_right',
@@ -639,8 +742,63 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'label_off' => esc_html__( 'No', 'rt-mega-menu' ),
 				'return_value' => 'yes',				
 				'condition' => [
-					'enable_vertical_menu_arrow' => 'yes'
+					'menu_layout' => 'vertical',
+					'enable_vertical_menu_arrow' => 'yes',
 				]
+			]
+		);
+		$this->add_responsive_control(
+			'vertical_menu_arrow_icon_size',
+			[
+				'label'       => __( 'Icon Size', 'rt-mega-menu' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px'],
+				'condition'   => [
+					'menu_layout' => 'vertical',
+					'enable_vertical_menu_arrow' => 'yes',
+				],
+				'selectors'   => [
+					'{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add ul li a::before' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add ul li a .vertical_menu_custom_icon svg' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'vertical_menu_arrow_icon_top_position',
+			[
+				'label'       => __( 'Icon Vertical Position', 'rt-mega-menu' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px','%'],
+				'condition'   => [
+					'menu_layout' => 'vertical',
+					'enable_vertical_menu_arrow' => 'yes',
+				],
+				'selectors'   => [
+					'{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-left ul li a::before,
+					 {{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-left ul li a .vertical_menu_custom_icon,
+					 {{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-right ul li a::before,
+					 {{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-right ul li a .vertical_menu_custom_icon' => 'top: {{SIZE}}{{UNIT}};',
+				],
+				'separator' => 'after',
+			]
+		);
+		$this->add_responsive_control(
+			'vertical_menu_arrow_icon_position',
+			[
+				'label'       => __( 'Icon Horizontal Position', 'rt-mega-menu' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px','%'],
+				'condition'   => [
+					'menu_layout' => 'vertical',
+					'enable_vertical_menu_arrow' => 'yes',
+				],
+				'selectors'   => [
+					'{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-left ul li a::before,
+					 {{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-left ul li a .vertical_menu_custom_icon' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-right ul li a::before,
+					{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rt-mega-arrow-add.rt-mega-arrow-add-right ul li a .vertical_menu_custom_icon' => 'right: {{SIZE}}{{UNIT}};',
+				],
+				'separator' => 'after',
 			]
 		);
 		$this->add_control(
@@ -650,11 +808,48 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .vertical-expaned-menu-area .rtmega-menu-vertical-always-expanded ul.rtmega-megamenu.vertical>.menu-item:hover a' => 'margin-left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .vertical-expaned-menu-area .rtmega-menu-vertical-expanded ul.rtmega-megamenu.vertical .menu-item:hover > a' => 'margin-left: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
-					'enable_vertical_menu_arrow' => 'yes'
+					'menu_layout' => 'vertical',
 				]
+			]
+		);
+		$this->add_control(
+			'enable_menu_hover_transform_scale',
+			[
+				'label' => esc_html__( 'Enable Menu Hover Transform Scale', 'rt-mega-menu' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Yes', 'rt-mega-menu' ),
+				'label_off' => esc_html__( 'No', 'rt-mega-menu' ),
+				'return_value' => 'yes',				
+				'condition' => [
+					'menu_layout' => 'vertical',
+				]
+			]
+		);
+		$this->add_responsive_control(
+			'menu_hover_transform_scale',
+			[
+				'label'              => __( 'Menu Hover Transform Scale', 'rt-mega-menu' ),
+				'type'               => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min' => 0.1,
+						'max' => 2,
+						'step' => 0.1,
+					],
+				],
+				'default' => [
+					'size' => 1.02,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rtmega-menu-area .rtmega-menu-vertical-expanded .rtmega-megamenu > .menu-item:hover > .menu-link' => 'transform: scale({{SIZE}});',
+				],
+				'condition' => [
+					'menu_layout' => 'vertical',
+					'enable_menu_hover_transform_scale' => 'yes'
+				],
 			]
 		);
 		$this->end_controls_section();
@@ -729,8 +924,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					],
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-left: {{SIZE}}{{UNIT}} !important; padding-right: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-left: {{SIZE}}{{UNIT}} !important; padding-right: {{SIZE}}{{UNIT}} !important;',
 					],
 				'frontend_available' => true,
 			]
@@ -752,8 +947,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'unit' => 'px',
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-top: {{SIZE}}{{UNIT}} !important; padding-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'padding-top: {{SIZE}}{{UNIT}} !important; padding-bottom: {{SIZE}}{{UNIT}} !important;',
 				],
 				'frontend_available' => true,
 			]
@@ -832,7 +1027,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_item_margin',
 			[
-				'label'              => __( 'Item Margin', 'rt-mega-menu' ),
+				'label'              => __( 'Item Margin (li)', 'rt-mega-menu' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px', '%' ],
 				'selectors'          => [
@@ -845,7 +1040,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_item_padding',
 			[
-				'label'              => __( 'Item Padding', 'rt-mega-menu' ),
+				'label'              => __( 'Item Padding (li)', 'rt-mega-menu' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px', '%' ],
 				'selectors'          => [
@@ -865,8 +1060,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'size_units'         => [ 'px', '%' ],
 				'description'        => __( 'If you need to set the maximum width for the menu item. ', 'rt-mega-menu' ),
 				'range'              => [
-					'%' => [
-						'max' => 100,
+					'px' => [
+						'max' => 1000,
 					],
 				],
 				'selectors'  => [
@@ -957,7 +1152,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'icon' => 'eicon-flex eicon-justify-space-around-h',
 					],
 					'space-evenly' => [
-						'title' => __( 'Space Evenly', '' ),
+						'title' => __( 'Space Evenly', 'rt-mega-menu' ),
 						'icon' => 'eicon-flex eicon-justify-space-evenly-h',
 					],
 				],
@@ -1071,8 +1266,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}} !important',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}} !important',
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}}',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu > .menu-item > .menu-link' => 'background-color: {{VALUE}}',
 					],
 					
 				]
@@ -1110,7 +1305,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						],
 						
 					]
-				);	
+				);
 			$this->end_controls_tab();
 
 			$this->start_controls_tab(
@@ -1194,19 +1389,20 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item-has-children .menu-link .menu-text .submenu-parent-icon' => 'display: {{VALUE}} !important',
 						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item-has-children .menu-link .menu-text .submenu-parent-icon' => 'display: {{VALUE}} !important',
 					],
+					'frontend_available' => true,
 				]
 			);
 			
 			$this->add_control(
 				'submenu_icon_style',
 				[
-					'label' => esc_html__( 'Select Icon', 'plugin-name' ),
+					'label' => esc_html__( 'Select Icon', 'rt-mega-menu' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'icon1',
 					'options' => [
-						'icon1'  => esc_html__( 'Angle', 'plugin-name' ),
-						'icon2' => esc_html__( 'Plus', 'plugin-name' ),						
-						'icon3' => esc_html__( 'Arrow Right', 'plugin-name' ),						
+						'icon1'  => esc_html__( 'Angle', 'rt-mega-menu' ),
+						'icon2' => esc_html__( 'Plus', 'rt-mega-menu' ),						
+						'icon3' => esc_html__( 'Arrow Right', 'rt-mega-menu' ),						
 					],
 					'condition' => ['enable_submenu_icon!' => 'none'],
 				]
@@ -1244,7 +1440,8 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'frontend_available' => true,
 				]
 			);
-			
+
+
 			$this->add_control(
 				'enable_vertical_active_menu_icon',
 				[
@@ -1252,29 +1449,31 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'type' => \Elementor\Controls_Manager::SWITCHER,
 					'label_on' => esc_html__( 'Yes', 'rt-mega-menu' ),
 					'label_off' => esc_html__( 'No', 'rt-mega-menu' ),
-					'return_value' => 'none',
+					'return_value' => 'none',              
 					'selectors' => [
 						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item.current-menu-item .vertical_menu_active_icon' => 'display: {{VALUE}} !important',
 					],
-					'condition'          => [
+					'condition' => [
 						'menu_layout' => 'vertical',
 					],
+					'frontend_available' => true,
 				]
 			);
+			
 			$this->add_control(
 				'vertical_active_menu_style',
 				[
-					'label' => esc_html__( 'Vertical Active Menu Icon', 'plugin-name' ),
+					'label' => esc_html__( 'Vertical Active Menu Icon', 'rt-mega-menu' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'icon3',
 					'options' => [
-						'icon1'  => esc_html__( 'Angle', 'plugin-name' ),
-						'icon2' => esc_html__( 'Plus', 'plugin-name' ),						
-						'icon3' => esc_html__( 'Arrow Right', 'plugin-name' ),						
+						'icon1' => esc_html__( 'Angle', 'rt-mega-menu' ),
+						'icon2' => esc_html__( 'Plus', 'rt-mega-menu' ),
+						'icon3' => esc_html__( 'Arrow Right', 'rt-mega-menu' ),
 					],
 					'condition' => [
-						'enable_vertical_active_menu_icon!' => 'none',
 						'menu_layout' => 'vertical',
+						'enable_vertical_active_menu_icon!' => 'none',
 					],
 				]
 			);
@@ -1546,7 +1745,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					$this->add_control(
 						'bg_color_dropdown_menu_item',
 						[
-							'label'     => __( 'Background Color', 'header-footer-elementor' ),
+							'label'     => __( 'Background Color', 'rt-mega-menu' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
@@ -1588,7 +1787,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					$this->add_control(
 						'bg_color_dropdown_menu_item_hover',
 						[
-							'label'     => __( 'Hover Background Color', 'header-footer-elementor' ),
+							'label'     => __( 'Hover Background Color', 'rt-mega-menu' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
@@ -1626,7 +1825,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				$this->add_control(
 						'bg_color_dropdown_menu_item_active',
 						[
-							'label'     => __( 'Active Background Color', 'header-footer-elementor' ),
+							'label'     => __( 'Active Background Color', 'rt-mega-menu' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '',
 							'selectors' => [
@@ -1714,19 +1913,6 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				]
 			);
 			$this->add_responsive_control(
-				'dropdown_item_padding',
-				[
-					'label'              => __( 'Item Padding', 'rt-mega-menu' ),
-					'type'               => Controls_Manager::DIMENSIONS,
-					'size_units'         => [ 'px', '%' ],
-					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
-					],
-					'frontend_available' => true,
-				]
-			);
-			$this->add_responsive_control(
 				'dropdown_item_link_padding',
 				[
 					'label'              => __( 'Item Link Padding', 'rt-mega-menu' ),
@@ -1735,6 +1921,19 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'selectors'          => [
 						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+					],
+					'frontend_available' => true,
+				]
+			);
+			$this->add_responsive_control(
+				'dropdown_item_border_radius',
+				[
+					'label'              => __( 'Item Link Border Radius', 'rt-mega-menu' ),
+					'type'               => Controls_Manager::DIMENSIONS,
+					'size_units'         => [ 'px', '%' ],
+					'selectors'          => [
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -1753,14 +1952,14 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				]
 			);
 			$this->add_responsive_control(
-				'dropdown_item_border_radius',
+				'dropdown_item_padding',
 				[
-					'label'              => __( 'Item Border Radius', 'rt-mega-menu' ),
+					'label'              => __( 'Item Padding', 'rt-mega-menu' ),
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px', '%' ],
 					'selectors'          => [
-						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item .menu-link'  => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+						'{{WRAPPER}} .rtmega-menu-container .desktop-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rtmega-menu-container .vertical-expaned-menu-area .rtmega-megamenu .menu-item ul.sub-menu:not(.rtmegamenu-contents) .menu-item'  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 					],
 					'frontend_available' => true,
 				]
@@ -2611,7 +2810,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			[
 				'label'              => __( 'Mega Menu Width', 'rt-mega-menu' ),
 				'type'               => Controls_Manager::SLIDER,
-				'size_units'         => [ 'px'],
+				'size_units'         => [ 'px',],
 				'range'              => [
 					'px' => [						
 						'max' => 3000,
@@ -3013,17 +3212,44 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 	protected function render() { 
 		
 
-		$settings = $this->get_settings_for_display();		
+		$settings = $this->get_settings_for_display();	
 		$class_responsvie =  !empty($settings['enable_mobile_menu_view']) == 'yes' ? 'enabled-mobile-menu': 'enabled-desktop-menu';
 		$class_responsvie .=  !empty($settings['menu_layout']) == 'vertical' ? ' enabled-vertical-menu': '';
 		$menu_layout = $settings['menu_layout'];
-		$menu_arrow_verticale = ($settings['enable_vertical_menu_arrow'] == 'yes') ? 'rt-mega-arrow-add' : '';
-		$menu_arrow_verticale_right = ($settings['enable_vertical_menu_arrow_right'] == 'yes') ? 'rt-mega-arrow-add-right' : '';
+
+		// Vertical Menu Left & Right Icon 
+		$menu_arrow_vertical = ($settings['enable_vertical_menu_arrow'] == 'yes') ? 'rt-mega-arrow-add' : '';
+		
+		$menu_arrow_vertical_right = ($settings['enable_vertical_menu_arrow'] == 'yes' && $settings['enable_vertical_menu_arrow_right'] == 'yes') ? 'rt-mega-arrow-add-right' : '';
+		$menu_arrow_vertical_left = ($settings['enable_vertical_menu_arrow'] == 'yes' && $settings['enable_vertical_menu_arrow_right'] != 'yes') ? 'rt-mega-arrow-add-left' : '';
+
+		$menu_arrow_vertical_custom = '';
+		if ( $settings['vertical_menu_arrow_type'] === 'verticla_custom_menu_icon' && !empty($settings['vertical_menu_custom_icon']) ) {
+			ob_start();
+			echo '<span class="vertical_menu_custom_icon">';
+				\Elementor\Icons_Manager::render_icon( $settings['vertical_menu_custom_icon'], [ 'aria-hidden' => 'true' ] );
+			echo '</span>';
+			$menu_arrow_vertical_custom = ob_get_clean();
+		}
+
+		$menu_arrow_vertical_type = '';
+		if ( $settings['enable_vertical_menu_arrow'] == 'yes' && isset($settings['vertical_menu_arrow_type']) ) {
+			if ( $settings['vertical_menu_arrow_type'] === 'rtmega-single-arrow' ) {
+				$menu_arrow_vertical_type = 'rtmega-single-arrow';
+			}elseif( $settings['vertical_menu_arrow_type'] === 'rtmega-double-arrow' ) {
+				$menu_arrow_vertical_type = 'rtmega-double-arrow';
+			}else{
+				$menu_arrow_vertical_type = 'rtmega-custom-icon';
+			}
+		}
+		// End Vertical Menu Left & Right Icon 
+
 		$rtmega_mobile_menu_html = '';
 		$menu_expand_position = $settings['vertical_menu_expand_position'];
 		$menu_expand_position_class = ' expand-position-' . $settings['vertical_menu_expand_position'];
+		$menu_expand_overlay_position_class = ' expand-overlay-position-' . $settings['vertical_menu_expand_overlay_position'];
 
-		$menu_arrow_vertical_type = ( $settings['vertical_menu_arrow_type'] == 'rtmega-double-arrow' ) ? 'rtmega-double-arrow' : 'rtmega-single-arrow';
+		
 
 		$custom_logo_id = get_theme_mod('custom_logo');
 		$logo_url = wp_get_attachment_image_src($custom_logo_id, 'full');
@@ -3033,7 +3259,9 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click'){
 				if (!empty($settings['vertical_menu_tops'])) {
 					?>
-					<span class="rtmega-menu-top-cls rtmega-menu-top-style-cls <?php echo esc_attr($menu_expand_position_class); ?>"> <?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_tops'], [ 'aria-hidden' => 'true' ] ); ?> </span>
+					<span class="rtmega-menu-top-cls rtmega-menu-top-style-cls <?php echo esc_attr($menu_expand_position_class); ?>"> 
+						<?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_tops'], [ 'aria-hidden' => 'true' ] ); ?> 
+					</span>
 					<?php
 				}
 			}
@@ -3048,21 +3276,21 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
                 }
                 elseif($settings['submenu_icon_style'] == 'icon3'){
                     $submenu_parent_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/></svg>';
-                }
-				else{
+                }else{
                     $submenu_parent_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>';
                 }
 
-				// Vertical Menu Icon 			
+				// Vertical Menu Icon 	
 				if($settings['vertical_active_menu_style'] == 'icon2'){
-                    $active_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>';
-                }
-                elseif($settings['vertical_active_menu_style'] == 'icon3'){
-                    $active_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/></svg>';
-                }
-				else{
-                    $active_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>';
-                }
+					$active_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>';
+				}
+				elseif($settings['vertical_active_menu_style'] == 'icon3'){
+					$active_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/></svg>';
+				}else{
+					$active_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>';
+				}
+
+			
 				// Mobile Menu
 				if($settings['enable_mobile_menu_view'] == 'yes'){
 					$rtmega_mobile_menu_html = '<div class="mobile-menu-area '.$unique_id.'">
@@ -3076,16 +3304,13 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				
 				// Vertical Expaned Menu
 				if ($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'click') {
-
 					$custom_logo = '';
-
 				    if (!empty($settings['logo__image']['url'])) {
 				        $custom_logo = '<li class="rtmega-custom-logo"><a href="'.get_home_url().'"><img src="' . esc_url($settings['logo__image']['url']) . '" alt="Custom Logo"></a></li>';
 				    }
-
 				    $rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area ' . $unique_id . ' vertical-expaned-menu-area-' . $menu_expand_position . '">
-				        <div class="rtmega-menu-vertical-expanded ' . $menu_expand_position_class . '">
-				            <div class="rtmega-menu-mobile-navigation"> 
+				        <div class="rtmega-menu-vertical-expanded ' .$menu_expand_position_class .$menu_expand_overlay_position_class. '">
+				            <div class="rtmega-menu-mobile-navigation '. $menu_arrow_vertical .' '. $menu_arrow_vertical_type .' '.$menu_arrow_vertical_right.''.$menu_arrow_vertical_left.'"> 
 				                <ul id="%1$s" class="%2$s">
 				                    ' . $custom_logo . '
 				                    %3$s
@@ -3099,11 +3324,16 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				if($settings['menu_layout'] == 'vertical' && $settings['vertical_menu_expand_mode'] == 'always_expand'){
 					$rtmega_vetical_menu_html = '<div class="vertical-expaned-menu-area '.$unique_id.' vertical-expaned-menu-area-'.$menu_expand_position.'">
 						<div class="rtmega-menu-vertical-always-expanded rtmega-menu-vertical-expanded opened '. $menu_expand_position_class .'">
-							<div class="rtmega-menu-mobile-navigation '. $menu_arrow_verticale .' '. $menu_arrow_vertical_type .' '.$menu_arrow_verticale_right.'"><ul id="%1$s" class="%2$s">%3$s</ul></div>
+							<div class="rtmega-menu-mobile-navigation '. $menu_arrow_vertical .' '. $menu_arrow_vertical_type .' '. $menu_arrow_vertical_right.''.$menu_arrow_vertical_left.'"><ul id="%1$s" class="%2$s">%3$s</ul></div>
 							</div>
 						</div>';
 				}	
 				
+				// Vertical Hover Submenu Position 
+				$vertical_menu_submenu_expad_mode_type ='';
+				if ($settings['vertical_menu_submenu_expad_mode'] == 'hover') {
+					$vertical_menu_submenu_expad_mode_type = 'vertical-submenu-position-'.$settings['vertical_menu_submenu_expad_mode_type'];
+				}
 				// Desktop Menu
 				$items_wrap = '<div class="desktop-menu-area"><ul id="%1$s" class="%2$s">%3$s</ul></div>'.$rtmega_mobile_menu_html;
 
@@ -3115,7 +3345,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'echo'        => false,
 					'menu'        => $settings['menu'],					
 					'fallback_cb' => '__return_empty_string',
-					'menu_class'      => 'menu desktop-menu rtmega-megamenu vertical-submenu-expand-mode-'.$settings['vertical_menu_submenu_expad_mode'] . ' ' .$menu_layout,
+					'menu_class'      => 'menu desktop-menu rtmega-megamenu vertical-submenu-expand-mode-'.$settings['vertical_menu_submenu_expad_mode'] . ' ' .$menu_layout.' '.$vertical_menu_submenu_expad_mode_type,
 					'container_class'	=> 'rtmega-elelmentor-widget menu-wrapper rtmega-menu-container rtmega-menu-area '.$class_responsvie,
 					'vertical_menu_active_icon' => $active_icon,
 					'submenu_parent_icon' => $submenu_parent_icon,
@@ -3123,6 +3353,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					'items_wrap'      => $items_wrap,
 					'pointer_hover_effect' => $settings['pointer_menu_item'],
 					'is_mobile_menu'	=> '',
+					'menu_arrow_vertical_custom' => $menu_arrow_vertical_custom,
 					'walker'          	=> new RTMEGA_Nav_Walker()
 				];
 
@@ -3132,7 +3363,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					if($settings['vertical_menu_expand_mode'] == 'click'){
 						
 						?>
-						<div class="rtmega-menu-area rtmega-menu-vertical-expand-button-wrapper enabled-vertical-menu">
+						<div class="rtmega-menu-area rtmega-menu-vertical-expand-button-wrapper enabled-vertical-menu vertical-menu-button-<?php echo esc_attr($menu_expand_position); ?>">
 							
 							<?php
 							if($settings['vertical_menu_top_icon']['value']){ ?>

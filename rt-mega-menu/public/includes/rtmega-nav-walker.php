@@ -127,7 +127,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         if( !empty( $item->classes ) && 
             is_array( $item->classes ) && 
             in_array( 'current-menu-item', $item->classes ) ){
-            $vertical_icon = '<span class="vertical_menu_active_icon">'. $args->vertical_menu_active_icon .'</span>';
+            $vertical_icon = "<span class='vertical_menu_active_icon'>{$args->vertical_menu_active_icon}</span>";
         }
     }
 
@@ -161,15 +161,15 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     // Build HTML output and pass through the proper filter.
 
-
     $pointer_hover_effect = '<span class="pointer-'.$args->pointer_hover_effect.'"></span>';
+    $vertical_menu_custom_icon = isset( $args->menu_arrow_vertical_custom ) ? $args->menu_arrow_vertical_custom : '';
 
     $item_output = sprintf( '%1$s<a%2$s>%3$s%4$s%5$s%6$s</a>%7$s',
         $args->before,
         $attributes,
         $args->link_before,
         $menu_description,
-        apply_filters( 'the_title', '<div class="menu-text">'.$icon.'<span>'.$item->title.'</span>'.$pointer_hover_effect.$dropdown_icon.$vertical_icon.'</div>', $item->ID ),
+        apply_filters( 'the_title', '<div class="menu-text">'.$vertical_menu_custom_icon.$icon.'<span>'.$item->title.'</span>'.$pointer_hover_effect.$dropdown_icon.$vertical_icon.'</div>', $item->ID ),
         $args->link_after,
         $args->after
     );

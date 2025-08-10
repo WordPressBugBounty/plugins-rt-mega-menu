@@ -39,44 +39,43 @@ a.openItem{
 .toggler{
 	transition: all 1s;
 }
+
 .rt-mega-arrow-add ul li a{
 	position: relative;
 }
-.rt-mega-arrow-add ul li a {
-	padding-left: 20px !important;
+.rt-mega-arrow-add  ul li a::before{
+    font-family: "rt-icons";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 0;
+    line-height: 0;
+    font-size: 14px;
+    font-weight: 600;
+    transform: translate(-50%);
+}
+.rt-mega-arrow-add ul li a .vertical_menu_custom_icon{
+	position: absolute;
+    left: 0;
+	top: 36%;
+    transform: translate(-50%);
+	line-height: 0;
+}
+.rt-mega-arrow-add ul li a  .vertical_menu_custom_icon svg{
+	fill: currentColor;
+	height: 16px;
 }
 .rt-mega-arrow-add.rtmega-single-arrow ul li a::before{
 	content: '\e80e';
-    font-family: "rt-icons";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    height: 0;
-    line-height: 0;
-    font-size: 14px;
-    font-weight: 600;
-    transform: translate(-50%);
 }
 .rt-mega-arrow-add.rtmega-double-arrow ul li a::before{
 	content: '\e842';
-    font-family: "rt-icons";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    height: 0;
-    line-height: 0;
-    font-size: 14px;
-    font-weight: 600;
-    transform: translate(-50%);
 }
-.rt-mega-arrow-add.rtmega-double-arrow ul li a {
-	padding-left: 17px !important;
-}
-
-.rt-mega-arrow-add-right.rt-mega-arrow-add ul li a::before{
+.rt-mega-arrow-add-right.rt-mega-arrow-add ul li a::before,
+.rt-mega-arrow-add-right.rt-mega-arrow-add ul li a .vertical_menu_custom_icon{
 	left: auto;
 	right: 0px;
 }
-.rt-mega-arrow-add-right.rt-mega-arrow-add ul li a{
-	padding-left: 0 !important;
+.rtmega-menu-area .vertical-expaned-menu-area .rtmega-menu-vertical-always-expanded .rt-mega-arrow-add-left ul.rtmega-megamenu.vertical > .menu-item .menu-link{
+	padding-left: 20px;
 }
