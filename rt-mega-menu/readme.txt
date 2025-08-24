@@ -3,7 +3,7 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
 Requires at least: 6.3
 Tested up to: 6.8.1
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ RT Mega Menu is a powerful and easy-to-use WordPress mega menu builder plugin th
 
 Whether you're building a complex eCommerce navigation, a magazine layout, or a clean corporate menu, RT Mega Menu gives you the tools to do it fast and beautifully.
 
-[Demo](https://rtmega.themewant.com/) | [Documentation](https://themewant.com/docs/rt-mega-menu-wordpress-plugins/) | [Upgrade to Pro](https://themewant.com/downloads/rt-mega-menu-pro/)
+[Demo](https://rtmega.themewant.com/) | [Documentation](https://documentation.themewant.com/docs/rt-mega-menu-wordpress-plugins/) | [Upgrade to Pro](https://themewant.com/downloads/rt-mega-menu-pro/)
 
 
 == 🔥 Create Menus That Convert == 
