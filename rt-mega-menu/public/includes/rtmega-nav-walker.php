@@ -67,8 +67,6 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         $styles .= !empty($css['top']) ? 'top:' . $css['top'] . ';' : '';
         $styles .= !empty($css['width']) ? 'width:' . $css['width'] . ';' : '';
     
-        // Full width class
-        $RTMEGA_menu_full_width = (!empty($css['full_width']) && $css['full_width'] === 'on') ? 'full-width-mega-menu' : '';
     }
     
     
@@ -189,10 +187,8 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         'classes_builder_content' => $RTMEGA_menu_full_width,
     );
 
-    if(class_exists('RTMEGA_MENU_PRO')){
-        $item_output = apply_filters( 'rtmega_walker_output', $item, $args, $attributes, $item_output, $extras );
-    }
-
+   
+    $item_output = apply_filters( 'rtmega_walker_output', $item_output, $item, $args, $attributes, $extras );
     $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 
   }

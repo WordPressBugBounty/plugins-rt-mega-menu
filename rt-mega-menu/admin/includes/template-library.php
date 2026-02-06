@@ -34,9 +34,9 @@ class RTMEGA_MENU_Template_Library{
     // Plugins Library Register
     function admin_menu() {
         add_submenu_page(
-            'rtmega-menu', 
-            esc_html__( 'Templates Library', 'rtmega-menu' ),
-            esc_html__( 'Templates Library', 'rtmega-menu' ), 
+            'rt-mega-menu', 
+            esc_html__( 'Templates Library', 'rt-mega-menu' ),
+            esc_html__( 'Templates Library', 'rt-mega-menu' ), 
             'manage_options', 
             'rtmegamenu_templates', 
             array ( $this, 'library_render_html' ) 
@@ -96,8 +96,8 @@ class RTMEGA_MENU_Template_Library{
 
         if ( isset( $_REQUEST ) ) {
 
-            $template_id = $_REQUEST['templateId'];
-            $page_title = $_REQUEST['pageTitle'];
+            $template_id = !empty($_REQUEST['templateId']) ? (int) sanitize_text_field(wp_unslash($_REQUEST['templateId'])) : 0;
+            $page_title = !empty($_REQUEST['pageTitle']) ? sanitize_text_field(wp_unslash($_REQUEST['pageTitle'])) : '';
 
 
             $response_data = $this->get_rtmega_template_by_id( $template_id );
@@ -105,19 +105,9 @@ class RTMEGA_MENU_Template_Library{
 
             if($is_premium){
                 $license_status = '';
+                $license_status = apply_filters( 'check_rt_mega_license_status', $license_status );
 
-                if(class_exists('RTMEGA_MENU_PRO')){
-                    $rtmega_pro = new RTMEGA_MENU_PRO();
-                    $license_status = $rtmega_pro->check_license();
-                    if($license_status != 'active'){
-                        wp_send_json_error(
-                            array(
-                            'license' => $license_status, 
-                            'message' => 'Please acivate RTMega Premium License to import this template!',
-                            )
-                        );
-                    }
-                }else{
+                if($license_status != 'active'){
                     wp_send_json_error(
                         array(
                         'license' => $license_status, 

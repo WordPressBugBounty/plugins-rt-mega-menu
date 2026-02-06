@@ -1,13 +1,13 @@
-=== RT Mega Menu - Advanced WordPress Mega Menu Builder for Elementor ===
+=== RT Mega Menu - Mega Menu for Elementor  ===
 Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
 Requires at least: 6.3
-Tested up to: 6.8.1
-Stable tag: 1.3.6
+Tested up to: 6.9
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The RT Mega Menu for Elementor page builder is a powerful tool designed to enhance the navigation experience on your website.
+RT Mega Menu is a dedicated mega menu plugin for Elementor that helps you build advanced, responsive mega menus and improve your site’s navigation using Elementor’s visual editor.
 
 == Description ==
 RT Mega Menu is a powerful and easy-to-use WordPress mega menu builder plugin that transforms your navigation into an engaging, highly customizable menu experience. Designed with flexibility and performance in mind, RT Mega Menu lets you create stunning mega menus using your favorite page builders—without writing a single line of code.
@@ -15,6 +15,12 @@ RT Mega Menu is a powerful and easy-to-use WordPress mega menu builder plugin th
 Whether you're building a complex eCommerce navigation, a magazine layout, or a clean corporate menu, RT Mega Menu gives you the tools to do it fast and beautifully.
 
 [Demo](https://rtmega.themewant.com/) | [Documentation](https://documentation.themewant.com/docs/rt-mega-menu-wordpress-plugins/) | [Upgrade to Pro](https://themewant.com/downloads/rt-mega-menu-pro/)
+
+== Video Tutorial ==
+
+Learn how to create advanced mega menus with Elementor using RT Mega Menu.
+
+https://www.youtube.com/watch?v=Y0r7a8Jrnxg
 
 
 == 🔥 Create Menus That Convert == 
@@ -80,6 +86,24 @@ RT Mega Menu ensures a flawless experience across devices. Whether it’s mobile
 * Theme developers
 * Corporate website managers
 
+== Other Plugins ==
+
+If you like RT Mega Menu, you may also want to check our other WordPress plugins:
+
+[Easy Elements for Elementor](https://wordpress.org/plugins/easy-elements/)
+
+Easy Currency for WooCommerce(https://wordpress.org/plugins/easy-currency/)
+
+Easy Hotel Booking(https://wordpress.org/plugins/easy-hotel/)
+
+Easy Menu icons(https://wordpress.org/plugins/easy-menu-icons/)
+
+
+== Screenshots ==
+
+See https://rtmega.themewant.com for more screenshots
+
+
 == 💬 Support & Community ==
 
 Need help? We’ve got your back. Our expert support team is available to assist with any issue.
@@ -129,9 +153,6 @@ Yes, there is a free version of the RT Mega Menu plugin available on the WordPre
 2. Search for "RT Mega Menu"
 3. Click "Install Now" and then "Activate"
 
-== Screenshots ==
-
-See https://rtmega.themewant.com for more screenshots
 
 1. Menu Settings
 2. Mega Menu Activation
@@ -145,6 +166,10 @@ See https://rtmega.themewant.com for more screenshots
 10. Menu with Map
 
 == Changelog ==
+
+= 1.3.9 =
+* Made compatible for WordPress Version 6.9
+* Added appsero
 
 = 1.3.5 =
 * Add Overlay Menu.
@@ -247,3 +272,68 @@ See https://rtmega.themewant.com for more screenshots
 
 = 1.0.0 - 10 April 2024 =
 - Initial Release
+
+
+== External services ==
+
+This plugin connects to external API endpoints to retrieve template data and admin notices required for the template library functionality.
+
+#### **Service Provider**
+
+The external requests are made to the following domains:
+
+* `https://rtmega.themewant.com`
+
+  * `/wp-json/reacthemes/v1/get_rt_el_templates`
+  * `/wp-json/reacthemes/v1/get_rt_el_template_data_by_id`
+
+* `https://themewant.com/menuicon`
+
+  * `/wp-json/reacthemes/v1/get_rtmega_notice`
+
+#### **Purpose of the Connection**
+
+These API calls are used only to:
+
+* Load available templates inside the plugin’s template library
+* Retrieve template content selected by the user
+* Display optional admin notices provided by the service
+
+#### **Data Sent**
+
+The plugin may send:
+
+* Plugin version
+* Site URL (hashed or basic reference)
+* Template request parameters (template ID)
+
+**No personal user data is collected, stored, or shared.**
+
+#### **When the Connection Occurs**
+
+* Only when the template library screen is accessed
+* No background syncing
+* No requests made on the frontend
+
+#### **Opt-out**
+
+The external connection can be disabled by removing or filtering the template source URL via:
+
+apply_filters( 'rtmega_templates_source_url', '' );
+
+#### **Service Policies**
+
+The external service is provided by **ThemeWant**.
+
+Terms of use: *Not provided by the service*
+Privacy policy: *Not provided by the service*
+
+
+## Privacy Policy 
+RT Mega Menu uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users. 
+
+Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).

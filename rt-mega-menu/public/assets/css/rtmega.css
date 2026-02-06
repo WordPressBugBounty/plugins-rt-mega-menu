@@ -68,7 +68,6 @@ ul.menu li.menu-item-has-children:after {
 }
 
 .rtmega-menu-area {
-  width: -moz-fit-content;
   width: fit-content;
   display: flex;
 }
@@ -341,7 +340,6 @@ ul.menu li.menu-item-has-children:after {
 }
 .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .rtmegamenu-contents.sub-menu {
   position: relative;
-  width: -moz-fit-content;
   width: fit-content;
   z-index: 99;
 }
@@ -475,7 +473,6 @@ ul.menu li.menu-item-has-children:after {
   width: 100%;
 }
 .rtmega-menu-area .vertical-expaned-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .rtmegamenu-contents.sub-menu {
-  width: -moz-fit-content;
   width: fit-content;
   z-index: 99;
 }

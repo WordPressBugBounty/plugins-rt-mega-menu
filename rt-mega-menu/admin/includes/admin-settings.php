@@ -8,7 +8,6 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
         function __construct(){   
             
             add_action( 'admin_menu', [$this, 'rtmega_menu_register'] );
-            //add_action('rest_api_init', [$this, 'rtmega_menu_settings']);
             add_action( 'admin_init', [$this, 'rtmega_menu_settings'] );   
     
         }   
@@ -18,7 +17,7 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                 __('RT Mega Menu', 'rt-mega-menu'), 
                 __('RT Mega Menu', 'rt-mega-menu'), 
                 'manage_options', 
-                'rtmega-menu', 
+                'rt-mega-menu', 
                 array($this, 'rtmega_menu_plugin_page'), 
                 'dashicons-editor-kitchensink',
                 100
@@ -32,8 +31,10 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
             register_setting(    
                 'rtmega_menu_options_group', // option_group    
                 'rtmega_menu_options', // option_name
+                array(
+                    'sanitize_callback' => array($this, 'rtmega_menu_options_sanitize')
+                )
             );
-    
     
     
             add_settings_section(    
@@ -59,6 +60,27 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
             );
     
         }
+
+        function rtmega_menu_options_sanitize( $input ) {
+            $output = array();
+
+            if ( ! empty( $input ) && is_array( $input ) ) {
+                foreach ( $input as $key => $value ) {
+                    
+                    $safe_key = sanitize_key( $key );
+
+                    if ( is_array( $value ) ) {
+                        // nested array ecursive sanitize
+                        $output[ $safe_key ] = array_map( 'sanitize_text_field', $value );
+                    } else {
+                        $output[ $safe_key ] = sanitize_text_field( $value );
+                    }
+                }
+            }
+
+            return $output;
+        }
+
     
         public function rtmega_get_settings_fields() {
     
@@ -119,39 +141,25 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                     'type'  => 'text',
                     'label' => 'Menu Width',
                 ),
-                array(
-                    'id'    => 'megamenu_sections_start',
-                    'name'  => 'megamenu_sections_start',
-                    'type'  => 'section_start',
-                    'label' => 'Mega Menu:',
-                ),
-                array(
-                    'id'    => 'megamenu_width',
-                    'name'  => 'megamenu_width',
-                    'type'  => 'text',
-                    'label' => 'Menu Width',
-                ),
+                
             );
     
-    
             $rtmega_settings_fields['style_fields'] = $style_fields;
-    
             return $rtmega_settings_fields;
-    
     
         }
     
         public function rtmega_menu_plugin_page (){
             
             $this->rtmega_menu_options = get_option( 'rtmega_menu_options' ); ?>
-            <h1>RTMEGA Menu Settings</h1>
+            <h1><?php echo esc_html__( 'RTMEGA Menu Settings', 'rt-mega-menu' ); ?></h1>
             <?php settings_errors(); ?>
             <div class="">
                 <form method="POST" action="options.php">
                     <div class="tabs rtmega-menu-settings-tabs">
                         <ul id="tabs-nav">
-                            <li><a href="#tab1">Mega Menu Styles</a></li>
-                            <li><a href="#tab2">Pro Features</a></li>
+                            <li><a href="#tab1"><?php echo esc_html__( 'Mega Menu Styles', 'rt-mega-menu' ); ?></a></li>
+                            <li><a href="#tab2"><?php echo esc_html__( 'Pro Features', 'rt-mega-menu' ); ?></a></li>
                             <?php do_action( 'rtmega_after_settings_tab_nav_item' ); ?>
                         </ul> <!-- END tabs-nav -->
                         <div class="tab-contents-wrapper">
@@ -163,42 +171,37 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                                 ?>
                             </div>
                             <div id="tab2" class="tab-content" style="display: none;">
-                                <h1>RT Menu Free Vs RT Menu Pro Features</h1>
+                                <h1><?php echo esc_html__( 'RT Menu Free Vs RT Menu Pro Features', 'rt-mega-menu' ); ?></h1>
                                 <div class="rtmega-features-list-wrapper">
                                     <div class="rtmega-features-list rtmega-features-list-free">
-                                        <h3>RT Menu Free</h3>
+                                        <h3><?php echo esc_html__( 'RT Menu Free', 'rt-mega-menu' ); ?></h3>
                                         <ul>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Template Option.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Individual Menu Width Control Option.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Sub Menu Position.</li>
-                                            <li><span class="dashicons dashicons-no"></span>Menu Icon Picker.</li>
-                                            <li><span class="dashicons dashicons-no"></span>Menu Icon Color.</li>
-                                            <li><span class="dashicons dashicons-no"></span>Menu Badge.</li>
-                                            <li><span class="dashicons dashicons-no"></span>Menu Badge Color.</li>
-                                            <li><span class="dashicons dashicons-no"></span>Menu Badge Background Color.</li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Template Option.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Individual Menu Width Control Option.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Sub Menu Position.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Icon Picker.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Icon Color.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Badge.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Badge Color.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Badge Background Color.', 'rt-mega-menu' ); ?></li>
                                         </ul>
                                     </div>
                                     <div class="rtmega-features-list rtmega-features-list-free">
-                                        <h3>RT Menu Pro</h3>
+                                        <h3><?php echo esc_html__( 'RT Menu Pro', 'rt-mega-menu' ); ?></h3>
                                         <ul>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Template Option.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Individual Menu Width Control Option.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Sub Menu Position.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Icon Picker.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Icon Color.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Badge.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Badge Color.</li>
-                                            <li><span class="dashicons dashicons-yes"></span>Menu Badge Background Color.</li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Template Option.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Individual Menu Width Control Option.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Sub Menu Position.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Icon Picker.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Icon Color.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Badge.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Badge Color.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Badge Background Color.', 'rt-mega-menu' ); ?></li>
                                         </ul>
                                     </div>
                                     
                                 </div>
-                                <?php 
-                                    if(! class_exists('RTMEGA_MENU_PRO')){ ?>
-                                        <a href="https://rtmega.themewant.com" target="_blank" class="button button-primary">Buy Now</a>
-                                   <?php }
-                                ?>
-                                
+                                <a href="https://rtmega.themewant.com" target="_blank" class="button button-primary"><?php echo esc_html__( 'Buy Now', 'rt-mega-menu' ); ?></a>
                             </div>
                             <?php do_action( 'rtmega_after_settings_tab_content' ); ?>
                         </div>

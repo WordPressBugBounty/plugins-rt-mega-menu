@@ -16,9 +16,6 @@ function rtmega_menu_dynamic_css(){
     $submenu_bg_color = !empty($rtmega_menu_options['submenu_bg_color']) ? $rtmega_menu_options['submenu_bg_color'] : '';
     $submenu_width = !empty($rtmega_menu_options['submenu_width']) ? $rtmega_menu_options['submenu_width'] : '';
     
-    
-    $megamenu_width = !empty($rtmega_menu_options['megamenu_width']) ? $rtmega_menu_options['megamenu_width'] : '';
-    
     ?>
     
     <style> 
@@ -70,14 +67,6 @@ function rtmega_menu_dynamic_css(){
             ?>
             .rtmega-menu-container .rtmega-megamenu .menu-item ul.sub-menu{
                 width: <?php echo esc_html( $submenu_width )?>
-            }
-            <?php
-        }
-
-        if(!empty($megamenu_width)){
-            ?>
-            .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children ul.rtmegamenu-contents.sub-menu.submenu {
-                width: <?php echo esc_html( $megamenu_width )?>
             }
             <?php
         }

@@ -1,4 +1,7 @@
 
+<?php
+ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+ ?>
 <div class="rtmega-templates-library">
     <div class="section-header">
         <h1>Templates Library</h1>
@@ -6,12 +9,8 @@
     <div class="rtmega-templates-row">
         <?php 
 
-    $license_status = '';
-
-    if(class_exists('RTMEGA_MENU_PRO')){
-        $rtmega_pro = new RTMEGA_MENU_PRO();
-        $license_status = $rtmega_pro->check_license();
-    }
+        $license_status = '';
+        $license_status = apply_filters( 'check_rt_mega_license_status', $license_status );
         $templates = RTMEGA_MENU_Template_Library::instance()->get_rtmega_templates();    
         
         
@@ -21,7 +20,7 @@
         if(is_array($templates)){
 
             foreach ($templates as $template) {
-                $thumbnail_url = 'https://rtmega.themewant.com/wp-content/uploads/2024/05/b-img-1-1.jpg';
+                $thumbnail_url = RTMEGA_MENU_PL_URL.'admin/assets/img/thumbnail-placeholder.jpg';
                 $title =  $template['title'];
                 $template_id = $template['template_id'];
                 $is_premium = $template['is_premium'];
@@ -64,10 +63,7 @@
             <div class="rtmega-modal-content">
 
                 <div id="template-previewer">
-                    <?php 
-                        $thumbnail_url = 'https://rtmega.themewant.com/wp-content/uploads/2024/05/b-img-1-1.jpg';
-                    ?>
-                    <img src="<?php echo $thumbnail_url; ?>" alt="">
+                    <img src="<?php echo esc_url(RTMEGA_MENU_PL_URL.'admin/assets/img/thumbnail-placeholder.jpg'); ?>" alt="thumbnail">
                 </div>
 
                 <form id="rtmega-template-imoporter-form" class="rtmega-template-imoporter-form">

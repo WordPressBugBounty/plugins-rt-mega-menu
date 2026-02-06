@@ -34,24 +34,8 @@ class RTMEGA_MENU {
 	 * @access public
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'i18n' ] );
+		
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
-		add_action( 'admin_init',    [$this, 'rtmega_register_settings'] );
-	}
-
-	/**
-	 * Load Textdomain
-	 *
-	 * Load plugin localization files.
-	 *
-	 * Fired by `init` action hook.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 */
-	public function i18n() {
-		load_plugin_textdomain( 'rt-mega-menu' );
 	}
 
 	/**
@@ -82,19 +66,13 @@ class RTMEGA_MENU {
 
 	}
 
-
-	public function rtmega_register_settings() {
-		register_setting(
-			'rtmega_menu_settings_group',
-			'rtmega_menu_settings',
-		);
-	}
-	
-
 	public function rtmega_plugin_action_links( $plugin_actions, $plugin_file, $plugin_data, $context ) {
 
 		$new_actions = array();
+		/* translators: 1: Settings Text */
 		$new_actions['rtmega_plugin_actions_setting'] = sprintf( __( '<a href="%s" target="_self">Settings</a>', 'rt-mega-menu' ), esc_url( admin_url( 'options-general.php?page=rtmega-menu' ) ) );
+		
+		/* translators: 1: Upgrade to pro text. */
 		$new_actions['rtmega_plugin_actions_upgrade'] = sprintf( __( '<a href="%s" style="color: #39b54a; font-weight: bold;"  target="_blank">Upgrade to Pro</a>', 'rt-mega-menu' ), esc_url( 'https://rtmega.themewant.com' ) );
 		return array_merge( $new_actions, $plugin_actions );
 
