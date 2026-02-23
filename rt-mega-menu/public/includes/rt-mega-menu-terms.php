@@ -127,10 +127,6 @@ class RTMEGA_MENU_Term_Meta{
         }else{ return $args; }
 
     }
-    public function get_menu_id( $location = null ) {
-        $locations = get_nav_menu_locations();
-        return isset( $locations[ $location ] ) ? $locations[ $location ] : false;
-    }
 }
 
 RTMEGA_MENU_Term_Meta::instance();

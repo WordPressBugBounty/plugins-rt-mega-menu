@@ -85,6 +85,21 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 	}
 
 	/**
+	 * Enqueue scripts and styles.
+	 *
+	 * @since 1.3.0
+	 * @access protected
+	 */
+
+	public function get_style_depends() {
+		return [ 'rtmegamenu-style' ];
+	}
+
+	public function get_script_depends() {
+		return [ 'rtmegamenu-public', 'rtmegamenu-accordion-script' ];
+	}
+
+	/**
 	 * Retrieve the menu index.
 	 *
 	 * Used to get index of nav menu.
@@ -3055,7 +3070,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					$rtmega_mobile_menu_html = '<div class="mobile-menu-area '.$unique_id.'">
 					<div class="overlay" onclick="closeRTMEGAmobile()"></div>
 					<div class="rtmega-menu-mobile-sidebar">
-						<a href="#" class="rtmega-menu-mobile-close" onclick="closeRTMEGAmobile()" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M317.7 402.3c3.125 3.125 3.125 8.188 0 11.31c-3.127 3.127-8.186 3.127-11.31 0L160 267.3l-146.3 146.3c-3.127 3.127-8.186 3.127-11.31 0c-3.125-3.125-3.125-8.188 0-11.31L148.7 256L2.344 109.7c-3.125-3.125-3.125-8.188 0-11.31s8.188-3.125 11.31 0L160 244.7l146.3-146.3c3.125-3.125 8.188-3.125 11.31 0s3.125 8.188 0 11.31L171.3 256L317.7 402.3z"/></svg></a>
+						<a href="javascript:void(0)" class="rtmega-menu-mobile-close" onclick="closeRTMEGAmobile()" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M317.7 402.3c3.125 3.125 3.125 8.188 0 11.31c-3.127 3.127-8.186 3.127-11.31 0L160 267.3l-146.3 146.3c-3.127 3.127-8.186 3.127-11.31 0c-3.125-3.125-3.125-8.188 0-11.31L148.7 256L2.344 109.7c-3.125-3.125-3.125-8.188 0-11.31s8.188-3.125 11.31 0L160 244.7l146.3-146.3c3.125-3.125 8.188-3.125 11.31 0s3.125 8.188 0 11.31L171.3 256L317.7 402.3z"/></svg></a>
 						<div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul></div>
 						</div>
 					</div>';
@@ -3126,19 +3141,19 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 							
 							<?php
 							if($settings['vertical_menu_top_icon']['value']){ ?>
-								<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+								<a href="javascript:void(0)" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
 									<?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_top_icon'], [ 'aria-hidden' => 'true' ]); ?>
 								</a>
 							<?php } else {
 								if(!empty($settings['vertical_menu_btn_icon']['value'])){
 									?>
-									<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+									<a href="javascript:void(0)" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
 									<?php \Elementor\Icons_Manager::render_icon( $settings['vertical_menu_btn_icon'], [ 'aria-hidden' => 'true' ]); ?>
 									</a>
 									<?php
 								}else{
 									?>
-									<a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+									<a href="javascript:void(0)" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
 										<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<rect y="14" width="18" height="2" fill="#000000"></rect>
 											<rect y="7" width="18" height="2" fill="#000000"></rect>
@@ -3163,13 +3178,13 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 								<?php
 								if(!empty($settings['menu_btn_icon']['value'])){
 									?>
-									<a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
+									<a href="javascript:void(0)" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
 									<?php \Elementor\Icons_Manager::render_icon( $settings['menu_btn_icon'], [ 'aria-hidden' => 'true' ]); ?>
 									</a>
 									<?php
 								}else{
 									?>
-									<a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
+									<a href="javascript:void(0)" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
 										<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<rect y="14" width="18" height="2" fill="#000000"></rect>
 											<rect y="7" width="18" height="2" fill="#000000"></rect>

@@ -5,17 +5,16 @@
  * Plugin URI:  https://rtmega.themewant.com/
  * Author:      Themewant
  * Author URI:  http://themewant.com/
- * Version:     1.4.0
+ * Version:     1.4.1
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: rt-mega-menu
  * Domain Path: /languages
- * Requires Plugins: elementor
 */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
-    define( 'RTMEGA_MENU_VERSION', '1.3.9' );
+    define( 'RTMEGA_MENU_VERSION', '1.4.1' );
     define( 'RTMEGA_MENU_PL_ROOT', __FILE__ );
     define( 'RTMEGA_MENU_PL_URL', plugins_url( '/', RTMEGA_MENU_PL_ROOT ) );
     define( 'RTMEGA_MENU_PL_PATH', plugin_dir_path( RTMEGA_MENU_PL_ROOT ) );
@@ -24,6 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     define( 'RTMEGA_MENU_NAME', 'RTMEGA Menu' );
 
     include 'admin/includes/admin-settings.php';
+    include 'admin/includes/post-types.php';
     include 'admin/includes/menu-metabox.php';
     include 'admin/includes/plugin-scripts.php';
     include 'admin/includes/admin-ajax-request.php';
@@ -32,9 +32,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     include 'public/includes/rtmega-nav-walker.php';
     include 'public/includes/rt-mega-menu-terms.php';
     include 'public/includes/rtmega-dynamic-css.php';
+    include 'public/includes/class.helper.php';
     include 'admin/includes/template-library.php';
     include 'admin/includes/notice.php';
     include 'class.rtmega-menu.php';
+    include 'public/blocks/blocks.php';
     
     RTMEGA_MENU::instance();
    

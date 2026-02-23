@@ -1,13 +1,13 @@
-=== RT Mega Menu - Mega Menu for Elementor  ===
+=== RT Mega Menu – Mega Menu Builder for Elementor & Gutenberg ===
 Contributors: themewant
-Tags: Mega menu, Elementor, Widget, Megamenu, Elementor Megamenu
+Tags: Mega menu, Elementor, Widget, Megamenu, Menu
 Requires at least: 6.3
 Tested up to: 6.9
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-RT Mega Menu is a dedicated mega menu plugin for Elementor that helps you build advanced, responsive mega menus and improve your site’s navigation using Elementor’s visual editor.
+RT Mega Menu is a powerful WordPress mega menu plugin that lets you build advanced, responsive mega menus using Elementor or the Gutenberg block editor.
 
 == Description ==
 RT Mega Menu is a powerful and easy-to-use WordPress mega menu builder plugin that transforms your navigation into an engaging, highly customizable menu experience. Designed with flexibility and performance in mind, RT Mega Menu lets you create stunning mega menus using your favorite page builders—without writing a single line of code.
@@ -22,6 +22,10 @@ Learn how to create advanced mega menus with Elementor using RT Mega Menu.
 
 https://www.youtube.com/watch?v=Y0r7a8Jrnxg
 
+Learn how to create advanced mega menus using Gutenberg block editor with RT Mega Menu.
+
+https://www.youtube.com/watch?v=j6wLVWv1DoU
+
 
 == 🔥 Create Menus That Convert == 
 
@@ -34,10 +38,10 @@ With RT Mega Menu, you’re no longer limited to basic dropdowns. Easily design 
 * **Multiple Menu Skins:** Choose from pre-designed skins or create your own using a live preview interface.
 * **Mobile Responsive:** Fully responsive and touch-friendly across all devices and screen sizes.
 * **Icon & Label:** Add icons, images, or even shortcodes to enhance each menu item visually.
-* **Sticky Menu Options** Keep menus visible while scrolling for enhanced navigation and UX.
+* **Sticky Menu Options:** Keep menus visible while scrolling for enhanced navigation and user experience.
 * **Widget-Ready Menus:** Insert WordPress widgets directly into your mega menus—no limits.
 * **Customizable Triggers:** Choose hover or click triggers, delays, animation styles, and more.
-* **WoCommerce Compatible:** Show product categories, featured items, or custom product layouts right in your menu.
+* **WooCommerce Compatible:** Show product categories, featured items, or custom product layouts right in your menu.
 * **Elementor Widget Included:** Includes a widget with lots of options.
 * **RTL & Translation Ready:** Compatible with RTL languages and ready to translate into any language.
 
@@ -115,7 +119,7 @@ Install RT Mega Menu today and experience the easiest way to create professional
 
 == Frequently Asked Questions ==
 = What is the RT Mega Menu plugin? =
-The RT Mega Menu is a feature-rich plugin designed to enhance the navigation experience on your website by allowing you to create dynamic and visually appealing mega menus using the Elementor page builder.
+RT Mega Menu is a feature-rich WordPress plugin designed to enhance your website navigation by allowing you to create dynamic and visually appealing mega menus using Elementor or the Gutenberg block editor.
 
 = How do I install the RT Mega Menu plugin? =
 Installing the RT Mega Menu plugin is simple. Just navigate to the WordPress dashboard, go to the "Plugins" section, click on "Add New," search for "RT Mega Menu," and then click "Install Now" and "Activate."
@@ -138,8 +142,8 @@ Yes, you can create dropdown submenus within your mega menu to further categoriz
 = Is the RT Mega Menu plugin compatible with my WordPress theme? =
 The RT Mega Menu plugin is designed to be compatible with a wide range of WordPress themes. However, if you encounter any compatibility issues, our support team is here to assist you.
 
-= Can I integrate the RT Mega Menu plugin with my existing navigation menu? =
-Yes, you can seamlessly integrate the RT Mega Menu plugin with your existing navigation menu, replacing it with a dynamic and customizable mega menu created using Elementor.
+= Can I integrate the RT Mega Menu plugin with my existing navigation menu?
+Yes, you can seamlessly integrate RT Mega Menu with your existing WordPress navigation menu and enhance it using Elementor or Gutenberg layouts.
 
 = Does the plugin offer documentation and support resources? =
 Yes, we provide comprehensive documentation and support resources to help you get started with the RT Mega Menu plugin and troubleshoot any issues that may arise.
@@ -166,6 +170,10 @@ Yes, there is a free version of the RT Mega Menu plugin available on the WordPre
 10. Menu with Map
 
 == Changelog ==
+
+= 1.4.1 =
+* Added: Block Editor Support for Mega Menu
+* Improved: Admin UI Performance
 
 = 1.3.9 =
 * Made compatible for WordPress Version 6.9

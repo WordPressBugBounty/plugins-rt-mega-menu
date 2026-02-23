@@ -108,7 +108,8 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     $dropdown_icon = '';
 
-    if( !empty( $item->classes ) && 
+    if( 
+        !empty( $item->classes ) && 
         is_array( $item->classes ) && 
         in_array( 'menu-item-has-children', $item->classes ) ){
         if($depth > 0 ){
@@ -148,8 +149,13 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     
     
     if( isset( $rtmega_menu_item_settings['content']['rtmega_template'] ) && !empty( $rtmega_menu_item_settings['content']['rtmega_template'] ) ){
-        $builder_content = $this->getItembuilder_content( $rtmega_menu_item_settings['content']['rtmega_template'] );
-        $dropdown_icon = '<span class="submenu-parent-icon">' . $args->submenu_parent_icon . '</span>';
+        $template_source = isset($rtmega_menu_item_settings['content']['template_source']) ? $rtmega_menu_item_settings['content']['template_source'] : 'elementor';
+        if($template_source == 'elementor'){
+            $builder_content = $this->getItembuilder_content( $rtmega_menu_item_settings['content']['rtmega_template'], $template_source );
+        }else{
+            $builder_content = $this->getItembuilder_content( $rtmega_menu_item_settings['content']['rtmega_template'], $template_source );
+        }
+        $dropdown_icon = isset($args->submenu_parent_icon) && !empty($args->submenu_parent_icon) ? '<span class="submenu-parent-icon">' . $args->submenu_parent_icon . '</span>' : '';
     }
 
     $menu_description = '';
@@ -159,8 +165,8 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     // Build HTML output and pass through the proper filter.
 
-    $pointer_hover_effect = '<span class="pointer-'.$args->pointer_hover_effect.'"></span>';
-    $vertical_menu_custom_icon = isset( $args->menu_arrow_vertical_custom ) ? $args->menu_arrow_vertical_custom : '';
+    $pointer_hover_effect = isset($args->pointer_hover_effect) && !empty($args->pointer_hover_effect) ? '<span class="pointer-'.$args->pointer_hover_effect.'"></span>' : '';
+    $vertical_menu_custom_icon = isset( $args->menu_arrow_vertical_custom ) && !empty($args->menu_arrow_vertical_custom) ? $args->menu_arrow_vertical_custom : '';
 
     $item_output = sprintf( '%1$s<a%2$s>%3$s%4$s%5$s%6$s</a>%7$s',
         $args->before,
@@ -204,11 +210,20 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
   }
 
   // Item Builder Content
-  private function getItembuilder_content( $template_id ){
+  private function getItembuilder_content( $template_id, $template_source ){
     static $elementor = null;
-    if( did_action( 'elementor/loaded' ) ){
+    if($template_source == 'elementor'){
         $elementor = Elementor::instance();
-        return $elementor->frontend->get_builder_content_for_display( $template_id );
+        if( did_action( 'elementor/loaded' ) ){
+            return $elementor->frontend->get_builder_content_for_display( $template_id );
+        }
+    }else{
+        $content_post = get_post( $template_id );
+        if ( $content_post ) {
+            return apply_filters( 'the_content', $content_post->post_content );
+        }
+        return '';
     }
+    
   }
 }

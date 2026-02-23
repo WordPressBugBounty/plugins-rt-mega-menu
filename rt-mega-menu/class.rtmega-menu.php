@@ -52,11 +52,8 @@ class RTMEGA_MENU {
 	 * @access public
 	 */
 	public function init() {
-
-		// Check if Elementor installed and activated
-		if ( ! did_action( 'elementor/loaded' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_missing_main_plugin' ] );
-			return;
+		if( function_exists( 'register_block_type' ) ){
+			add_theme_support( 'menus' );
 		}
 
 		// Add Plugin actions
@@ -90,37 +87,13 @@ class RTMEGA_MENU {
         );
     }
 
-
-
-    /**
-	 * Admin notice
-	 *
-	 * Warning when the site doesn't have Elementor installed or activated.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 */
-	public function admin_notice_missing_main_plugin() {
-
-		$message = __( 'RTMEGA MENU Addon Custom Elementor Addon requires Elementor to be installed and activated', 'rt-mega-menu' );
-
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html($message) );
-
-	}
-
-
     public function init_widgets() {
-
-
 		//Nav Widget
         require_once ( RTMEGA_MENU_PL_PATH.'/public/widgets/rtmega-widget.php' );
 		\Elementor\Plugin::instance()->widgets_manager->register( new \RTMEGA_MENU_INLINE() );	
 
 		// Register widget				
 		add_action( 'elementor/elements/categories_registered', [$this, 'add_category'] );
-		
-
 	}
 
 	
