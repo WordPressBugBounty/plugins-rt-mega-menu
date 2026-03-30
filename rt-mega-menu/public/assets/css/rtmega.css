@@ -220,14 +220,14 @@ ul.menu li.menu-item-has-children:after {
   flex-wrap: wrap;
   padding-left: 0;
 }
-.rtmega-menu-area ul.rtmega-megamenu > .menu-item {
-  padding-left: 15px;
-  padding-right: 15px;
-}
 .rtmega-menu-area ul.rtmega-megamenu > .menu-item .submenu-parent-icon svg {
   height: 12px;
   margin-left: 5px;
   fill: currentColor;
+}
+.rtmega-menu-area ul.rtmega-megamenu > .menu-item {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .rtmega-menu-area ul.rtmega-megamenu > .menu-item .menu-link {
   display: block;
@@ -245,12 +245,12 @@ ul.menu li.menu-item-has-children:after {
   text-align: left;
   margin-left: 0;
 }
+.rtmega-menu-area ul.rtmega-megamenu ul.sub-menu .menu-item:nth-last-child(1) a {
+  margin-bottom: 0 !important;
+}
 .rtmega-menu-area ul.rtmega-megamenu ul.sub-menu .menu-item {
   display: flex;
   background: transparent;
-}
-.rtmega-menu-area ul.rtmega-megamenu ul.sub-menu .menu-item:nth-last-child(1) a {
-  margin-bottom: 0 !important;
 }
 .rtmega-menu-area ul.rtmega-megamenu ul.sub-menu .menu-item .menu-link {
   line-height: 25px;
@@ -704,6 +704,9 @@ li.rtmega-custom-logo {
   .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .sub-menu {
     margin: 0;
     padding-top: 10px;
+  }
+  .rtmega-menu-area ul.rtmega-megamenu ul.sub-menu .menu-item {
+    display: block;
   }
 }
 body.rtl .rtmega-menu-area .desktop-menu-area ul.rtmega-megamenu .menu-item-has-children .menu-link .submenu-parent-icon svg {

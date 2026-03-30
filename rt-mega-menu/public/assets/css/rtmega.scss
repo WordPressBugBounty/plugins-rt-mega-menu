@@ -773,6 +773,10 @@ li.rtmega-custom-logo {
         margin: 0;
         padding-top: 10px;
     }
+
+    .rtmega-menu-area ul.rtmega-megamenu ul.sub-menu .menu-item {
+        display: block;
+    }
 }
 
 body.rtl {
