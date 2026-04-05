@@ -67,7 +67,7 @@ class RTMEGA_MENU {
 
 		$new_actions = array();
 		/* translators: 1: Settings Text */
-		$new_actions['rtmega_plugin_actions_setting'] = sprintf( __( '<a href="%s" target="_self">Settings</a>', 'rt-mega-menu' ), esc_url( admin_url( 'options-general.php?page=rtmega-menu' ) ) );
+		$new_actions['rtmega_plugin_actions_setting'] = sprintf( __( '<a href="%s" target="_self">Settings</a>', 'rt-mega-menu' ), esc_url( admin_url( 'options-general.php?page=rt-mega-menu' ) ) );
 		
 		/* translators: 1: Upgrade to pro text. */
 		$new_actions['rtmega_plugin_actions_upgrade'] = sprintf( __( '<a href="%s" style="color: #39b54a; font-weight: bold;"  target="_blank">Upgrade to Pro</a>', 'rt-mega-menu' ), esc_url( 'https://rtmega.themewant.com' ) );
