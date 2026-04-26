@@ -30,8 +30,12 @@ function rtmega_menu_admin_enqueue_scripts (){
 
     $current_user = wp_get_current_user();
 
-    // Logic for menu data
-    $selected_menu_id = isset( $_REQUEST['menu'] ) ? absint( $_REQUEST['menu'] ) : 0;
+    // Logic for menu data.
+    // Reading the current menu ID from the nav-menus admin URL (idempotent GET on an
+    // authenticated admin screen) so the JS can know which menu is being edited.
+    // No nonce required — this does not write state and is gated by the admin page capability.
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+    $selected_menu_id = isset( $_REQUEST['menu'] ) ? absint( wp_unslash( $_REQUEST['menu'] ) ) : 0;
     if ( ! $selected_menu_id ) {
         $selected_menu_id = get_user_option( 'nav_menu_recently_edited' );
     }

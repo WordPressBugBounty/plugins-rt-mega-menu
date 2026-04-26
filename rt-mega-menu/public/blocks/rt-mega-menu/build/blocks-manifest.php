@@ -75,6 +75,10 @@ return array(
 				'type' => 'boolean',
 				'default' => true
 			),
+			'mobileMenuOpenPosition' => array(
+				'type' => 'string',
+				'default' => 'right'
+			),
 			'mobileMenuIcon' => array(
 				'type' => 'string',
 				'default' => 'fas fa-bars'
@@ -291,6 +295,10 @@ return array(
 			'boxShadowColor' => array(
 				'type' => 'string',
 				'default' => 'rgba(0,0,0,0.1)'
+			),
+			'mobileMenuSlug' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'textdomain' => 'rt-mega-menu',

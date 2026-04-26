@@ -89,9 +89,11 @@ class RTMEGA_Helper {
 		}
 
 		if ( ! empty( $output_css ) ) {
-            // Always echo for blocks to ensure it works even if enqueued too late
+            // Always echo for blocks to ensure it works even if enqueued too late.
+            // CSS is generated from widget settings; strip any HTML tags that could
+            // break out of the <style> block but keep CSS syntax (>, {}, etc.) intact.
             echo "<!-- RT Mega Menu Styles -->\n";
-            echo '<style type="text/css">' . $output_css . '</style>';
+            echo '<style type="text/css">' . wp_strip_all_tags( $output_css ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_strip_all_tags removes script/style injection while preserving CSS.
 		}
 	}
   

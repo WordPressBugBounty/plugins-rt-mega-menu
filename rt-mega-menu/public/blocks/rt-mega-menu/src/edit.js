@@ -30,7 +30,8 @@ export default function Edit({ attributes, setAttributes }) {
         pointer_menu_item,
         menuAlign,
         enableMobileMenu,
-        mobileMenuIcon
+        mobileMenuIcon,
+        mobileMenuOpenPosition
     } = attributes;
 
     const { menus, hasResolved } = useSelect((select) => {
@@ -201,11 +202,23 @@ export default function Edit({ attributes, setAttributes }) {
                         onChange={(value) => setAttributes({ enableMobileMenu: value })}
                     />
                     {enableMobileMenu && (
-                        <FontAwesomeIconPicker
-                            label={__('Responsive Menu Toggle Icon', 'rt-mega-menu')}
-                            value={mobileMenuIcon}
-                            onChange={(value) => setAttributes({ mobileMenuIcon: value })}
-                        />
+                        <>
+                            <FontAwesomeIconPicker
+                                label={__('Responsive Menu Toggle Icon', 'rt-mega-menu')}
+                                value={mobileMenuIcon}
+                                onChange={(value) => setAttributes({ mobileMenuIcon: value })}
+                            />
+                            <SelectControl
+                                label={__('Responsive Menu Open Position', 'rt-mega-menu')}
+                                value={mobileMenuOpenPosition}
+                                options={[
+                                    { label: __('Left', 'rt-mega-menu'), value: 'left' },
+                                    { label: __('Right', 'rt-mega-menu'), value: 'right' },
+                                    { label: __('Top', 'rt-mega-menu'), value: 'top' }
+                                ]}
+                                onChange={(newPosition) => setAttributes({ mobileMenuOpenPosition: newPosition })}
+                            />
+                        </>
                     )}
                 </PanelBody>
             </InspectorControls>

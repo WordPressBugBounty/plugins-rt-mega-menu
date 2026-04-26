@@ -1,11 +1,20 @@
 :root {
-    --rtmega-primary-bg: linear-gradient(90deg, #576AE3 0%, #7F19A4 100%);
-    --rtmega-primary-color: green;
+    --rtmega-primary-bg: #1d2327;
+    --rtmega-primary-color: #3858e9;
+    --rtmega-success-color: green;
     --rtmega-danger-color: rgb(255, 37, 37);
 }
 
+.full-width {
+    width: 100%;
+}
+
+.d-block {
+    display: block !important;
+}
+
 .rtmega-text-success {
-    color: var(--rtmega-primary-color);
+    color: var(--rtmega-success-color);
 }
 
 .rtmega-text-danger {
@@ -67,7 +76,7 @@ span.rtmega-menu-opener {
     column-gap: 3px;
     padding: 3px 6px;
     border-radius: 3px;
-    background-image: var(--rtmega-primary-bg);
+    background: var(--rtmega-primary-bg);
     color: #fff;
     z-index: 3;
     cursor: pointer;
@@ -91,11 +100,10 @@ div#rtmega-menu-setting-modal {
 div#rtmega-menu-setting-modal .rtmega-modal-body {
     display: block;
     margin: auto;
-    width: 820px;
+    width: 900px;
     z-index: 9999;
     position: relative;
-    background-image: var(--rtmega-primary-bg);
-    border-radius: 5px 5px 5px 5px;
+    background: var(--rtmega-primary-bg);
 }
 
 div#rtmega-menu-setting-modal .rtmega-menu-overlay {
@@ -117,15 +125,12 @@ div#rtmega-menu-setting-modal .rtmega-menu-modal-closer {
     width: 35px;
     border-radius: 50%;
     background: red;
-    border: 1px solid #ededed;
+    border: none;
     color: #fff;
     cursor: pointer;
     z-index: 2;
 }
 
-div#rtmega-menu-setting-modal .rtmega-modal-content {
-    border-radius: 5px 5px 5px 5px;
-}
 
 div#rtmega-menu-setting-modal .rtmega-modal-content img {
     max-width: 100%;
@@ -135,7 +140,7 @@ div#rtmega-menu-setting-modal .rtmega-modal-content img {
 div#rtmega-menu-setting-modal ul#tabs-nav {
     list-style: none;
     margin: 0;
-    padding: 15px;
+    padding: 0 15px;
     overflow: auto;
     display: flex;
     justify-content: center;
@@ -144,16 +149,27 @@ div#rtmega-menu-setting-modal ul#tabs-nav {
 div#rtmega-menu-setting-modal ul#tabs-nav li {
     float: left;
     font-weight: bold;
-    margin-right: 2px;
     margin-bottom: 0;
-    padding: 8px 10px;
+    padding: 20px 30px;
     cursor: pointer;
 }
 
 div#rtmega-menu-setting-modal ul#tabs-nav li:hover,
 div#rtmega-menu-setting-modal ul#tabs-nav li.active {
-    background-color: #08E;
+    background-color: #fff;
 }
+
+div#rtmega-menu-setting-modal ul#tabs-nav li:hover a,
+div#rtmega-menu-setting-modal ul#tabs-nav li.active a {
+    color: #000;
+}
+
+div#rtmega-menu-setting-modal ul#tabs-nav li a:focus,
+div#rtmega-menu-setting-modal ul#tabs-nav li a:visited {
+    box-shadow: none;
+    outline: none;
+}
+
 
 div#rtmega-menu-setting-modal #tabs-nav li a {
     text-decoration: none;
@@ -167,7 +183,7 @@ div#rtmega-menu-setting-modal .tab-contents-wrapper {
 
 div#rtmega-menu-setting-modal .tab-content {
     padding: 30px 40px;
-    height: 380px;
+    height: 450px;
     overflow: auto;
 }
 
@@ -191,6 +207,9 @@ div#rtmega-menu-setting-modal a#add-remega-template {
     display: flex;
     align-items: center;
     height: 40px;
+    background-color: var(--e-a-btn-bg);
+    border: none;
+    color: #fff;
 }
 
 div#rtmega-menu-setting-modal .tab-footer {
@@ -202,34 +221,37 @@ div#rtmega-menu-setting-modal .tab-footer {
 }
 
 div#rtmega-menu-setting-modal .tab-footer .save-rt-menu-item-options {
-    background: #28a700;
+    background: var(--rtmega-primary-color);
     font-size: 16px;
     box-shadow: 0px 0px 0px 0px #ededed;
-    border-color: #d7d7d7;
+    border: none;
     color: #ffff;
     float: right;
     margin-bottom: 9px;
+    transition: all 0.3s ease-in-out;
+    font-weight: 500;
 }
 
 div#rtmega-menu-setting-modal .tab-footer .delete-rt-menu-item-options {
-    background: #a70b00;
+    background: var(--rtmega-danger-color);
     font-size: 16px;
-    box-shadow: 0px 0px 0px 0px #ededed;
-    border-color: #d7d7d7;
+    border: none;
     color: #ffff;
     float: right;
     margin-bottom: 9px;
     width: auto;
+    transition: all 0.3s ease-in-out;
+    font-weight: 500;
 }
 
 div#rtmega-menu-setting-modal .tab-footer .delete-rt-menu-item-options:hover {
     background: #fff;
-    color: #a70b00;
+    color: var(--rtmega-danger-color);
 }
 
 div#rtmega-menu-setting-modal .tab-footer .save-rt-menu-item-options:hover {
     background: #fff;
-    color: var(--color-primary);
+    color: var(--rtmega-primary-color);
 }
 
 div#rtmega-menu-setting-modal .rtmega-modal-body .ajax-loader {
@@ -289,6 +311,22 @@ div#rtmega-menu-setting-modal .rtmega-modal-body .ajax-loader.show {
 .rtmega-menu-option-input-list .pro-features-placeholders .option-inputs img {
     height: max-content;
 }
+
+.rtmega-menu-option-input-list li .option-inputs .multi-inputs label {
+    width: 150px;
+}
+
+.rtmega-menu-option-input-list li .option-inputs input[type="text"],
+.rtmega-menu-option-input-list li .option-inputs input[type="number"] {
+    width: 100%;
+}
+
+.rtmega-menu-option-input-list li .option-inputs .multi-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
 
 div#rtmega-menu-setting-modal p.form-status {
     background: #fff;
@@ -624,4 +662,8 @@ form#rtmega-template-imoporter-form .form-group .button {
 
 #rtmega-notice-emicon_pro_plugin_notice .rtmega-notice-action-buttons {
     margin-top: 10px;
+}
+
+.rtmega-set-visibility-conditions {
+    margin-bottom: 10px !important;
 }

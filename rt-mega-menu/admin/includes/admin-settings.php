@@ -184,6 +184,10 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                                             <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Badge.', 'rt-mega-menu' ); ?></li>
                                             <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Badge Color.', 'rt-mega-menu' ); ?></li>
                                             <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Menu Badge Background Color.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'User-based menu item visibility controls.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Location-based menu item visibility controls.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'Device-based menu item visibility controls.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-no"></span><?php echo esc_html__( 'WooCommerce customer visibility rules (Logged-in status, Purchase history, and Cart contents)', 'rt-mega-menu' ); ?></li>
                                         </ul>
                                     </div>
                                     <div class="rtmega-features-list rtmega-features-list-free">
@@ -197,6 +201,10 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                                             <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Badge.', 'rt-mega-menu' ); ?></li>
                                             <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Badge Color.', 'rt-mega-menu' ); ?></li>
                                             <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Menu Badge Background Color.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'User-based menu item visibility controls.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Location-based menu item visibility controls.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'Device-based menu item visibility controls.', 'rt-mega-menu' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span><?php echo esc_html__( 'WooCommerce customer visibility rules (Logged-in status, Purchase history, and Cart contents)', 'rt-mega-menu' ); ?></li>
                                         </ul>
                                     </div>
                                     

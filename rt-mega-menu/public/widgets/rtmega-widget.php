@@ -127,7 +127,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 
 		$menus = wp_get_nav_menus();
 
-		$options = [];
+		$options = ['' => __('Select Menu', 'rt-mega-menu')];
 
 		foreach ( $menus as $menu ) {
 			$options[ $menu->slug ] = $menu->name;
@@ -204,6 +204,29 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				]
 			);
 		}
+		$this->add_control(
+			'mobile_menu_pro_notice',
+			[
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => '<div style="position:relative;pointer-events:none;opacity:0.6;">
+					<label class="elementor-control-title">' . __( 'Mobile Menu', 'rt-mega-menu' ) . '</label>
+					<select class="elementor-control-input-wrapper" disabled style="width:100%;margin-top:6px;padding:6px 8px;border:1px solid #d5dadf;border-radius:3px;background:#f9f9f9;color:#555;cursor:not-allowed;">
+						<option>' . __( '— Select a menu —', 'rt-mega-menu' ) . '</option>
+					</select>
+				</div>
+				<div style="margin-top:8px;padding:8px 10px;border-left:3px solid #f0ad00;border-radius:2px;font-size:12px;line-height:1.5;">
+					' . sprintf(
+						/* translators: %s: URL to the RT Mega Menu Pro upgrade page. */
+						__( '<strong>Mobile Menu</strong> is a <a href="%s" target="_blank" style="color:#f0ad00;pointer-events:auto;">Pro feature</a>. Upgrade to set a separate menu for mobile devices.', 'rt-mega-menu' ),
+						'https://themewant.com/downloads/rt-mega-menu-pro/'
+					) . '
+				</div>',
+				'content_classes' => 'rtmega-pro-feature-notice',
+			]
+		);
+
+		do_action( 'rtmega_mobile_menu_control_el', $this );
+
 		$this->add_control(
 			'enable_menu_description',
 			[
@@ -885,6 +908,24 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				'return_value' => 'yes',
 			]
 		);
+		// menu open position
+		$this->add_control(
+			'mobile_menu_open_position',
+			[
+				'label' => esc_html__( 'Menu Open Position', 'rt-mega-menu' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'left' => esc_html__( 'Left', 'rt-mega-menu' ),
+					'right' => esc_html__( 'Right', 'rt-mega-menu' ),
+					'top' => esc_html__( 'Top', 'rt-mega-menu' ),
+				],
+				'default' => 'right',
+				'condition' => [
+					'enable_mobile_menu_view' => 'yes'
+				]
+			]
+		);
+
 		$this->add_control(
             'icon_settings',
             [
@@ -2907,6 +2948,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		);
 		$this->end_controls_section();
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- rt_mega_ prefix; intentional Elementor extensibility hook consumed by rt-mega-menu-pro.
 		do_action( 'rt_mega_after_submenu_fields_el', $this );
 		
 		
@@ -2989,6 +3031,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 		$settings = $this->get_settings_for_display();	
 		$class_responsvie =  !empty($settings['enable_mobile_menu_view']) == 'yes' ? 'enabled-mobile-menu': 'enabled-desktop-menu';
 		$class_responsvie .=  !empty($settings['menu_layout']) == 'vertical' ? ' enabled-vertical-menu': '';
+		$class_responsvie .=  !empty($settings['mobile_menu']) ? ' has-different-mobile-menu': '';
 		$menu_layout = $settings['menu_layout'];
 
 		// Vertical Menu Left & Right Icon 
@@ -3042,7 +3085,7 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 
 				$menus = $this->get_available_menus();
 				if ( empty( $menus ) ) {
-					return false;
+					// get 
 				}
 				// Sub Menu Icon 			
 				if($settings['submenu_icon_style'] == 'icon2'){
@@ -3067,9 +3110,11 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 			
 				// Mobile Menu
 				if($settings['enable_mobile_menu_view'] == 'yes'){
+					$mobile_menu_open_position = $settings['mobile_menu_open_position'];
+					$mobile_menu_open_position_class = ' position-' . $settings['mobile_menu_open_position'];
 					$rtmega_mobile_menu_html = '<div class="mobile-menu-area '.$unique_id.'">
 					<div class="overlay" onclick="closeRTMEGAmobile()"></div>
-					<div class="rtmega-menu-mobile-sidebar">
+					<div class="rtmega-menu-mobile-sidebar '.$mobile_menu_open_position_class.'">
 						<a href="javascript:void(0)" class="rtmega-menu-mobile-close" onclick="closeRTMEGAmobile()" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M317.7 402.3c3.125 3.125 3.125 8.188 0 11.31c-3.127 3.127-8.186 3.127-11.31 0L160 267.3l-146.3 146.3c-3.127 3.127-8.186 3.127-11.31 0c-3.125-3.125-3.125-8.188 0-11.31L148.7 256L2.344 109.7c-3.125-3.125-3.125-8.188 0-11.31s8.188-3.125 11.31 0L160 244.7l146.3-146.3c3.125-3.125 8.188-3.125 11.31 0s3.125 8.188 0 11.31L171.3 256L317.7 402.3z"/></svg></a>
 						<div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul></div>
 						</div>
@@ -3109,15 +3154,39 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 					$vertical_menu_submenu_expad_mode_type = 'vertical-submenu-position-'.$settings['vertical_menu_submenu_expad_mode_type'];
 				}
 				// Desktop Menu
-				$items_wrap = '<div class="desktop-menu-area"><ul id="%1$s" class="%2$s">%3$s</ul></div>'.$rtmega_mobile_menu_html;
+				$desktop_menu_wrap = '<div class="desktop-menu-area"><ul id="%1$s" class="%2$s">%3$s</ul></div>';
+				
+				if(!empty($settings['mobile_menu'])){
+					$items_wrap = $desktop_menu_wrap;
+				}else{
+					$items_wrap = $desktop_menu_wrap.$rtmega_mobile_menu_html;
+				}
 
 				if($settings['menu_layout'] == 'vertical'){
 					$items_wrap = $rtmega_vetical_menu_html;
 				}
 
+				$resolved_menu = $settings['menu'];
+				if ( empty( $resolved_menu ) ) {
+					$preferred_locations = [ 'primary', 'primary-menu', 'primary_menu', 'main', 'main-menu', 'main_menu' ];
+					$nav_locations = get_nav_menu_locations();
+					foreach ( $preferred_locations as $loc ) {
+						if ( ! empty( $nav_locations[ $loc ] ) ) {
+							$resolved_menu = $nav_locations[ $loc ];
+							break;
+						}
+					}
+					if ( empty( $resolved_menu ) ) {
+						$all_menus = wp_get_nav_menus();
+						if ( ! empty( $all_menus ) ) {
+							$resolved_menu = $all_menus[0]->term_id;
+						}
+					}
+				}
+
 				$args = [
 					'echo'        => false,
-					'menu'        => $settings['menu'],					
+					'menu'        => $resolved_menu,
 					'fallback_cb' => '__return_empty_string',
 					'menu_class'      => 'menu desktop-menu rtmega-megamenu vertical-submenu-expand-mode-'.$settings['vertical_menu_submenu_expad_mode'] . ' ' .$menu_layout.' '.$vertical_menu_submenu_expad_mode_type,
 					'container_class'	=> 'rtmega-elelmentor-widget menu-wrapper rtmega-menu-container rtmega-menu-area '.$class_responsvie,
@@ -3132,8 +3201,14 @@ class RTMEGA_MENU_INLINE extends Widget_Base {
 				];
 
 					echo wp_nav_menu( $args );
-
+					if( !empty($settings['mobile_menu'])){
+						$only_mobile_menu_args = $args;
+						$only_mobile_menu_args['items_wrap'] = $rtmega_mobile_menu_html;
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo apply_filters( 'rtmega_mobile_menu_render', '', $settings, $only_mobile_menu_args );
+					}
 					
+
 					if($settings['vertical_menu_expand_mode'] == 'click'){
 						
 						?>

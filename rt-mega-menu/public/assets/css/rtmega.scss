@@ -105,6 +105,10 @@ ul.menu li.menu-item-has-children:after {
     }
 
     @media (max-width: 1024px) {
+        &.has-different-mobile-menu {
+            display: none;
+        }
+
         .desktop-menu-area {
             display: none;
         }
@@ -162,7 +166,7 @@ ul.menu li.menu-item-has-children:after {
 
             .menu-link {
                 display: block;
-                display: block;
+                position: relative;
             }
 
             &.rtmega_menu {
@@ -186,13 +190,14 @@ ul.menu li.menu-item-has-children:after {
                 }
 
                 display: flex;
+                flex-direction: column;
                 background: transparent;
 
                 .menu-link {
                     line-height: 25px;
                     padding: 12px 35px 12px 25px;
                     display: block;
-                    width: 100%;
+                    width: auto;
                     background: transparent;
 
                     .menu-desc {
@@ -332,38 +337,10 @@ ul.menu li.menu-item-has-children:after {
             display: block;
         }
 
-        &.opened {
-            .overlay {
-                position: fixed;
-                width: 100%;
-                background: #000;
-                height: 100%;
-                top: 0;
-                bottom: 0;
-                opacity: 0.5;
-                z-index: 9999;
-                visibility: visible;
-                transform: translate3d(100%, 0, 0);
-                right: 100%;
-            }
-
-            .rtmega-menu-mobile-sidebar {
-                transform: translate3d(0, 0, 0);
-                transition: transform 0.8s;
-                transition-timing-function: ease;
-                transition-timing-function: cubic-bezier(0.9, 0, 0.3, 1);
-
-                ul.submenu {
-                    display: block;
-                }
-            }
-        }
-
         .rtmega-menu-mobile-sidebar {
             position: fixed;
             z-index: 99999;
             width: 80%;
-            right: 0;
             top: 0;
             height: 100%;
             background: #fff;
@@ -376,10 +353,10 @@ ul.menu li.menu-item-has-children:after {
             overflow-y: auto;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
             height: 100vh;
+            box-sizing: border-box;
 
             .rtmega-menu-mobile-close {
                 position: absolute;
-                left: 0;
                 top: 0px;
                 background: var(--primaryColor);
                 color: #000;
@@ -399,8 +376,87 @@ ul.menu li.menu-item-has-children:after {
                 }
             }
 
+            &.position-left {
+                right: unset;
+                left: 0;
+                transform: translate3d(-520px, 0, 0);
+
+                .rtmega-menu-mobile-close {
+                    left: unset;
+                    right: 0;
+                }
+            }
+
+            &.position-right {
+                right: 0;
+                left: unset;
+                transform: translate3d(520px, 0, 0);
+
+                .rtmega-menu-mobile-close {
+                    right: unset;
+                    left: 0;
+                }
+            }
+
+            &.position-top {
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                transform: translate3d(0, -102%, 0);
+
+                .rtmega-menu-mobile-close {
+                    left: unset;
+                    right: 0;
+                }
+            }
+
             ul.rtmega-megamenu {
                 padding: 0px 0 30px 0;
+            }
+        }
+
+        &.opened {
+            .overlay {
+                position: fixed;
+                width: 100%;
+                background: #000;
+                height: 100%;
+                top: 0;
+                bottom: 0;
+                opacity: 0.5;
+                z-index: 9999;
+                visibility: visible;
+                transform: translate3d(100%, 0, 0);
+                right: 100%;
+            }
+
+            .rtmega-menu-mobile-sidebar {
+                &.position-left {
+                    right: unset;
+                    left: 0;
+                    transform: translate3d(0, 0, 0);
+
+                }
+
+                &.position-right {
+                    left: unset;
+                    right: 0;
+                    transform: translate3d(0, 0, 0);
+                }
+
+                &.position-top {
+                    transform: translate3d(0, 0, 0);
+                }
+
+                transition: transform 0.8s;
+                transition-timing-function: ease;
+                transition-timing-function: cubic-bezier(0.9, 0, 0.3, 1);
+
+                ul.submenu {
+                    display: block;
+                }
             }
         }
 

@@ -1,14 +1,14 @@
 function openRTMEGAmobile() {
-    document.querySelector('.enabled-mobile-menu .mobile-menu-area').classList.add('opened');
-    event.preventDefault();
+    document.querySelectorAll('.enabled-mobile-menu .mobile-menu-area').forEach(element => {
+        element.classList.add('opened');
+    });
 }
 
 function closeRTMEGAmobile() {
-    document.querySelector('.enabled-mobile-menu .mobile-menu-area').classList.remove('opened');
-    event.preventDefault();
+    document.querySelectorAll('.enabled-mobile-menu .mobile-menu-area').forEach(element => {
+        element.classList.remove('opened');
+    });
 }
-
-
 (function ($) {
 
     RTmegaMenu = {

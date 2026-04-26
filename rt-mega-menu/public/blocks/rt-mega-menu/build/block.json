@@ -72,6 +72,10 @@
       "type": "boolean",
       "default": true
     },
+    "mobileMenuOpenPosition": {
+      "type": "string",
+      "default": "right"
+    },
     "mobileMenuIcon": {
       "type": "string",
       "default": "fas fa-bars"
@@ -250,6 +254,10 @@
     "boxShadowColor": {
       "type": "string",
       "default": "rgba(0,0,0,0.1)"
+    },
+    "mobileMenuSlug": {
+      "type": "string",
+      "default": ""
     }
   },
   "textdomain": "rt-mega-menu",

@@ -93,6 +93,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         $classes[] = 'menu-item-has-children rtmega_menu'.' has-'.$RTMEGA_menu_full_width;
     }
 
+    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter; must be called by its core name.
     $class_names = esc_attr( implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) ) );
 
     // Build HTML.
@@ -173,6 +174,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         $attributes,
         $args->link_before,
         $menu_description,
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter; must be called by its core name.
         apply_filters( 'the_title', '<div class="menu-text">'.$vertical_menu_custom_icon.$icon.'<span>'.$item->title.'</span>'.$pointer_hover_effect.$dropdown_icon.$vertical_icon.'</div>', $item->ID ),
         $args->link_after,
         $args->after
@@ -195,6 +197,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
    
     $item_output = apply_filters( 'rtmega_walker_output', $item_output, $item, $args, $attributes, $extras );
+    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter; must be called by its core name.
     $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 
   }
@@ -220,6 +223,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     }else{
         $content_post = get_post( $template_id );
         if ( $content_post ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter; must be called by its core name.
             return apply_filters( 'the_content', $content_post->post_content );
         }
         return '';

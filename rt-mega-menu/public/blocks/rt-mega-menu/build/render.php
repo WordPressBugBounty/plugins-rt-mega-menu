@@ -1,7 +1,12 @@
 <?php
 /**
  * Render callback for the RT Mega Menu block.
+ *
+ * All $-variables in this file are local to the render callback scope (not globals),
+ * so the non-prefixed-variable sniff is disabled for the whole file.
  */
+
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,6 +31,18 @@ $submenu_icon_style = isset($attributes['submenu_icon_style']) ? $attributes['su
 $vertical_active_menu_style = isset($attributes['vertical_active_menu_style']) ? $attributes['vertical_active_menu_style'] : 'icon1';
 $pointer_menu_item = isset($attributes['pointer_menu_item']) ? $attributes['pointer_menu_item'] : 'none';
 $enableMobileMenu = isset($attributes['enableMobileMenu']) ? $attributes['enableMobileMenu'] : false;
+$mobileMenuSlug = isset($attributes['mobileMenuSlug']) ? $attributes['mobileMenuSlug'] : '';
+$mobileMenuOpenPosition = isset($attributes['mobileMenuOpenPosition']) ? $attributes['mobileMenuOpenPosition'] : 'right';
+
+$mobileMenuOpenPositionClass = 'position-right';
+if($mobileMenuOpenPosition == 'left'){
+    $mobileMenuOpenPositionClass = 'position-left';
+}elseif($mobileMenuOpenPosition == 'right'){
+    $mobileMenuOpenPositionClass = 'position-right';
+}elseif($mobileMenuOpenPosition == 'top'){
+    $mobileMenuOpenPositionClass = 'position-top';
+}
+
 
 
 // --- Style handling ---
@@ -186,6 +203,7 @@ $class_responsvie =  $enableMobileMenu == true ? 'enabled-mobile-menu': 'enabled
 $class_responsvie .=  $menu_layout == 'vertical' ? ' enabled-vertical-menu': '';
 $menu_class = 'menu desktop-menu rtmega-megamenu vertical-submenu-expand-mode-click ' . $menu_layout;
 $container_class = 'rtmega-menu-container rtmega-menu-area ' . $class_responsvie;
+$container_class .=  !empty($mobileMenuSlug) ? ' has-different-mobile-menu': '';
 
 if ($menu_layout == 'vertical') {
     $container_class .= ' enabled-vertical-menu';
@@ -196,7 +214,7 @@ $rtmega_mobile_menu_html = '';
 if($enableMobileMenu){
     $rtmega_mobile_menu_html = '<div class="mobile-menu-area '.$unique_id.'">
     <div class="overlay" onclick="closeRTMEGAmobile()"></div>
-    <div class="rtmega-menu-mobile-sidebar">
+    <div class="rtmega-menu-mobile-sidebar '.$mobileMenuOpenPositionClass.'">
         <a href="#" class="rtmega-menu-mobile-close" onclick="closeRTMEGAmobile()" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M317.7 402.3c3.125 3.125 3.125 8.188 0 11.31c-3.127 3.127-8.186 3.127-11.31 0L160 267.3l-146.3 146.3c-3.127 3.127-8.186 3.127-11.31 0c-3.125-3.125-3.125-8.188 0-11.31L148.7 256L2.344 109.7c-3.125-3.125-3.125-8.188 0-11.31s8.188-3.125 11.31 0L160 244.7l146.3-146.3c3.125-3.125 8.188-3.125 11.31 0s3.125 8.188 0 11.31L171.3 256L317.7 402.3z"/></svg></a>
         <div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul></div>
     </div>
@@ -259,7 +277,14 @@ if($menu_layout == 'vertical' && $attributes['vertical_menu_expand_mode'] == 'al
         </div>';
 }
 
-$items_wrap = '<div class="desktop-menu-area"><ul id="%1$s" class="%2$s">%3$s</ul></div>' . $rtmega_mobile_menu_html;
+$desktop_menu_wrap = '<div class="desktop-menu-area"><ul id="%1$s" class="%2$s">%3$s</ul></div>';
+$mobile_menu_wrap = $rtmega_mobile_menu_html;
+
+if(!empty($attributes['mobileMenuSlug'])){
+    $items_wrap = $desktop_menu_wrap;
+}else{
+    $items_wrap = $desktop_menu_wrap.$rtmega_mobile_menu_html;
+}
 
 if($menu_layout == 'vertical'){
     $items_wrap = $rtmega_vetical_menu_html;
@@ -286,6 +311,12 @@ $block_wrap_attr = get_block_wrapper_attributes( array( 'class' => 'rtmega-block
 ?>
 <div <?php echo wp_kses_post($block_wrap_attr); ?>>
     <?php echo wp_nav_menu( $menu_args ); ?>
+    <?php 
+    $only_mobile_menu_args = $menu_args;
+    $only_mobile_menu_args['items_wrap'] = $rtmega_mobile_menu_html;
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    echo apply_filters( 'rtmega_block_mobile_menu_render', '', $attributes, $only_mobile_menu_args );
+    ?>
     <?php
     if($enableMobileMenu){
         ?>

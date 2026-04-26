@@ -105,6 +105,7 @@ class RTMEGA_MENU_Template_Library{
 
             if($is_premium){
                 $license_status = '';
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- rt_mega_ prefix; part of free↔pro API contract.
                 $license_status = apply_filters( 'check_rt_mega_license_status', $license_status );
 
                 if($license_status != 'active'){

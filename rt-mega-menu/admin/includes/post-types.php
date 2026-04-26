@@ -46,6 +46,7 @@ if( !class_exists('RTMEGA_MENU_Post_Types')){
         }
 
         function rtmega_allowed_block_types_all( $allowed_blocks, $editor_context ) {
+            $rtmega_allowed_blocks = [];
             // Check the post type
             if ( isset( $editor_context->post ) && $editor_context->post->post_type === 'rtmega_menu' ) {
                 // Allowed blocks for this post type

@@ -1,15 +1,22 @@
 
 <?php
- if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+/**
+ * Admin template-list view. Variables here are template-scope locals, not globals.
+ * The 'check_rt_mega_license_status' filter has a project prefix ('rt_mega_') and
+ * is part of the free↔pro contract; renaming it would break backward compatibility.
+ */
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  ?>
 <div class="rtmega-templates-library">
     <div class="section-header">
         <h1>Templates Library</h1>
-    </div>    
+    </div>
     <div class="rtmega-templates-row">
-        <?php 
+        <?php
 
         $license_status = '';
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- rt_mega_ prefix; part of free↔pro API contract.
         $license_status = apply_filters( 'check_rt_mega_license_status', $license_status );
         $templates = RTMEGA_MENU_Template_Library::instance()->get_rtmega_templates();    
         
