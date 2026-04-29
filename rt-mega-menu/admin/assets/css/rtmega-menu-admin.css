@@ -101,6 +101,7 @@ div#rtmega-menu-setting-modal .rtmega-modal-body {
     display: block;
     margin: auto;
     width: 900px;
+    height: 665px;
     z-index: 9999;
     position: relative;
     background: var(--rtmega-primary-bg);
@@ -664,6 +665,10 @@ form#rtmega-template-imoporter-form .form-group .button {
     margin-top: 10px;
 }
 
+.rtmega-set-visibility-conditions-free {
+    margin-top: 10px !important;
+}
+
 .rtmega-set-visibility-conditions {
-    margin-bottom: 10px !important;
+    margin-top: 10px !important;
 }

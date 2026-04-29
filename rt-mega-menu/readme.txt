@@ -3,19 +3,16 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Menu
 Requires at least: 6.3
 Tested up to: 6.9
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-RT Mega Menu is a powerful WordPress mega menu plugin that lets you build responsive mega menus using Elementor or the Gutenberg editor.
+RT Mega Menu is a powerful WordPress mega menu plugin that lets you build advanced, responsive mega menus using Elementor or the Gutenberg block editor.
 
 == Description ==
 RT Mega Menu is a powerful and easy-to-use WordPress mega menu builder plugin that transforms your navigation into an engaging, highly customizable menu experience. Designed with flexibility and performance in mind, RT Mega Menu lets you create stunning mega menus using your favorite page builders—without writing a single line of code.
 
 Whether you're building a complex eCommerce navigation, a magazine layout, or a clean corporate menu, RT Mega Menu gives you the tools to do it fast and beautifully.
-
-Control your menu like never before with RT Mega Menu. Show or hide menu items based on **user role, login status, device, or location**. 
-Create smart, personalized navigation for every visitor—no coding needed. 🚀
 
 [Demo](https://rtmega.themewant.com/) | [Documentation](https://documentation.themewant.com/docs/rt-mega-menu-wordpress-plugins/) | [Upgrade to Pro](https://themewant.com/downloads/rt-mega-menu-pro/)
 
@@ -41,7 +38,6 @@ With RT Mega Menu, you’re no longer limited to basic dropdowns. Easily design 
 * **Multiple Menu Skins:** Choose from pre-designed skins or create your own using a live preview interface.
 * **Mobile Responsive:** Fully responsive and touch-friendly across all devices and screen sizes.
 * **Icon & Label:** Add icons, images, or even shortcodes to enhance each menu item visually.
-* **Menu Visibility**: You can enable disable menu item based on user ruels, device or user location. 
 * **Sticky Menu Options:** Keep menus visible while scrolling for enhanced navigation and user experience.
 * **Widget-Ready Menus:** Insert WordPress widgets directly into your mega menus—no limits.
 * **Customizable Triggers:** Choose hover or click triggers, delays, animation styles, and more.
@@ -174,6 +170,9 @@ Yes, there is a free version of the RT Mega Menu plugin available on the WordPre
 10. Menu with Map
 
 == Changelog ==
+
+= 1.4.5 =
+* Fixed: Saved value not loading for menu item visibility conditions inputs.
 
 = 1.4.4 =
 * Added: User-based menu item visibility controls.

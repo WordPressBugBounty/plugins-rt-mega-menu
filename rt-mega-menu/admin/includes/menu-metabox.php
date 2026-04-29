@@ -7,7 +7,6 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
             add_action( 'admin_footer', array( $this, 'rtmega_menu_pop_up_content' ) );
             add_action( "wp_ajax_rtmega_get_menu_switch", array ( $this, 'rtmega_get_menu_switch' ) );
             add_action( "wp_ajax_nopriv_rtmega_get_menu_switch", array ( $this, 'rtmega_get_menu_switch' ) );
-            add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'rtmega_display_menu_item_visibility_btn' ), 10, 2 );
         }
 
   
@@ -87,19 +86,6 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
                 </div>
             <?php
             echo esc_html($contents);
-        }
-
-        public function rtmega_display_menu_item_visibility_btn( $item_id, $item ) {
-            ob_start();
-            ?>
-            <hr>
-            <button type="button" class="button rtmega-set-visibility-conditions rtmega-set-visibility-conditions-free"><?php echo esc_html__( 'Visibility Conditions', 'rt-mega-menu' )?></button>
-          
-            <?php
-            $contents = ob_get_clean();
-            $contents = apply_filters( 'rtmega_menu_visibility_conditions_btn', $contents, $item_id, $item );
-            $contents =  (string) $contents; 
-            echo wp_kses_post($contents);
         }
        
     }
