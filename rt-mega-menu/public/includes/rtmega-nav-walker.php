@@ -218,7 +218,37 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     if($template_source == 'elementor'){
         $elementor = Elementor::instance();
         if( did_action( 'elementor/loaded' ) ){
-            return $elementor->frontend->get_builder_content_for_display( $template_id );
+            // Snapshot the current styles queue so we can diff after firing
+            // Elementor's atomic-widget styles pipeline.
+            $styles_before = wp_styles()->queue;
+
+            // Register the template with Elementor's Atomic_Styles_Manager.
+            // Atomic widgets (V4) deliver CSS via a separate pipeline that
+            // get_builder_content_for_display() does not trigger on its own.
+            do_action( 'elementor/post/render', $template_id );
+
+            // Render content with classic Post_CSS inlined.
+            $content = $elementor->frontend->get_builder_content_for_display( $template_id, true );
+
+            // Force Atomic_Styles_Manager to render and enqueue the atomic
+            // CSS files for this template now (rather than waiting for a
+            // hook that already fired on wp_enqueue_scripts with only the
+            // host post id, or never fires on non-Elementor host pages).
+            do_action( 'elementor/frontend/after_enqueue_post_styles' );
+
+            // Walker runs mid-body, so wp_head is gone and we can't rely on
+            // WordPress to print late-enqueued styles. Print <link> tags
+            // inline for any newly-enqueued handles — browsers accept
+            // <link rel="stylesheet"> in the body.
+            $new_handles = array_values( array_diff( wp_styles()->queue, $styles_before ) );
+            $styles_html = '';
+            if ( ! empty( $new_handles ) ) {
+                ob_start();
+                wp_print_styles( $new_handles );
+                $styles_html = ob_get_clean();
+            }
+
+            return $styles_html . $content;
         }
     }else{
         $content_post = get_post( $template_id );
