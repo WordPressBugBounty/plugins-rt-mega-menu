@@ -161,8 +161,20 @@ ul.menu li.menu-item-has-children:after {
   display: none !important;
 }
 
+.rtmega-menu-mobile-button {
+  padding: 0;
+  background: none;
+  margin: 0;
+  border: none;
+}
 .rtmega-menu-mobile-button svg {
   width: 20px;
+}
+.rtmega-menu-mobile-button:hover, .rtmega-menu-mobile-button:focus {
+  padding: 0;
+  background: none;
+  margin: 0;
+  border: none;
 }
 
 .rtmega-menu-top-cls {
@@ -170,6 +182,7 @@ ul.menu li.menu-item-has-children:after {
 }
 
 .rtmega-menu-area {
+  width: -moz-fit-content;
   width: fit-content;
   display: flex;
 }
@@ -393,6 +406,8 @@ ul.menu li.menu-item-has-children:after {
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
   line-height: 26px;
   cursor: pointer;
+  border: none;
+  border-radius: 0px;
 }
 .rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-menu-mobile-close svg {
   height: 100%;
@@ -497,6 +512,7 @@ ul.menu li.menu-item-has-children:after {
 }
 .rtmega-menu-area .mobile-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .rtmegamenu-contents.sub-menu {
   position: relative;
+  width: -moz-fit-content;
   width: fit-content;
   z-index: 99;
 }
@@ -631,6 +647,7 @@ ul.menu li.menu-item-has-children:after {
   width: 100%;
 }
 .rtmega-menu-area .vertical-expaned-menu-area ul.rtmega-megamenu .menu-item.menu-item-has-children .rtmegamenu-contents.sub-menu {
+  width: -moz-fit-content;
   width: fit-content;
   z-index: 99;
 }
@@ -799,4 +816,17 @@ body.rtl .rtmega-menu-area .mobile-menu-area.opened .rtmega-menu-mobile-sidebar 
 body.elementor-editor-active .elementor-element-edit-mode.elementor-widget-rt-mega-navigation-menu .elementor-element-overlay .elementor-editor-element-settings {
   position: absolute;
   right: 23px;
-}/*# sourceMappingURL=rtmega.css.map */
+}
+
+.ast-mobile-header-content.opened {
+  display: block !important;
+}
+.ast-mobile-header-content .rtmega-menu-area {
+  width: 100%;
+}
+.ast-mobile-header-content .rtmega-menu-area .mobile-menu-area {
+  width: 100%;
+}
+.ast-mobile-header-content .rtmega-menu-area .mobile-menu-area li {
+  line-height: 3;
+}

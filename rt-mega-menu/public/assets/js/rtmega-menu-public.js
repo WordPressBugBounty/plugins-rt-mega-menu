@@ -16,8 +16,19 @@ function closeRTMEGAmobile() {
             this.enableAccordion();
             this.enableHeaderScript();
             $(document)
-                .on('click.RTmegaMenu', '.rtmega-menu-vertical-expand-button-wrapper a', this.expandVerticalMenu)
+                .on('click.RTmegaMenu', '.rtmega-menu-vertical-expand-button-wrapper button', this.expandVerticalMenu)
                 .on('click.RTmegaMenu', '.rtmega-menu-top-style-cls', this.closeRTMEGAmobile_top);
+
+            // compatible with astra theme mobile menu
+            $(document).on('click.RTmegaMenu', '.ast-mobile-header-wrap .main-header-menu-toggle', this.openCloseRTMEGAmobile_astra);
+
+        },
+        openCloseRTMEGAmobile_astra: function (e) {
+            e.preventDefault();
+            console.log("openRTMEGAmobile_astra");
+            document.querySelectorAll('.ast-mobile-header-wrap .ast-mobile-header-content').forEach(element => {
+                element.classList.toggle('opened');
+            });
         },
         expandVerticalMenu: function (e) {
             e.preventDefault();

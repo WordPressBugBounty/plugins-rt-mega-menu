@@ -315,7 +315,7 @@ $block_wrap_attr = get_block_wrapper_attributes( array( 'class' => 'rtmega-block
     $only_mobile_menu_args = $menu_args;
     $only_mobile_menu_args['items_wrap'] = $rtmega_mobile_menu_html;
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo apply_filters( 'rtmega_block_mobile_menu_render', '', $attributes, $only_mobile_menu_args );
+    echo wp_kses_post( apply_filters( 'rtmega_block_mobile_menu_render', '', $attributes, $only_mobile_menu_args ) );
     ?>
     <?php
     if($enableMobileMenu){
@@ -324,19 +324,19 @@ $block_wrap_attr = get_block_wrapper_attributes( array( 'class' => 'rtmega-block
                 <?php
                 if(isset($attributes['mobileMenuIcon']) && !empty($attributes['mobileMenuIcon'])){
                     ?>
-                    <a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
+                    <button class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
                         <i class="<?php echo esc_attr($attributes['mobileMenuIcon']); ?>" aria-hidden="true"></i>
-                    </a>
+                    </button>
                     <?php
                 }else{
                     ?>
-                    <a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
+                    <button class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="14" width="18" height="2" fill="#000000"></rect>
                             <rect y="7" width="18" height="2" fill="#000000"></rect>
                             <rect width="18" height="2" fill="#000000"></rect>
                         </svg>
-                    </a>
+                    </button>
                     <?php
                 }
                 ?>								
@@ -351,25 +351,25 @@ $block_wrap_attr = get_block_wrapper_attributes( array( 'class' => 'rtmega-block
                 
                 <?php
                 if(!empty($attributes['vertical_menu_toggle_icon'])){ ?>
-                    <a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+                    <button class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
                         <i class="<?php echo esc_attr($attributes['vertical_menu_toggle_icon']); ?>" aria-hidden="true"></i>
-                    </a>
+                    </button>
                 <?php } else {
                     if(isset($attributes['mobileMenuIcon']) && !empty($attributes['mobileMenuIcon'])){
                         ?>
-                        <a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+                        <button class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
                             <i class="<?php echo esc_attr($attributes['mobileMenuIcon']); ?>" aria-hidden="true"></i>
-                        </a>
+                        </button>
                         <?php
                     }else{
                         ?>
-                        <a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+                        <button class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
                             <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect y="14" width="18" height="2" fill="#000000"></rect>
                                 <rect y="7" width="18" height="2" fill="#000000"></rect>
                                 <rect width="18" height="2" fill="#000000"></rect>
                             </svg>
-                        </a>
+                        </button>
                         <?php
                     }
                 }

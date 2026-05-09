@@ -215,7 +215,7 @@ if($enableMobileMenu){
     $rtmega_mobile_menu_html = '<div class="mobile-menu-area '.$unique_id.'">
     <div class="overlay" onclick="closeRTMEGAmobile()"></div>
     <div class="rtmega-menu-mobile-sidebar '.$mobileMenuOpenPositionClass.'">
-        <a href="#" class="rtmega-menu-mobile-close" onclick="closeRTMEGAmobile()" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M317.7 402.3c3.125 3.125 3.125 8.188 0 11.31c-3.127 3.127-8.186 3.127-11.31 0L160 267.3l-146.3 146.3c-3.127 3.127-8.186 3.127-11.31 0c-3.125-3.125-3.125-8.188 0-11.31L148.7 256L2.344 109.7c-3.125-3.125-3.125-8.188 0-11.31s8.188-3.125 11.31 0L160 244.7l146.3-146.3c3.125-3.125 8.188-3.125 11.31 0s3.125 8.188 0 11.31L171.3 256L317.7 402.3z"/></svg></a>
+        <button type="button" class="rtmega-menu-mobile-close" onclick="closeRTMEGAmobile()" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M317.7 402.3c3.125 3.125 3.125 8.188 0 11.31c-3.127 3.127-8.186 3.127-11.31 0L160 267.3l-146.3 146.3c-3.127 3.127-8.186 3.127-11.31 0c-3.125-3.125-3.125-8.188 0-11.31L148.7 256L2.344 109.7c-3.125-3.125-3.125-8.188 0-11.31s8.188-3.125 11.31 0L160 244.7l146.3-146.3c3.125-3.125 8.188-3.125 11.31 0s3.125 8.188 0 11.31L171.3 256L317.7 402.3z"/></svg></button>
         <div class="rtmega-menu-mobile-navigation"><ul id="%1$s" class="%2$s">%3$s</ul></div>
     </div>
 </div>';
@@ -324,19 +324,19 @@ $block_wrap_attr = get_block_wrapper_attributes( array( 'class' => 'rtmega-block
                 <?php
                 if(isset($attributes['mobileMenuIcon']) && !empty($attributes['mobileMenuIcon'])){
                     ?>
-                    <a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
+                    <button class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">										
                         <i class="<?php echo esc_attr($attributes['mobileMenuIcon']); ?>" aria-hidden="true"></i>
-                    </a>
+                    </button>
                     <?php
                 }else{
                     ?>
-                    <a href="#" class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
+                    <button class="rtmega-menu-mobile-button" onclick="openRTMEGAmobile()" aria-label="Open Menu">
                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="14" width="18" height="2" fill="#000000"></rect>
                             <rect y="7" width="18" height="2" fill="#000000"></rect>
                             <rect width="18" height="2" fill="#000000"></rect>
                         </svg>
-                    </a>
+                    </button>
                     <?php
                 }
                 ?>								
@@ -351,25 +351,25 @@ $block_wrap_attr = get_block_wrapper_attributes( array( 'class' => 'rtmega-block
                 
                 <?php
                 if(!empty($attributes['vertical_menu_toggle_icon'])){ ?>
-                    <a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+                    <button class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
                         <i class="<?php echo esc_attr($attributes['vertical_menu_toggle_icon']); ?>" aria-hidden="true"></i>
-                    </a>
+                    </button>
                 <?php } else {
                     if(isset($attributes['mobileMenuIcon']) && !empty($attributes['mobileMenuIcon'])){
                         ?>
-                        <a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+                        <button class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
                             <i class="<?php echo esc_attr($attributes['mobileMenuIcon']); ?>" aria-hidden="true"></i>
-                        </a>
+                        </button>
                         <?php
                     }else{
                         ?>
-                        <a href="#" class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
+                        <button class="rtmega-menu-mobile-button" widget_id='<?php echo esc_attr( $unique_id )?>'>
                             <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect y="14" width="18" height="2" fill="#000000"></rect>
                                 <rect y="7" width="18" height="2" fill="#000000"></rect>
                                 <rect width="18" height="2" fill="#000000"></rect>
                             </svg>
-                        </a>
+                        </button>
                         <?php
                     }
                 }
