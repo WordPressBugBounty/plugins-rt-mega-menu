@@ -3,7 +3,7 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Menu
 Requires at least: 6.3
 Tested up to: 6.9
-Stable tag: 1.4.7
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,12 @@ Yes, there is a free version of the RT Mega Menu plugin available on the WordPre
 10. Menu with Map
 
 == Changelog ==
+
+= 1.4.9 =
+* Improved: Updated external libraries
+
+= 1.4.8 =
+* Fixed: Astra Theme Mobile Submenu Menu not opening issue.
 
 = 1.4.7 =
 * Fixed: Seo Analysis issue menu toggle button

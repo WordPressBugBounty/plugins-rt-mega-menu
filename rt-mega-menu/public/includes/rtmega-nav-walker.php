@@ -225,6 +225,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
             // Register the template with Elementor's Atomic_Styles_Manager.
             // Atomic widgets (V4) deliver CSS via a separate pipeline that
             // get_builder_content_for_display() does not trigger on its own.
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Elementor core hook; must be called by its declared name.
             do_action( 'elementor/post/render', $template_id );
 
             // Render content with classic Post_CSS inlined.
@@ -234,6 +235,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
             // CSS files for this template now (rather than waiting for a
             // hook that already fired on wp_enqueue_scripts with only the
             // host post id, or never fires on non-Elementor host pages).
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Elementor core hook; must be called by its declared name.
             do_action( 'elementor/frontend/after_enqueue_post_styles' );
 
             // Walker runs mid-body, so wp_head is gone and we can't rely on

@@ -441,7 +441,7 @@ ul.menu li.menu-item-has-children:after {
                 top: 0;
                 bottom: 0;
                 opacity: 0.5;
-                z-index: 9999;
+                z-index: 9;
                 visibility: visible;
                 transform: translate3d(100%, 0, 0);
                 right: 100%;
@@ -468,10 +468,10 @@ ul.menu li.menu-item-has-children:after {
                 transition: transform 0.8s;
                 transition-timing-function: ease;
                 transition-timing-function: cubic-bezier(0.9, 0, 0.3, 1);
+            }
 
-                ul.submenu {
-                    display: block;
-                }
+            ul.submenu {
+                display: block;
             }
         }
 
@@ -928,6 +928,7 @@ body.elementor-editor-active .elementor-element-edit-mode.elementor-widget-rt-me
 
         .mobile-menu-area {
             width: 100%;
+
             li {
                 line-height: 3;
             }

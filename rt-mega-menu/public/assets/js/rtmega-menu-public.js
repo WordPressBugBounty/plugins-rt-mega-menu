@@ -29,6 +29,9 @@ function closeRTMEGAmobile() {
             document.querySelectorAll('.ast-mobile-header-wrap .ast-mobile-header-content').forEach(element => {
                 element.classList.toggle('opened');
             });
+            document.querySelectorAll('.ast-mobile-header-content .mobile-menu-area').forEach(element => {
+                element.classList.toggle('opened');
+            });
         },
         expandVerticalMenu: function (e) {
             e.preventDefault();
@@ -39,9 +42,9 @@ function closeRTMEGAmobile() {
             }
         },
         enableAccordion: function ($scope) {
-            var $selector = $(".rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-megamenu, .rtmega-menu-area .rtmega-megamenu.vertical.vertical-submenu-expand-mode-click");
+            var $selector = $(".rtmega-menu-area .mobile-menu-area .rtmega-megamenu, .rtmega-menu-area .rtmega-megamenu.vertical.vertical-submenu-expand-mode-click");
             if ($scope) {
-                $selector = $scope.find(".rtmega-menu-area .mobile-menu-area .rtmega-menu-mobile-sidebar .rtmega-megamenu, .rtmega-menu-area .rtmega-megamenu.vertical.vertical-submenu-expand-mode-click");
+                $selector = $scope.find(".rtmega-menu-area .mobile-menu-area .rtmega-megamenu, .rtmega-menu-area .rtmega-megamenu.vertical.vertical-submenu-expand-mode-click");
             }
             // Prevent double initialization
             $selector = $selector.not('.mg-accordion');

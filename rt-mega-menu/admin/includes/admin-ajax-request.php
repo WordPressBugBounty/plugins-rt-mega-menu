@@ -113,7 +113,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
             if(isset($_POST['menu_item_id'])){
                 $menu_item_id = sanitize_text_field(wp_unslash($_POST['menu_item_id']));
-                $active_tab_id = sanitize_text_field(wp_unslash($_POST['active_tab']));
+                $active_tab_id = isset($_POST['active_tab']) ? sanitize_text_field(wp_unslash($_POST['active_tab'])) : '';
                 $RTMEGA_menupos_left = $RTMEGA_menupos_right = $RTMEGA_menupos_top = $RTMEGA_menuwidth = $RTMEGA_menu_full_width = $rtmega_menu_item_css = '';
                 $rtmega_menu_item_settings = get_post_meta($menu_item_id, 'rtmega_menu_settings', true);
 

@@ -434,7 +434,9 @@ div#rtmega-menu-setting-modal p.form-status {
 .rtmega-templates-library .section-header h1 {
     color: #fff;
 }
-
+.rtmega-templates-library div#rtmega-menu-setting-modal .rtmega-modal-body {
+    height: fit-content;
+}
 .rtmega-templates-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

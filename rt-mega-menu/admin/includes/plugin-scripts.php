@@ -8,9 +8,6 @@ function rtmega_menu_admin_enqueue_scripts (){
     wp_enqueue_style( 'wp-color-picker');
     wp_enqueue_script( 'wp-color-picker');
 
-    // enqueue fontawesome
-    wp_enqueue_style( 'rtmegamenu-fontawesome', RTMEGA_MENU_PL_URL . 'admin/assets/lib/font-awesome/css/all.min.css', array(), RTMEGA_MENU_VERSION );
-
     wp_enqueue_style( 'rtmegamenu-admin-style', RTMEGA_MENU_PL_URL . 'admin/assets/css/rtmega-menu-admin.css', array(), RTMEGA_MENU_VERSION );
 
     $rtmega_admin_js_deps = array('jquery');
