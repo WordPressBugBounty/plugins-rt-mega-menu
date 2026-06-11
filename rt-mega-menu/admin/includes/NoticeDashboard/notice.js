@@ -1,14 +1,18 @@
 (function ($) {
     'use strict';
 
-    var DATA = window.rtmegaNoticeData || {};
+    // Must match wp_localize_script object name in NoticeDashboard.php
+    // (RTMEGANoticeData). Case matters — a mismatch silently breaks the
+    // dismiss AJAX call.
+    var DATA = window.RTMEGANoticeData || {};
 
     function persistDismiss(noticeId) {
         if (!noticeId || !DATA.ajaxUrl || !DATA.nonce) {
             return;
         }
+        // Action name must match wp_ajax_<name> in NoticeDashboard.php.
         $.post(DATA.ajaxUrl, {
-            action: 'rtmega_notice_ignore_plugin_notice',
+            action: 'RTMEGA_notice_ignore_plugin_notice',
             nonce: DATA.nonce,
             notice_id: noticeId
         });

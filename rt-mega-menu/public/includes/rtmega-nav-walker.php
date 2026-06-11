@@ -135,8 +135,9 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     $icons = str_replace($icons, $icons." ", $item->ficon);
 
     // Custom Data
+    // Menu item settings are already loaded into $rtmega_menu_item_settings above,
+    // so we reuse that instead of querying the same post meta a second time.
     $icon = $builder_content = '';
-    $item_settings = get_post_meta( $item->ID, 'rtmega_menu_settings', true );
 
     if( isset( $item->ficon ) && !empty( $item->ficon ) ){
         $icon_style = '';

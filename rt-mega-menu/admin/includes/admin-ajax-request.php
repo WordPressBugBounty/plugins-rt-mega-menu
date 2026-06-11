@@ -208,7 +208,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                                             
                                             $edit_link = $template_source == 'elementor' ? admin_url('post.php?post='. $content_tempalte .'&action=elementor') : admin_url('post.php?post='. $content_tempalte .'&action=edit');
                                             ?>
-                                            <a href="<?php echo esc_url($edit_link); ?>" id="edit-remega-selected-template" class="button" target="_blank" style="<?php echo esc_attr($elementor_library_query->have_posts() ? '' : 'display: none;'); ?>"><?php echo esc_html__('Edit Template', 'rt-mega-menu'); ?></a>
+                                            <a href="<?php echo esc_url($edit_link); ?>" id="edit-remega-selected-template" class="button" target="_blank" style="<?php echo empty($content_tempalte) ? 'display: none;' : ''; ?>"><?php echo esc_html__('Edit Template', 'rt-mega-menu'); ?></a>
                                             <a href="<?php echo esc_url(admin_url('post.php?post='. $content_tempalte .'&action=edit')) ?>" id="add-remega-template" class="button" target="_blank" style="<?php echo esc_attr($elementor_library_query->have_posts() ? '' : 'display: none;'); ?>">Add New</a>
                                            
                                         </li>

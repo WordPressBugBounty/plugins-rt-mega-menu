@@ -48,8 +48,17 @@ class rtmega_NOTICE{
     public static function get_rtmega_notice($args=[]) {
 
          $notice_source_url = RTMEGA__NOTICE__SOURCE_SITE_URL . '/wp-json/reacthemes/v1/get_rtmega_notice';
-         
-     
+
+        // Cache the remote response so this API is not requested on every admin
+        // page load. The previous behaviour fired a blocking request (up to 60s
+        // when the remote was slow) on each load. Keyed by args so different
+        // screens cache independently.
+        $cache_key = 'rtmega_notice_' . md5( wp_json_encode( $args ) );
+        $cached    = get_transient( $cache_key );
+        if ( false !== $cached ) {
+            return $cached;
+        }
+
         // Prepare the body with the page parameter
         $body = wp_json_encode($args); // Encode the array to JSON
 
@@ -57,7 +66,7 @@ class rtmega_NOTICE{
             'headers'     => [
                 'Content-Type' => 'application/json',
             ],
-            'timeout'     => 60,
+            'timeout'     => 10,
             'redirection' => 5,
             'blocking'    => true,
             'httpversion' => '1.0',
@@ -65,8 +74,18 @@ class rtmega_NOTICE{
             'data_format' => 'body',
             'body'        => $body
         ) );
-        
-        return wp_remote_retrieve_body($response); 
+
+        if ( is_wp_error( $response ) ) {
+            // Cache the failure briefly so a slow/unreachable remote does not
+            // block every admin page load while it is down.
+            set_transient( $cache_key, '', 10 * MINUTE_IN_SECONDS );
+            return '';
+        }
+
+        $notice_body = wp_remote_retrieve_body( $response );
+        set_transient( $cache_key, $notice_body, 12 * HOUR_IN_SECONDS );
+
+        return $notice_body;
     }
 
     public function expire_notice_by_date($notice_id, $expire_timestamp){

@@ -16,7 +16,7 @@
                 .on('click.RTMegaMenuAdmin', '.rtmega-set-visibility-conditions-free', this.alertForLicenseActive)
                 .on('click.RTMegaMenuAdmin', '.rtmega-notice .notice-dismiss', this.ignorePluginNotice)
                 .on('change.RTMegaMenuAdmin', '#rtmega-template-source-select', this.templateSourceChange)
-                .on('click.RTMegaMenuAdmin', '#rtmega-create-new-template', this.createNewTemplate)
+                .on('click.RTMegaMenuAdmin', '#add-remega-template, #rtmega-create-new-template', this.createNewTemplate)
                 .on('change.RTMegaMenuAdmin', '#rtmega-template-select', this.templateChange)
                 ;
         },
@@ -338,7 +338,7 @@
                 }
             });
         },
-        templateChange: function () {
+        templateChange: function (event) {
             // prevent default
             event.preventDefault();
             const template_select = $('#rtmega-menu-setting-modal #rtmega-template-select');
@@ -353,7 +353,7 @@
                 $('#rtmega-menu-setting-modal #edit-remega-selected-template').hide();
             }
         },
-        createNewTemplate: function () {
+        createNewTemplate: function (event) {
 
             // prevent default
             event.preventDefault();
@@ -361,6 +361,10 @@
             const menu_item_id = $('.save-rt-menu-item-options').attr('data-menu_item_id');
             const template_source = $('#rtmega-template-source-select').val();
             const template_select = $('#rtmega-menu-setting-modal #rtmega-template-select');
+
+            console.log('template_source', template_source);
+            console.log('template_select', template_select);
+            
 
             RTMegaMenuAdmin.showMegaMenuModalAjaxLoader($(this));
 

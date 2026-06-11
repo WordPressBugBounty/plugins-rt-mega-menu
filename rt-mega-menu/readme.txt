@@ -3,7 +3,7 @@ Contributors: themewant
 Tags: Mega menu, Elementor, Widget, Megamenu, Menu
 Requires at least: 6.3
 Tested up to: 7.0
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,10 @@ Yes, there is a free version of the RT Mega Menu plugin available on the WordPre
 10. Menu with Map
 
 == Changelog ==
+
+= 1.5.1 =
+* Improved: Speed Optimization 
+* Fixed: Gutenberg blocks not showing issues
 
 = 1.5.0 =
 * Added: Admin Story Notice
