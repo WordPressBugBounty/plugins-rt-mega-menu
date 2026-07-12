@@ -6,13 +6,16 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
         function __construct(){
             add_action( 'admin_footer', array( $this, 'rtmega_menu_pop_up_content' ) );
             add_action( "wp_ajax_rtmega_get_menu_switch", array ( $this, 'rtmega_get_menu_switch' ) );
-            add_action( "wp_ajax_nopriv_rtmega_get_menu_switch", array ( $this, 'rtmega_get_menu_switch' ) );
         }
 
   
         public function rtmega_get_menu_switch (){
 
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
+
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to manage menu options.', 'rt-mega-menu' ) ) );
+            }
 
             $selected_menu_id = isset( $_REQUEST['menu_id'] ) ? absint( $_REQUEST['menu_id'] ) : 0;
 

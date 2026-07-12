@@ -194,12 +194,12 @@ class RTMEGA_NoticeDashboard {
             return false;
         }
         if ( ! isset( $GLOBALS['thewtmc_noticebar_claims'] ) ) {
-            $GLOBALS['thewtmc_noticebar_claims'] = array();
+            $GLOBALS['thewtmc_noticebar_claims'] = array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Intentionally shared cross-plugin claim pool; must use the same name across ThemeWant plugins.
         }
         if ( isset( $GLOBALS['thewtmc_noticebar_claims'][ $notice_id ] ) ) {
             return false;
         }
-        $GLOBALS['thewtmc_noticebar_claims'][ $notice_id ] = true;
+        $GLOBALS['thewtmc_noticebar_claims'][ $notice_id ] = true; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Intentionally shared cross-plugin claim pool; must use the same name across ThemeWant plugins.
         return true;
     }
 
@@ -316,7 +316,7 @@ class RTMEGA_NoticeDashboard {
         // empty after dedup. If nothing is left for us to render, skip
         // registering the widget entirely.
         if ( ! isset( $GLOBALS['thewtmc_widget_claims'] ) ) {
-            $GLOBALS['thewtmc_widget_claims'] = array();
+            $GLOBALS['thewtmc_widget_claims'] = array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Intentionally shared cross-plugin claim pool; must use the same name across ThemeWant plugins.
         }
 
         $notices         = $this->fetch_widget_notices_once();
@@ -334,7 +334,7 @@ class RTMEGA_NoticeDashboard {
             if ( $this->get_notice_status( $id ) === 'true' ) {
                 continue;
             }
-            $GLOBALS['thewtmc_widget_claims'][ $id ] = true;
+            $GLOBALS['thewtmc_widget_claims'][ $id ] = true; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Intentionally shared cross-plugin claim pool; must use the same name across ThemeWant plugins.
             $this->my_widget_notice_ids[ $id ]       = true;
         }
 

@@ -21,7 +21,6 @@ class RTMEGA_MENU_Template_Library{
         if ( is_admin() ) {
             add_action( 'admin_menu', [ $this, 'admin_menu' ], 225 );
             add_action( 'wp_ajax_import_rtmega_template', [ $this, 'import_rtmega_template' ] );
-            add_action( 'wp_ajax_nopriv_import_rtmega_template', [ $this, 'import_rtmega_template' ] );
         }        
 
         self::$api_args = [
@@ -93,6 +92,10 @@ class RTMEGA_MENU_Template_Library{
     function import_rtmega_template(){
 
        check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
+
+        if ( ! current_user_can( 'edit_posts' ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to import templates.', 'rt-mega-menu' ) ) );
+        }
 
         if ( isset( $_REQUEST ) ) {
 

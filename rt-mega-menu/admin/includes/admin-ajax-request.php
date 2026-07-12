@@ -34,7 +34,11 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
         public function rtmega_update_menu_options() {
 
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
-        
+
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to manage menu options.', 'rt-mega-menu' ) ) );
+            }
+
             if (!isset($_POST['settings'], $_POST['actualAction'])) {
                 wp_send_json_error(['message' => esc_html__('Invalid request.', 'rt-mega-menu')]);
                 wp_die();
@@ -60,9 +64,20 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                     wp_die();
                 }
         
-                $menu_item_id = sanitize_text_field(wp_unslash($_POST['menu_item_id']));
+                $menu_item_id = absint( wp_unslash( $_POST['menu_item_id'] ) );
+                if ( ! $menu_item_id || 'nav_menu_item' !== get_post_type( $menu_item_id ) ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'Invalid menu item.', 'rt-mega-menu' ) ) );
+                }
+                
                 $settings   = !empty($_POST['settings'])   ? array_map('sanitize_text_field', (array) wp_unslash($_POST['settings']))   : [];
                 $css        = !empty($_POST['css'])        ? array_map('sanitize_text_field', (array) wp_unslash($_POST['css']))        : [];
+              
+                foreach ( array( 'left', 'right', 'top', 'width' ) as $rtmega_css_key ) {
+                    if ( isset( $css[ $rtmega_css_key ] ) ) {
+                        $css[ $rtmega_css_key ] = $this->rtmega_validate_css_value( $css[ $rtmega_css_key ] );
+                    }
+                }
+                
                 $conditions = !empty($_POST['conditions']) ? array_map('sanitize_text_field', (array) wp_unslash($_POST['conditions'])) : [];
 
                 update_post_meta($menu_item_id, 'rtmega_menu_settings', ['switch' => 'on', 'content' => $settings, 'css' => $css, 'conditions' => $conditions]);
@@ -77,11 +92,54 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
         }
         
 
+        /**
+         * Validate a CSS length/position value before it is stored.
+         *
+         * Accepts a single numeric value with an optional CSS unit (e.g. 100px,
+         * 50%, -20px, 1.5rem, 0), a small set of safe keywords, or a simple
+         * calc() expression. Anything else is discarded (returns '').
+         *
+         * @param mixed $value Raw value.
+         * @return string Safe value or empty string.
+         */
+        private function rtmega_validate_css_value( $value ) {
+            $value = trim( (string) $value );
+
+            if ( '' === $value ) {
+                return '';
+            }
+
+            $keywords = array( 'auto', 'inherit', 'initial', 'unset', 'revert', 'none', 'fit-content', 'max-content', 'min-content' );
+            if ( in_array( strtolower( $value ), $keywords, true ) ) {
+                return strtolower( $value );
+            }
+
+            // Single number with an optional CSS unit, e.g. 100px, 50%, -20px, 1.5rem, 0.
+            if ( preg_match( '/^-?(?:\d+(?:\.\d+)?|\.\d+)(?:px|%|em|rem|vw|vh|vmin|vmax|ex|ch|cm|mm|in|pt|pc|q|fr)?$/i', $value ) ) {
+                return $value;
+            }
+
+            // Simple calc() expression containing only safe characters.
+            if ( preg_match( '/^calc\(\s*[0-9a-z.%+\-*\/\s()]+\)$/i', $value ) ) {
+                return $value;
+            }
+
+            return '';
+        }
+
         public function rtmega_set_menu_item_mega_button() {
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
+
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to manage menu options.', 'rt-mega-menu' ) ) );
+            }
+
             if(isset($_POST['menu_item_id'])){
 
-                $menu_item_id = sanitize_text_field(wp_unslash($_POST['menu_item_id']));
+                $menu_item_id = absint( wp_unslash( $_POST['menu_item_id'] ) );
+                if ( ! $menu_item_id || 'nav_menu_item' !== get_post_type( $menu_item_id ) ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'Invalid menu item.', 'rt-mega-menu' ) ) );
+                }
                 $rtmega_menu_item_settings = get_post_meta( $menu_item_id, 'rtmega_menu_settings', true );
 
                 wp_send_json_success( $rtmega_menu_item_settings ) ;
@@ -92,9 +150,17 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
         public function rtmega_delete_menu_options() {
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
+
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to manage menu options.', 'rt-mega-menu' ) ) );
+            }
+
             if(isset($_POST['menu_item_id'])){
 
-                $menu_item_id = sanitize_text_field(wp_unslash($_POST['menu_item_id']));
+                $menu_item_id = absint( wp_unslash( $_POST['menu_item_id'] ) );
+                if ( ! $menu_item_id || 'nav_menu_item' !== get_post_type( $menu_item_id ) ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'Invalid menu item.', 'rt-mega-menu' ) ) );
+                }
                 $rtmega_menu_item_settings = get_post_meta( $menu_item_id, 'rtmega_menu_settings', true );
 
                 if(isset($rtmega_menu_item_settings)){
@@ -111,8 +177,15 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
 
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to manage menu options.', 'rt-mega-menu' ) ) );
+            }
+
             if(isset($_POST['menu_item_id'])){
-                $menu_item_id = sanitize_text_field(wp_unslash($_POST['menu_item_id']));
+                $menu_item_id = absint( wp_unslash( $_POST['menu_item_id'] ) );
+                if ( ! $menu_item_id || 'nav_menu_item' !== get_post_type( $menu_item_id ) ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'Invalid menu item.', 'rt-mega-menu' ) ) );
+                }
                 $active_tab_id = isset($_POST['active_tab']) ? sanitize_text_field(wp_unslash($_POST['active_tab'])) : '';
                 $RTMEGA_menupos_left = $RTMEGA_menupos_right = $RTMEGA_menupos_top = $RTMEGA_menuwidth = $RTMEGA_menu_full_width = $rtmega_menu_item_css = '';
                 $rtmega_menu_item_settings = get_post_meta($menu_item_id, 'rtmega_menu_settings', true);
@@ -297,6 +370,11 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
         public function rtmega_get_templates_data_by_source() {
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
+
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to manage menu options.', 'rt-mega-menu' ) ) );
+            }
+
             if(isset($_POST['template_source'])){
 
                 $template_source = sanitize_text_field(wp_unslash($_POST['template_source']));

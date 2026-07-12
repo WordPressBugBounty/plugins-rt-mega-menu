@@ -54,18 +54,27 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
         $css = $rtmega_menu_item_settings['css'];
     
+        // Whitelist each CSS length value (numeric + unit / safe keyword) so it
+        // cannot break out of the style="" attribute at render time. This also
+        // neutralises any unsafe value saved by an older plugin version, so
+        // existing menu items keep working without needing to be re-saved.
+        $rtmega_css_left  = $this->rtmega_sanitize_css_length( $css['left'] ?? '' );
+        $rtmega_css_right = $this->rtmega_sanitize_css_length( $css['right'] ?? '' );
+        $rtmega_css_top   = $this->rtmega_sanitize_css_length( $css['top'] ?? '' );
+        $rtmega_css_width = $this->rtmega_sanitize_css_length( $css['width'] ?? '' );
+
         // Assign class properties based on menu item settings
-        $this->RTMEGA_menupos_left = $css['left'] ?? '';
-        $this->RTMEGA_menupos_right = $css['right'] ?? '';
-        $this->RTMEGA_menupos_top = $css['top'] ?? '';
-        $this->RTMEGA_menuwidth = $css['width'] ?? '';
+        $this->RTMEGA_menupos_left = $rtmega_css_left;
+        $this->RTMEGA_menupos_right = $rtmega_css_right;
+        $this->RTMEGA_menupos_top = $rtmega_css_top;
+        $this->RTMEGA_menuwidth = $rtmega_css_width;
     
         // Format styles and class attributes
         $styles = '';
-        $styles .= !empty($css['left']) ? 'left:' . $css['left'] . ';' : '';
-        $styles .= !empty($css['right']) ? 'right:' . $css['right'] . ';' : '';
-        $styles .= !empty($css['top']) ? 'top:' . $css['top'] . ';' : '';
-        $styles .= !empty($css['width']) ? 'width:' . $css['width'] . ';' : '';
+        $styles .= '' !== $rtmega_css_left  ? 'left:' . $rtmega_css_left . ';' : '';
+        $styles .= '' !== $rtmega_css_right ? 'right:' . $rtmega_css_right . ';' : '';
+        $styles .= '' !== $rtmega_css_top   ? 'top:' . $rtmega_css_top . ';' : '';
+        $styles .= '' !== $rtmega_css_width ? 'width:' . $rtmega_css_width . ';' : '';
     
     }
     
@@ -142,9 +151,12 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     if( isset( $item->ficon ) && !empty( $item->ficon ) ){
         $icon_style = '';
         if( !empty( $item->ficoncolor ) ){
-            $icon_style .= 'color:#'.$item->ficoncolor.';';
+            $ficon_color = sanitize_hex_color( '#' . ltrim( (string) $item->ficoncolor, '#' ) );
+            if ( $ficon_color ) {
+                $icon_style .= 'color:' . $ficon_color . ';';
+            }
         }
-        $icon = '<span class="icon-before"><i class="'.$icons.'" style="'.$icon_style.'"></i></span>';
+        $icon = '<span class="icon-before"><i class="'. esc_attr( $icons ) .'" style="'. esc_attr( $icon_style ) .'"></i></span>';
     }
 
 
@@ -162,7 +174,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     $menu_description = '';
     if(!empty($item->description)){
-        $menu_description = '<span class="menu-desc">' . $item->description . '</span>';
+        $menu_description = '<span class="menu-desc">' . wp_kses( $item->description, RTMEGA_Helper::rtmega_allowed_html() ) . '</span>';
     }
 
     // Build HTML output and pass through the proper filter.
@@ -183,7 +195,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
 
     if( !empty( $builder_content ) ){
-        $item_output .= sprintf('<ul class="rtmegamenu-contents sub-menu submenu '.$RTMEGA_menu_full_width.'" style="%1s">%2s</ul>', $styles, $builder_content );
+        $item_output .= sprintf('<ul class="rtmegamenu-contents sub-menu submenu '.esc_attr( $RTMEGA_menu_full_width ).'" style="%1s">%2s</ul>', esc_attr( $styles ), $builder_content );
     }
 
 
@@ -213,36 +225,60 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
   }
 
+  /**
+   * Whitelist a CSS length/position value for safe output in a style attribute.
+   *
+   * Accepts a single numeric value with an optional CSS unit (e.g. 100px, 50%,
+   * -20px, 1.5rem, 0), a small set of safe keywords, or a simple calc()
+   * expression. Anything else — including values containing quotes, angle
+   * brackets or event-handler payloads — is discarded (returns '').
+   *
+   * @param mixed $value Raw stored value.
+   * @return string Safe value or empty string.
+   */
+  private function rtmega_sanitize_css_length( $value ) {
+    $value = trim( (string) $value );
+
+    if ( '' === $value ) {
+        return '';
+    }
+
+    $keywords = array( 'auto', 'inherit', 'initial', 'unset', 'revert', 'none', 'fit-content', 'max-content', 'min-content' );
+    if ( in_array( strtolower( $value ), $keywords, true ) ) {
+        return strtolower( $value );
+    }
+
+    // Single number with an optional CSS unit, e.g. 100px, 50%, -20px, 1.5rem, 0.
+    if ( preg_match( '/^-?(?:\d+(?:\.\d+)?|\.\d+)(?:px|%|em|rem|vw|vh|vmin|vmax|ex|ch|cm|mm|in|pt|pc|q|fr)?$/i', $value ) ) {
+        return $value;
+    }
+
+    // Simple calc() expression containing only safe characters.
+    if ( preg_match( '/^calc\(\s*[0-9a-z.%+\-*\/\s()]+\)$/i', $value ) ) {
+        return $value;
+    }
+
+    return '';
+  }
+
   // Item Builder Content
   private function getItembuilder_content( $template_id, $template_source ){
     static $elementor = null;
     if($template_source == 'elementor'){
         $elementor = Elementor::instance();
         if( did_action( 'elementor/loaded' ) ){
-            // Snapshot the current styles queue so we can diff after firing
-            // Elementor's atomic-widget styles pipeline.
+           
             $styles_before = wp_styles()->queue;
 
-            // Register the template with Elementor's Atomic_Styles_Manager.
-            // Atomic widgets (V4) deliver CSS via a separate pipeline that
-            // get_builder_content_for_display() does not trigger on its own.
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Elementor core hook; must be called by its declared name.
             do_action( 'elementor/post/render', $template_id );
 
             // Render content with classic Post_CSS inlined.
             $content = $elementor->frontend->get_builder_content_for_display( $template_id, true );
 
-            // Force Atomic_Styles_Manager to render and enqueue the atomic
-            // CSS files for this template now (rather than waiting for a
-            // hook that already fired on wp_enqueue_scripts with only the
-            // host post id, or never fires on non-Elementor host pages).
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Elementor core hook; must be called by its declared name.
             do_action( 'elementor/frontend/after_enqueue_post_styles' );
 
-            // Walker runs mid-body, so wp_head is gone and we can't rely on
-            // WordPress to print late-enqueued styles. Print <link> tags
-            // inline for any newly-enqueued handles — browsers accept
-            // <link rel="stylesheet"> in the body.
             $new_handles = array_values( array_diff( wp_styles()->queue, $styles_before ) );
             $styles_html = '';
             if ( ! empty( $new_handles ) ) {

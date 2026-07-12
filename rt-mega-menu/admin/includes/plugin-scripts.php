@@ -4,6 +4,10 @@ add_action( 'enqueue_block_editor_assets', 'rtmega_menu_admin_enqueue_scripts' )
 add_action('admin_enqueue_scripts', 'rtmega_menu_admin_enqueue_scripts');
 function rtmega_menu_admin_enqueue_scripts (){
 
+    if ( ! current_user_can( 'edit_theme_options' ) ) {
+        return;
+    }
+
     wp_enqueue_media();
     wp_enqueue_style( 'wp-color-picker');
     wp_enqueue_script( 'wp-color-picker');
@@ -27,10 +31,6 @@ function rtmega_menu_admin_enqueue_scripts (){
 
     $current_user = wp_get_current_user();
 
-    // Logic for menu data.
-    // Reading the current menu ID from the nav-menus admin URL (idempotent GET on an
-    // authenticated admin screen) so the JS can know which menu is being edited.
-    // No nonce required — this does not write state and is gated by the admin page capability.
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended
     $selected_menu_id = isset( $_REQUEST['menu'] ) ? absint( wp_unslash( $_REQUEST['menu'] ) ) : 0;
     if ( ! $selected_menu_id ) {
