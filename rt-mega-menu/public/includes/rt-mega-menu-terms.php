@@ -79,7 +79,7 @@ class RTMEGA_MENU_Term_Meta{
         } 
        
 
-        if ( isset ( $settings['enable_menu'] ) && $settings['enable_menu'] == 'on' ) {
+        if ( is_array( $settings ) && isset( $settings['enable_menu'] ) && $settings['enable_menu'] === 'on' ) {
 
 
             $mobile_btn_icon = '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">

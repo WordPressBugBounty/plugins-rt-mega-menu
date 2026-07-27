@@ -26,7 +26,10 @@ if ( ! $menu ) {
     return;
 }
 
-$menu_layout = isset($attributes['menu_layout']) ? $attributes['menu_layout'] : 'horizontal';
+$menu_layout = isset($attributes['menu_layout']) ? sanitize_html_class($attributes['menu_layout']) : 'horizontal';
+if ( ! in_array( $menu_layout, array( 'horizontal', 'vertical' ), true ) ) {
+    $menu_layout = 'horizontal';
+}
 $submenu_icon_style = isset($attributes['submenu_icon_style']) ? $attributes['submenu_icon_style'] : 'icon1';
 $vertical_active_menu_style = isset($attributes['vertical_active_menu_style']) ? $attributes['vertical_active_menu_style'] : 'icon1';
 $pointer_menu_item = isset($attributes['pointer_menu_item']) ? $attributes['pointer_menu_item'] : 'none';
@@ -238,9 +241,10 @@ if ( $attributes['vertical_menu_arrow_type'] === 'verticla_custom_menu_icon' && 
     $menu_arrow_vertical_custom = ob_get_clean();
 }
 
-$menu_expand_position = $attributes['vertical_menu_expand_position'];
-$menu_expand_position_class = ' expand-position-' . $attributes['vertical_menu_expand_position'];
-$menu_expand_overlay_position_class = ' expand-overlay-position-' . $attributes['vertical_menu_expand_overlay_position'];
+$menu_expand_position = isset($attributes['vertical_menu_expand_position']) ? sanitize_html_class($attributes['vertical_menu_expand_position']) : '';
+$menu_expand_overlay_position = isset($attributes['vertical_menu_expand_overlay_position']) ? sanitize_html_class($attributes['vertical_menu_expand_overlay_position']) : '';
+$menu_expand_position_class = ' expand-position-' . $menu_expand_position;
+$menu_expand_overlay_position_class = ' expand-overlay-position-' . $menu_expand_overlay_position;
 
 $menu_arrow_vertical_type = '';
 if ( $attributes['enable_vertical_menu_arrow'] == 'yes' && isset($attributes['vertical_menu_arrow_type']) ) {

@@ -99,8 +99,3 @@ class RTMEGA_MENU {
 	
 
 }
-
-
-
-
-

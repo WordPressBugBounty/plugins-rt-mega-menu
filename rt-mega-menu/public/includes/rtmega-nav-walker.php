@@ -12,11 +12,11 @@ use Elementor\Plugin as Elementor;
 
 class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
-  public $RTMEGA_menupos_left = '';
-  public $RTMEGA_menupos_right = '';
-  public $RTMEGA_menupos_top = '';
-  public $RTMEGA_menuwidth = '';
-  public $RTMEGA_menu_full_width = '';
+  public $rtmega_menupos_left = '';
+  public $rtmega_menupos_right = '';
+  public $rtmega_menupos_top = '';
+  public $rtmega_menuwidth = '';
+  public $rtmega_menu_full_width = '';
 
   function start_lvl( &$output, $depth = 0, $args = array() ) {
 
@@ -24,9 +24,9 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         $indent = ( $depth > 0  ? str_repeat( "\t", $depth ) : '' ); // code indent
         $display_depth = ( $depth + 1 ); // because it counts the first submenu as 0
 
-        $RTMEGA_menupos_top = !empty($RTMEGA_menupos_top) ? $RTMEGA_menupos_top : '';
-        $RTMEGA_menupos_left = !empty($RTMEGA_menupos_left) ? $RTMEGA_menupos_left : '0';
-        $RTMEGA_menupos_right = !empty($RTMEGA_menupos_right) ? $RTMEGA_menupos_right : '';
+        $rtmega_menupos_top = !empty($rtmega_menupos_top) ? $rtmega_menupos_top : '';
+        $rtmega_menupos_left = !empty($rtmega_menupos_left) ? $rtmega_menupos_left : '0';
+        $rtmega_menupos_right = !empty($rtmega_menupos_right) ? $rtmega_menupos_right : '';
 
         $style = '';
 
@@ -47,27 +47,23 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     //Tempalte
     $styles = '';
-    $RTMEGA_menu_full_width = '';
+    $rtmega_menu_full_width = '';
     $rtmega_menu_item_settings = get_post_meta( $item->ID, 'rtmega_menu_settings', true );
     
     if (isset($rtmega_menu_item_settings['css']) && $item->ID) {
 
         $css = $rtmega_menu_item_settings['css'];
     
-        // Whitelist each CSS length value (numeric + unit / safe keyword) so it
-        // cannot break out of the style="" attribute at render time. This also
-        // neutralises any unsafe value saved by an older plugin version, so
-        // existing menu items keep working without needing to be re-saved.
         $rtmega_css_left  = $this->rtmega_sanitize_css_length( $css['left'] ?? '' );
         $rtmega_css_right = $this->rtmega_sanitize_css_length( $css['right'] ?? '' );
         $rtmega_css_top   = $this->rtmega_sanitize_css_length( $css['top'] ?? '' );
         $rtmega_css_width = $this->rtmega_sanitize_css_length( $css['width'] ?? '' );
 
         // Assign class properties based on menu item settings
-        $this->RTMEGA_menupos_left = $rtmega_css_left;
-        $this->RTMEGA_menupos_right = $rtmega_css_right;
-        $this->RTMEGA_menupos_top = $rtmega_css_top;
-        $this->RTMEGA_menuwidth = $rtmega_css_width;
+        $this->rtmega_menupos_left = $rtmega_css_left;
+        $this->rtmega_menupos_right = $rtmega_css_right;
+        $this->rtmega_menupos_top = $rtmega_css_top;
+        $this->rtmega_menuwidth = $rtmega_css_width;
     
         // Format styles and class attributes
         $styles = '';
@@ -78,10 +74,6 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     
     }
     
-    
-    
-
-
     global $wp_query;
     $indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' ); // code indent
 
@@ -99,7 +91,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     // If Enable MegaMenu
     if( isset( $rtmega_menu_item_settings['content']['rtmega_template'] ) && !empty( $rtmega_menu_item_settings['content']['rtmega_template'] ) ){
-        $classes[] = 'menu-item-has-children rtmega_menu'.' has-'.$RTMEGA_menu_full_width;
+        $classes[] = 'menu-item-has-children rtmega_menu'.' has-'.$rtmega_menu_full_width;
     }
 
     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter; must be called by its core name.
@@ -143,9 +135,6 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
     $icons = substr( $item->ficon,0,3);
     $icons = str_replace($icons, $icons." ", $item->ficon);
 
-    // Custom Data
-    // Menu item settings are already loaded into $rtmega_menu_item_settings above,
-    // so we reuse that instead of querying the same post meta a second time.
     $icon = $builder_content = '';
 
     if( isset( $item->ficon ) && !empty( $item->ficon ) ){
@@ -158,10 +147,8 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         }
         $icon = '<span class="icon-before"><i class="'. esc_attr( $icons ) .'" style="'. esc_attr( $icon_style ) .'"></i></span>';
     }
-
-
     
-    
+
     if( isset( $rtmega_menu_item_settings['content']['rtmega_template'] ) && !empty( $rtmega_menu_item_settings['content']['rtmega_template'] ) ){
         $template_source = isset($rtmega_menu_item_settings['content']['template_source']) ? $rtmega_menu_item_settings['content']['template_source'] : 'elementor';
         if($template_source == 'elementor'){
@@ -174,7 +161,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
     $menu_description = '';
     if(!empty($item->description)){
-        $menu_description = '<span class="menu-desc">' . wp_kses( $item->description, RTMEGA_Helper::rtmega_allowed_html() ) . '</span>';
+        $menu_description = '<span class="menu-desc">' . wp_kses( $item->description, RTMEGA_Helper::rtmega_allowed_description_html() ) . '</span>';
     }
 
     // Build HTML output and pass through the proper filter.
@@ -195,9 +182,8 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
 
 
     if( !empty( $builder_content ) ){
-        $item_output .= sprintf('<ul class="rtmegamenu-contents sub-menu submenu '.esc_attr( $RTMEGA_menu_full_width ).'" style="%1s">%2s</ul>', esc_attr( $styles ), $builder_content );
+        $item_output .= sprintf('<ul class="rtmegamenu-contents sub-menu submenu '. esc_attr( $rtmega_menu_full_width ) .'" style="%1$s">%2$s</ul>', esc_attr( $styles ), $builder_content );
     }
-
 
     $extras = array(
         'dropdown_icon' => $dropdown_icon, 
@@ -205,7 +191,7 @@ class RTMEGA_Nav_Walker extends Walker_Nav_Menu {
         'menu_description'=> $menu_description,
         'builder_content'=> $builder_content,
         'styles_builder_content' => $styles,
-        'classes_builder_content' => $RTMEGA_menu_full_width,
+        'classes_builder_content' => $rtmega_menu_full_width,
     );
 
    

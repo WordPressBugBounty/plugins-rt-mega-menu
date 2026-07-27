@@ -17,6 +17,7 @@ function rtmega_block_categories( $block_categories, $editor_context ) {
    //}
     return $block_categories;
 }
+
 add_filter( 'block_categories_all', 'rtmega_block_categories', 999999, 2 );
 
 function rtmega_register_blocks() {
@@ -26,8 +27,8 @@ function rtmega_register_blocks() {
 }
 add_action( 'init', 'rtmega_register_blocks' );
 
-// Block editor: pro notice for mobile menu (replaced by pro plugin when active)
 add_action( 'enqueue_block_editor_assets', 'rtmega_block_mobile_menu_notice_script' );
+
 function rtmega_block_mobile_menu_notice_script() {
 	wp_register_script(
 		'rtmega-block-mobile-menu-notice',

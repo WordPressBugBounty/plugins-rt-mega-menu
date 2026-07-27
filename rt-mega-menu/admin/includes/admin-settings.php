@@ -36,14 +36,12 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                 )
             );
     
-    
             add_settings_section(    
                 'rtmega_menu_setting_section', // id    
                 '', // title    
                 array( $this, 'rtmega_menu_settings_section' ), // callback    
                 'rtmega-menu-settings' // page    
             );  
-    
     
             add_settings_field(
     
@@ -217,9 +215,6 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
                     
                 </form>
             </div>
-            
-    
-    
             <script>
                 (function($){
     
@@ -249,24 +244,16 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
     
                 })(jQuery);
             </script>
-    
-    
+
             <?php
         }
     
     
         public function rtmega_menu_settings_section (){ 
             
-            ?>
-    
-            <?php
         }
     
         public function rtmega_render_menu_opts() {
-    
-            ?>
-        
-            <?php
     
             $rtmega_settings_fields = $this->rtmega_get_settings_fields();
     
@@ -298,5 +285,6 @@ if ( ! class_exists('RTMEGA_MENU_admin_settings')) {
         }   
     
     }
+
     new RTMEGA_MENU_admin_settings();
 }

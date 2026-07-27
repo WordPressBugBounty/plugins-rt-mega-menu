@@ -98,12 +98,14 @@ class RTMEGA_NoticeDashboard {
 
         check_ajax_referer( 'RTMEGA_notice_nonce', 'nonce' );
 
+        if ( ! current_user_can( 'read' ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'rt-mega-menu' ) ) );
+        }
+
         if ( isset( $_POST['notice_id'] ) && ! empty( $_POST['notice_id'] ) ) {
 
             $notice_id = sanitize_text_field( wp_unslash( $_POST['notice_id'] ) );
 
-            // NOTE: user_meta key kept as `thewtmc_notice_ignore_*` for
-            // backward compatibility with previously dismissed notices.
             if ( $user_id && ! get_user_meta( $user_id, 'thewtmc_notice_ignore_' . $notice_id, true ) ) {
                 add_user_meta( $user_id, 'thewtmc_notice_ignore_' . $notice_id, 'true', true );
             } else {
@@ -142,12 +144,8 @@ class RTMEGA_NoticeDashboard {
             $args['plugin'] = self::PLUGIN_SLUG;
         }
 
-        // API endpoint path stays as `/get_thewtmc` because it's the server
-        // contract; renaming it would break the connection to the API.
         $notice_source_url = trailingslashit( RTMEGA_NOTICE_SOURCE_URL ) . 'wp-json/reacthemes/v1/get_thewtmc';
 
-        // Cache the remote response so this API is not requested on every admin
-        // page load (the request blocks page rendering until it returns).
         $cache_key = 'rtmega_dash_notice_' . md5( wp_json_encode( $args ) );
         $cached    = get_transient( $cache_key );
         if ( false !== $cached ) {
@@ -161,15 +159,13 @@ class RTMEGA_NoticeDashboard {
                 'timeout'     => 10,
                 'redirection' => 5,
                 'blocking'    => true,
-                'sslverify'   => false,
+                'sslverify'   => true,
                 'data_format' => 'body',
                 'body'        => wp_json_encode( $args ),
             )
         );
 
         if ( is_wp_error( $response ) ) {
-            // Cache the failure briefly so a slow/unreachable remote does not
-            // block every admin page load while it is down.
             set_transient( $cache_key, '', 10 * MINUTE_IN_SECONDS );
             return '';
         }
@@ -297,7 +293,7 @@ class RTMEGA_NoticeDashboard {
                                     </a>
                                 <?php endforeach; ?>
                             <?php endif; ?>
-                            <button type="button" class="rtmega-notice-maybe-later" data-notice_id="<?php echo esc_attr( $notice_id ); ?>">Maybe Later</button>
+                            <button type="button" class="rtmega-notice-maybe-later" data-notice_id="<?php echo esc_attr( $notice_id ); ?>"><?php esc_html_e( 'Maybe Later', 'rt-mega-menu' ); ?></button>
                         </div>
 
                     </div>
@@ -311,10 +307,6 @@ class RTMEGA_NoticeDashboard {
 
     public function RTMEGA_notice_add_to_dashboard_widget() {
 
-        // Pre-claim renderable notice IDs so two consuming plugins don't both
-        // register a "ThemeWant Stories" widget when one of them would end up
-        // empty after dedup. If nothing is left for us to render, skip
-        // registering the widget entirely.
         if ( ! isset( $GLOBALS['thewtmc_widget_claims'] ) ) {
             $GLOBALS['thewtmc_widget_claims'] = array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Intentionally shared cross-plugin claim pool; must use the same name across ThemeWant plugins.
         }
@@ -342,10 +334,6 @@ class RTMEGA_NoticeDashboard {
             return;
         }
 
-        // Register into the 'high' priority bucket — WP renders dashboard
-        // widgets in order: high → core → default → low. Putting ours in
-        // 'high' guarantees it appears above any widget registered with
-        // 'core' or lower priority.
         wp_add_dashboard_widget(
             'RTMEGA_notice_widget',
             'ThemeWant Stories',
@@ -368,22 +356,16 @@ class RTMEGA_NoticeDashboard {
 
         unset( $wp_meta_boxes['dashboard']['normal']['high']['RTMEGA_notice_widget'] );
 
-        // Prepend so our widget sits at the very top of the 'high' bucket,
-        // above any other plugin/core widget that also registered here.
         $wp_meta_boxes['dashboard']['normal']['high'] =
             $my_widget + $wp_meta_boxes['dashboard']['normal']['high'];
     }
 
     public function RTMEGA_notice_widget_callback() {
 
-        // Use the cached payload populated during wp_dashboard_setup. We only
-        // render notice IDs this instance claimed there — any IDs claimed by
-        // a sibling consuming plugin are rendered by that plugin's widget
-        // instead.
         $all_notice = $this->fetch_widget_notices_once();
 
         if ( empty( $all_notice ) || empty( $this->my_widget_notice_ids ) ) {
-            echo '<p class="rtmega-notice-widget-empty">No stories available right now.</p>';
+            echo '<p class="rtmega-notice-widget-empty">' . esc_html__( 'No stories available right now.', 'rt-mega-menu' ) . '</p>';
             return;
         }
 

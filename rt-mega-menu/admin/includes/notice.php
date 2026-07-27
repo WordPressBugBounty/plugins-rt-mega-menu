@@ -1,6 +1,5 @@
 <?php
  if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-//define('RTMEGA__NOTICE__SOURCE_SITE_URL', 'http://localhost:10035');
 define('RTMEGA__NOTICE__SOURCE_SITE_URL', 'https://themewant.com/menuicon');
 class rtmega_NOTICE{ 
 
@@ -21,8 +20,14 @@ class rtmega_NOTICE{
 
     public function rtmega_ignore_plugin_notice() {
 	
-        $user_id = get_current_user_id();
         check_ajax_referer('rtmega_nonce', 'nonce');
+
+        if ( ! current_user_can( 'read' ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'rt-mega-menu' ) ) );
+        }
+
+        $user_id = get_current_user_id();
+
         if (isset($_POST['notice_id']) && !empty($_POST['notice_id'])) {
             $notice_id = sanitize_text_field(wp_unslash($_POST['notice_id']));
 
@@ -47,12 +52,8 @@ class rtmega_NOTICE{
 
     public static function get_rtmega_notice($args=[]) {
 
-         $notice_source_url = RTMEGA__NOTICE__SOURCE_SITE_URL . '/wp-json/reacthemes/v1/get_rtmega_notice';
+        $notice_source_url = RTMEGA__NOTICE__SOURCE_SITE_URL . '/wp-json/reacthemes/v1/get_rtmega_notice';
 
-        // Cache the remote response so this API is not requested on every admin
-        // page load. The previous behaviour fired a blocking request (up to 60s
-        // when the remote was slow) on each load. Keyed by args so different
-        // screens cache independently.
         $cache_key = 'rtmega_notice_' . md5( wp_json_encode( $args ) );
         $cached    = get_transient( $cache_key );
         if ( false !== $cached ) {
@@ -70,14 +71,12 @@ class rtmega_NOTICE{
             'redirection' => 5,
             'blocking'    => true,
             'httpversion' => '1.0',
-            'sslverify'   => false,
+            'sslverify'   => true,
             'data_format' => 'body',
             'body'        => $body
         ) );
 
         if ( is_wp_error( $response ) ) {
-            // Cache the failure briefly so a slow/unreachable remote does not
-            // block every admin page load while it is down.
             set_transient( $cache_key, '', 10 * MINUTE_IN_SECONDS );
             return '';
         }
@@ -135,7 +134,6 @@ class rtmega_NOTICE{
     
                 if($notice_ignore_status != 'true' && $today_timestamp <= $expire_timestamp){
 
-                    
                     ?>
                     <div data-notice_id="<?php echo esc_attr( $notice_id )?>" id="rtmega-notice-<?php echo esc_attr( $notice_id )?>" class="rtmega-notice notice is-dismissible" expired_time="<?php echo esc_attr( $notice_id )?>" dismissible="global">
     
@@ -144,8 +142,6 @@ class rtmega_NOTICE{
                                 <img class="notice-logo" style="" src="<?php echo esc_url($thumbnail_url) ?>">
                             <?php }
                         ?>
-                        
-    
                         <div class="notice-right-container ">
                             <div class="notice-contents">
                                
@@ -209,6 +205,7 @@ class rtmega_NOTICE{
     }
     
     public function rtmega_notice_widget_callback() {
+
         $args = [
             'screen' => 'in-widget',
         ];
@@ -247,8 +244,6 @@ class rtmega_NOTICE{
                                 <img class="feature-image" style="" src="<?php echo esc_url($thumbnail_url) ?>">
                             <?php }
                         ?>
-                        
-    
                         <div class="notice-contents-wrapper">
                             <div class="notice-contents">
                                
@@ -258,7 +253,6 @@ class rtmega_NOTICE{
                                     }
                                 ?>              
                             </div>
-    
                             <?php 
                                 if(!empty($action_buttons) && count($action_buttons) > 0){
                                     

@@ -60,12 +60,16 @@ class RTMEGA_MENU_Template_Library{
             'redirection' => 5,
             'blocking'    => true,
             'httpversion' => '1.0',
-            'sslverify'   => false,
+            'sslverify'   => true,
             'data_format' => 'body',
             'body'        => $body
         ) );
-        
-        return $response['body'];
+
+        if ( is_wp_error( $response ) ) {
+            return '';
+        }
+
+        return wp_remote_retrieve_body( $response );
     }
 
     function get_rtmega_template_by_id($template_id) {
@@ -81,19 +85,23 @@ class RTMEGA_MENU_Template_Library{
            'redirection' => 5,
            'blocking'    => true,
            'httpversion' => '1.0',
-           'sslverify'   => false,
+           'sslverify'   => true,
            'body'        => $body
        ) );
-       
+
+       if ( is_wp_error( $response ) ) {
+           return array();
+       }
+
        $result = json_decode( wp_remote_retrieve_body( $response ), true );
-       return $result;
+       return is_array( $result ) ? $result : array();
    }
 
     function import_rtmega_template(){
 
        check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
 
-        if ( ! current_user_can( 'edit_posts' ) ) {
+        if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to import templates.', 'rt-mega-menu' ) ) );
         }
 
@@ -104,7 +112,12 @@ class RTMEGA_MENU_Template_Library{
 
 
             $response_data = $this->get_rtmega_template_by_id( $template_id );
-            $is_premium = $response_data['is_premium'];
+
+            if ( ! is_array( $response_data ) || empty( $response_data ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'Unable to fetch template data from the template server.', 'rt-mega-menu' ) ) );
+            }
+
+            $is_premium = ! empty( $response_data['is_premium'] );
 
             if($is_premium){
                 $license_status = '';
@@ -131,16 +144,17 @@ class RTMEGA_MENU_Template_Library{
                 'post_content' => '',
             ];
 
-            $new_post_id = wp_insert_post( $args );
+            $new_post_id = wp_insert_post( $args, true );
 
-            update_post_meta( $new_post_id, '_elementor_data', $response_data['elementor_data'] );
-            update_post_meta( $new_post_id, '_elementor_page_settings', $response_data['page_settings'] );
-            update_post_meta( $new_post_id, '_elementor_template_type', $response_data['template_type'] );
-            update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
-
-            if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
-                update_post_meta( $new_post_id, '_wp_page_template', ! empty( $response_data['page_template'] ) ? $response_data['page_template'] : 'elementor_header_footer' );
+            if ( is_wp_error( $new_post_id ) || ! $new_post_id ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'Failed to create the template.', 'rt-mega-menu' ) ) );
             }
+
+            update_post_meta( $new_post_id, '_elementor_data', isset( $response_data['elementor_data'] ) ? $response_data['elementor_data'] : '' );
+            update_post_meta( $new_post_id, '_elementor_page_settings', isset( $response_data['page_settings'] ) ? $response_data['page_settings'] : '' );
+            update_post_meta( $new_post_id, '_elementor_template_type', isset( $response_data['template_type'] ) ? $response_data['template_type'] : '' );
+            update_post_meta( $new_post_id, '_elementor_edit_mode', 'builder' );
+            update_post_meta( $new_post_id, '_wp_page_template', ! empty( $response_data['page_template'] ) ? $response_data['page_template'] : 'elementor_header_footer' );
 
             echo wp_json_encode(
                 array( 
@@ -153,8 +167,6 @@ class RTMEGA_MENU_Template_Library{
 
         die();
     }
-
-
 }
 
 RTMEGA_MENU_Template_Library::instance();

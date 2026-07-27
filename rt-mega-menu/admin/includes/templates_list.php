@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  ?>
 <div class="rtmega-templates-library">
     <div class="section-header">
-        <h1>Templates Library</h1>
+        <h1><?php esc_html_e( 'Templates Library', 'rt-mega-menu' ); ?></h1>
     </div>
     <div class="rtmega-templates-row">
         <?php
@@ -39,11 +39,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                     <div class="rtmega-templates-item">
                         
                         <?php 
-                            
                             if($is_premium){
-                                echo '<span class="template-badege badge-premium"> Premium </span>';
+                                echo '<span class="template-badege badge-premium"> ' . esc_html__( 'Premium', 'rt-mega-menu' ) . ' </span>';
                             }else{
-                                echo '<span class="template-badege badge-free"> Free </span>';
+                                echo '<span class="template-badege badge-free"> ' . esc_html__( 'Free', 'rt-mega-menu' ) . ' </span>';
                             }
                         ?>
                         
@@ -53,8 +52,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                          <div class="rt-mega-template-actions">
                                 <h4 class="template-title"><?php echo esc_html($title); ?></h4>
                                 <div class="buttons">
-                                    <a href="#" class="button preview_btn" data-thumb_url="<?php echo esc_attr($thumbnail_url);?>" title="<?php echo esc_html($title); ?>">Preview</a>
-                                    <a href="#rtmega-template-imoporter-form" data-license="<?php echo esc_attr($license_status); ?>" data-is_premium="<?php echo esc_attr( $is_premium ); ?>" class="button import_btn popup-with-form" data-template_id="<?php echo esc_attr($template_id);?>">Import</a>
+                                    <a href="#" class="button preview_btn" data-thumb_url="<?php echo esc_attr($thumbnail_url);?>" title="<?php echo esc_attr($title); ?>"><?php esc_html_e( 'Preview', 'rt-mega-menu' ); ?></a>
+                                    <a href="#rtmega-template-imoporter-form" data-license="<?php echo esc_attr($license_status); ?>" data-is_premium="<?php echo esc_attr( $is_premium ); ?>" class="button import_btn popup-with-form" data-template_id="<?php echo esc_attr($template_id);?>"><?php esc_html_e( 'Import', 'rt-mega-menu' ); ?></a>
                                 </div>
                          </div>
                      </div>
@@ -80,27 +79,27 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                 
                     <div class="importer-status success-status">
                         <img src="<?php echo esc_url(RTMEGA_MENU_PL_URL.'admin/assets/img/success.gif'); ?>" alt="Ajax Loader">
-                        <h2 class="rtmega-text-success">Successfully imported the template!</h2>
+                        <h2 class="rtmega-text-success"><?php esc_html_e( 'Successfully imported the template!', 'rt-mega-menu' ); ?></h2>
                     </div>
 
                     <div class="premium-notice">
                         <img src="<?php echo esc_url(RTMEGA_MENU_PL_URL.'admin/assets/img/premium.png'); ?>" alt="Premium Icon">
-                        <h2 class="rtmega-text-success"><?php echo esc_html_e( 'Please acivate RTMega Premium License to import this template!', 'rt-mega-menu' ) ?></h2>
-                        <h3><a href="<?php echo esc_url(RTMEGA_PRO_SITE_URL); ?>" target="_blank"><?php echo esc_html_e( 'Buy premium license', 'rt-mega-menu' ) ?></a></h3>
+                        <h2 class="rtmega-text-success"><?php esc_html_e( 'Please acivate RTMega Premium License to import this template!', 'rt-mega-menu' ); ?></h2>
+                        <h3><a href="<?php echo esc_url(RTMEGA_PRO_SITE_URL); ?>" target="_blank"><?php esc_html_e( 'Buy premium license', 'rt-mega-menu' ); ?></a></h3>
                     </div>
                     
                     <div class="form-groups">
                         <div class="form-group">
-                            <h2>Import to template library</h2>
-                            <input type="hidden" name="template-id" placeholder="Enter your page name">
-                            <a href="#" class="button button-primary import_template_btn">Import</a>
+                            <h2><?php esc_html_e( 'Import to template library', 'rt-mega-menu' ); ?></h2>
+                            <input type="hidden" name="template-id" placeholder="<?php esc_attr_e( 'Enter your page name', 'rt-mega-menu' ); ?>">
+                            <a href="#" class="button button-primary import_template_btn"><?php esc_html_e( 'Import', 'rt-mega-menu' ); ?></a>
                         </div>
                         <hr>
                         <div class="form-group">
-                            <h2>Import to a page</h2>
+                            <h2><?php esc_html_e( 'Import to a page', 'rt-mega-menu' ); ?></h2>
                             <div>
-                                <input type="text" name="page-title" placeholder="Enter your page name">
-                                <a href="#" class="button button-primary import_template_btn">Import</a>
+                                <input type="text" name="page-title" placeholder="<?php esc_attr_e( 'Enter your page name', 'rt-mega-menu' ); ?>">
+                                <a href="#" class="button button-primary import_template_btn"><?php esc_html_e( 'Import', 'rt-mega-menu' ); ?></a>
                             </div>
                         </div>
                     </div>

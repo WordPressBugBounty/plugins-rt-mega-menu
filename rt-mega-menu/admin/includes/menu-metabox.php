@@ -44,10 +44,9 @@ if ( !class_exists('RTMEGA_MENU_Nav')) {
                         value="<?php echo esc_attr( $rtmega_menu_options_switch == 'on' ? 'on' : '' ) ?>" <?php echo esc_attr( $rtmega_menu_options_switch == 'on' ? 'checked' : '' ) ?>>
                             <?php echo esc_html__( 'Enable RT Mega Menu', 'rt-mega-menu' )?>
                     </label>
-                    <p><input type="submit" class="button button-primary button-large save-rtmega-menu" value="Save"></p>
+                    <p><input type="submit" class="button button-primary button-large save-rtmega-menu" value="<?php esc_attr_e( 'Save', 'rt-mega-menu' ); ?>"></p>
                     </div>
             <?php
-
             wp_die();
 
         }

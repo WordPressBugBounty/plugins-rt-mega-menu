@@ -1,6 +1,6 @@
 {
     "name": "rt-mega-menu",
-    "version": "1.0.0",
+    "version": "1.5.2",
     "description": "RT Mega Menu Plugin",
     "scripts": {
         "build": "wp-scripts build --blocks-manifest --webpack-src-dir=public/blocks/rt-mega-menu/src --output-path=public/blocks/rt-mega-menu/build",

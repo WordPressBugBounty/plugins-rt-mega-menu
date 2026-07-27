@@ -21,7 +21,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                             <div class="rtmega_saved_icon_wrapper_free" style="clear: both;">
                             <div class="rtmega_saved_icon"><i class=""></i></div>
                             <div class="rtmega_saved_icon_actions">
-                                <button type="button" class="rtmega_set_icon_toggle_in_nav_item_free" data-menu_item_id="<?php echo esc_attr($item_id); ?>"><?php echo 'Add Icon'; ?></button>
+                                <button type="button" class="rtmega_set_icon_toggle_in_nav_item_free" data-menu_item_id="<?php echo esc_attr($item_id); ?>"><?php esc_html_e( 'Add Icon', 'rt-mega-menu' ); ?></button>
                             </div>
                         </div>
                         <button type="button" class="button rtmega-set-visibility-conditions rtmega-set-visibility-conditions-free"><?php echo esc_html__( 'Visibility Conditions', 'rt-mega-menu' )?></button>
@@ -46,7 +46,6 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
         
             $actual_action = sanitize_text_field(wp_unslash($_POST['actualAction']));
             
-        
             if ($actual_action === 'saveMenuOptions' && isset($_POST['menu_id'])) {
                 $menu_id = absint($_POST['menu_id']); // No need to sanitize twice
                 $menu = wp_get_nav_menu_object($menu_id);
@@ -88,6 +87,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                 'settings' => $settings, 
                 'actual_action' => $actual_action
             ]);
+            
             wp_die();
         }
         
@@ -128,6 +128,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
         }
 
         public function rtmega_set_menu_item_mega_button() {
+
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
 
             if ( ! current_user_can( 'edit_theme_options' ) ) {
@@ -149,6 +150,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
         }
 
         public function rtmega_delete_menu_options() {
+
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
 
             if ( ! current_user_can( 'edit_theme_options' ) ) {
@@ -171,6 +173,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                 }
             }
             wp_die();
+
         }
 
         public function rtmega_get_menu_options() {
@@ -183,35 +186,36 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
             if(isset($_POST['menu_item_id'])){
                 $menu_item_id = absint( wp_unslash( $_POST['menu_item_id'] ) );
+
                 if ( ! $menu_item_id || 'nav_menu_item' !== get_post_type( $menu_item_id ) ) {
                     wp_send_json_error( array( 'message' => esc_html__( 'Invalid menu item.', 'rt-mega-menu' ) ) );
                 }
+                
                 $active_tab_id = isset($_POST['active_tab']) ? sanitize_text_field(wp_unslash($_POST['active_tab'])) : '';
-                $RTMEGA_menupos_left = $RTMEGA_menupos_right = $RTMEGA_menupos_top = $RTMEGA_menuwidth = $RTMEGA_menu_full_width = $rtmega_menu_item_css = '';
                 $rtmega_menu_item_settings = get_post_meta($menu_item_id, 'rtmega_menu_settings', true);
 
-                if (isset($rtmega_menu_item_settings['css'])) {
-                    $css = $rtmega_menu_item_settings['css'];
-                    $RTMEGA_menupos_left = $css['left'] ?? null;
-                    $RTMEGA_menupos_right = $css['right'] ?? null;
-                    $RTMEGA_menupos_top = $css['top'] ?? null;
-                    $RTMEGA_menuwidth = $css['width'] ?? null;
-                    $RTMEGA_menu_full_width = $css['full_width'] ?? null;
-                }
+                $css = ( is_array( $rtmega_menu_item_settings ) && ! empty( $rtmega_menu_item_settings['css'] ) && is_array( $rtmega_menu_item_settings['css'] ) )
+                    ? $rtmega_menu_item_settings['css']
+                    : array();
+
+                $rtmega_menupos_left  = $css['left']  ?? '';
+                $rtmega_menupos_right = $css['right'] ?? '';
+                $rtmega_menupos_top   = $css['top']   ?? '';
+                $rtmega_menuwidth     = $css['width'] ?? '';
 
 
                 $content_tempalte = '';
                 $template_source = 'elementor';
                 if(isset($rtmega_menu_item_settings['content']['rtmega_template'])){
-                    $content_tempalte = $rtmega_menu_item_settings['content']['rtmega_template'];
+                    $content_tempalte = absint( $rtmega_menu_item_settings['content']['rtmega_template'] );
                 }
-                if(isset($rtmega_menu_item_settings['content']['template_source'])){
+                if(isset($rtmega_menu_item_settings['content']['template_source']) && in_array($rtmega_menu_item_settings['content']['template_source'], array('elementor', 'gutenberg'), true)){
                     $template_source = $rtmega_menu_item_settings['content']['template_source'];
                 }
 
                 ?>
                     <div id="tabs-content">
-                        <div id="tab1" class="tab-content" style="display: <?php echo esc_attr($active_tab_id == '1' ? 'block' : 'none'); ?>">
+                        <div id="tab1" class="tab-content" style="display: <?php echo esc_attr( $active_tab_id == '1' ? 'block' : 'none'); ?>">
                             <h2><?php echo esc_html__( 'Select a template', 'rt-mega-menu' )?></h2>
                             <!-- elementor_library -->
                             <?php
@@ -228,18 +232,13 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                                 );
 
                                 $elementor_library_query = new WP_Query($elementor_library_query_args);
-                                $content_tempalte = '';
-                                if(isset($rtmega_menu_item_settings['content']['rtmega_template'])){
-                                    $content_tempalte = $rtmega_menu_item_settings['content']['rtmega_template'];
-                                }
-
                             ?>
                             <form action="" onsubmit="return false" id='rtmega_menu_items_settings'>    
                                 <div class="rtmega-menu-option-inputs">
                                     <ul class="rtmega-menu-option-input-list"> 
                                         <li>
                                             <select name="template_source" id="rtmega-template-source-select">
-                                                <option value="" <?php selected($template_source, ''); ?>>
+                                                <option value="" <?php selected( $template_source, '' ); ?>>
                                                     <?php echo esc_html__('Select a template source', 'rt-mega-menu'); ?>
                                                 </option>
                                                 <option value="elementor" <?php selected($template_source, 'elementor'); ?>>
@@ -250,8 +249,8 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                                                 </option>
                                             </select>
                                             <?php 
-                                                //if($elementor_library_query->have_posts()){
-                                                $is_template_exist = $elementor_library_query->have_posts();
+                                                if($elementor_library_query->have_posts()){
+                                                    $is_template_exist = $elementor_library_query->have_posts();
                                                     ?>
                                                     <select name="rtmega_template" id="rtmega-template-select" style="<?php echo esc_attr($is_template_exist ? '' : 'display: none;'); ?>">
                                                         <option value=""><?php echo esc_html__('Select Template', 'rt-mega-menu'); ?></option>
@@ -261,41 +260,41 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                                                                 $elementor_library_query->the_post();
                                                                 $current_id = get_the_ID();
 
-                                                                //if($activeKitId == $current_id) continue;
 
                                                                 ?>
-                                                                    <option value="<?php echo esc_attr(get_the_ID());?>" <?php echo esc_attr($content_tempalte == get_the_ID() ? 'selected' : ''); ?> ><?php the_title( );?></option>
+                                                                    <option value="<?php echo esc_attr( get_the_ID() );?>" <?php echo esc_attr($content_tempalte == get_the_ID() ? 'selected' : ''); ?> ><?php the_title(); ?></option>
                                                                 <?php
                                                                 
                                                             }
-                                                            
+                                                            wp_reset_postdata();
                                                         ?>
                                                     </select>
-                                                    <?php 
-                                                //} 
+                                                    <?php
+                                                }
+                                              
                                                 
                                             ?>
                                             <strong class="rtmega-text-danger rtmega-template-not-found-message" style="<?php echo esc_attr($elementor_library_query->have_posts() ? 'display: none;' : ''); ?>">
-                                                <?php echo esc_html__('Ops! Templates not found.', 'rt-mega-menu') ?> <a href="<?php echo esc_url(admin_url('edit.php?post_type=elementor_library&tabs_group=library')); ?>" title="Click here to create a template." id="rtmega-create-new-template"><?php echo esc_html__('Create', 'rt-mega-menu'); ?></a> <?php echo esc_html__('a new template.', 'rt-mega-menu'); ?></strong>
+                                                <?php echo esc_html__('Ops! Templates not found.', 'rt-mega-menu') ?> <a href="<?php echo esc_url(admin_url('edit.php?post_type=elementor_library&tabs_group=library')); ?>" title="<?php esc_attr_e( 'Click here to create a template.', 'rt-mega-menu' ); ?>" id="rtmega-create-new-template"><?php echo esc_html__('Create', 'rt-mega-menu'); ?></a> <?php echo esc_html__('a new template.', 'rt-mega-menu'); ?></strong>
                                             <?php
                                             
-                                            $edit_link = $template_source == 'elementor' ? admin_url('post.php?post='. $content_tempalte .'&action=elementor') : admin_url('post.php?post='. $content_tempalte .'&action=edit');
+                                            $edit_link = $template_source == 'elementor' ? admin_url('post.php?post='. esc_attr( $content_tempalte ) .'&action=elementor') : admin_url('post.php?post='. esc_attr( $content_tempalte ) .'&action=edit');
                                             ?>
-                                            <a href="<?php echo esc_url($edit_link); ?>" id="edit-remega-selected-template" class="button" target="_blank" style="<?php echo empty($content_tempalte) ? 'display: none;' : ''; ?>"><?php echo esc_html__('Edit Template', 'rt-mega-menu'); ?></a>
-                                            <a href="<?php echo esc_url(admin_url('post.php?post='. $content_tempalte .'&action=edit')) ?>" id="add-remega-template" class="button" target="_blank" style="<?php echo esc_attr($elementor_library_query->have_posts() ? '' : 'display: none;'); ?>">Add New</a>
+                                            <a href="<?php echo esc_url( $edit_link ); ?>" id="edit-remega-selected-template" class="button" target="_blank" style="<?php echo empty($content_tempalte) ? 'display: none;' : ''; ?>"><?php echo esc_html__( 'Edit Template', 'rt-mega-menu' ); ?></a>
+                                            <a href="<?php echo esc_url( admin_url('post.php?post='. esc_attr( $content_tempalte ) .'&action=edit' ) ) ?>" id="add-remega-template" class="button" target="_blank" style="<?php echo esc_attr( $elementor_library_query->have_posts() ? '' : 'display: none;'); ?>"><?php echo esc_html__('Add New', 'rt-mega-menu'); ?></a>
                                            
                                         </li>
                                         <li class="pro-features-placeholders">
                                             <div class="option-label"><?php echo esc_html__('Badge', 'rt-mega-menu'); ?> : </div>
                                             <div class="option-inputs">
-                                                <img src="<?php echo esc_url(RTMEGA_MENU_PL_URL.'admin/assets/img/badge_pro_condition.png'); ?>" class="rtmega_pro_warning_img" alt="badge_pro_condition">
+                                                <img src="<?php echo esc_url( RTMEGA_MENU_PL_URL.'admin/assets/img/badge_pro_condition.png'); ?>" class="rtmega_pro_warning_img" alt="badge_pro_condition">
                                                 <p class="rtmega-pro-notice rtmega-text-danger"><?php echo esc_html__('Please activate plugin license to use this advanced features', 'rt-mega-menu'); ?></p>
                                             </div>
                                         </li>
                                         <li class="pro-features-placeholders">   
                                             <div class="option-label"><?php echo esc_html__('Icon', 'rt-mega-menu'); ?> : </div>
                                             <div class="option-inputs">
-                                                <img src="<?php echo esc_url(RTMEGA_MENU_PL_URL.'admin/assets/img/icon_pro_condition.png'); ?>" class="rtmega_pro_warning_img" alt="icon_pro_condition">
+                                                <img src="<?php echo esc_url( RTMEGA_MENU_PL_URL.'admin/assets/img/icon_pro_condition.png'); ?>" class="rtmega_pro_warning_img" alt="icon_pro_condition">
                                                 <p class="rtmega-pro-notice rtmega-text-danger"><?php echo esc_html__('Please activate plugin license to use this advanced features', 'rt-mega-menu'); ?></p>
                                             </div>
                                         </li>
@@ -318,15 +317,15 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                                             <div class="option-inputs">
                                                 <label>
                                                     <strong><?php echo esc_html__('Left', 'rt-mega-menu'); ?> <?php echo esc_html__('(ex: 100px or 100%)', 'rt-mega-menu'); ?></strong>
-                                                    <input type="text" name="left" value="<?php echo esc_attr($RTMEGA_menupos_left); ?>">
+                                                    <input type="text" name="left" value="<?php echo esc_attr($rtmega_menupos_left); ?>">
                                                 </label>
                                                 <label>
                                                     <strong><?php echo esc_html__('Right', 'rt-mega-menu'); ?> <?php echo esc_html__('(ex: 100px or 100%)', 'rt-mega-menu'); ?></strong>
-                                                    <input type="text" name="right" value="<?php echo esc_attr($RTMEGA_menupos_right); ?>">
+                                                    <input type="text" name="right" value="<?php echo esc_attr($rtmega_menupos_right); ?>">
                                                 </label>
                                                 <label>
                                                     <strong><?php echo esc_html__('Top', 'rt-mega-menu'); ?> <?php echo esc_html__('(ex: 100px or 100%)', 'rt-mega-menu'); ?></strong>
-                                                    <input type="text" name="top" value="<?php echo esc_attr($RTMEGA_menupos_top); ?>">
+                                                    <input type="text" name="top" value="<?php echo esc_attr( $rtmega_menupos_top ); ?>">
                                                 </label>
                                             </div>
                                         </li>
@@ -335,7 +334,7 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                                             <div class="option-inputs">
                                                 <label>
                                                     <strong><?php echo esc_html__('Width', 'rt-mega-menu'); ?> <?php echo esc_html__('(ex: 100px or 100%)', 'rt-mega-menu'); ?></strong>
-                                                    <input type="text" name="width" value="<?php echo esc_attr($RTMEGA_menuwidth); ?>">
+                                                    <input type="text" name="width" value="<?php echo esc_attr($rtmega_menuwidth); ?>">
                                                 </label>
                                             </div>
                                         </li>
@@ -363,12 +362,15 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
                     </div> <!-- END tabs-content -->
                 <?php
 
+            } else {
+                wp_send_json_error( array( 'message' => esc_html__( 'Menu item ID is missing.', 'rt-mega-menu' ) ) );
             }
-            
+
             wp_die();
         }
 
         public function rtmega_get_templates_data_by_source() {
+            
             check_ajax_referer('rtmega_templates_import_nonce', 'nonce');
 
             if ( ! current_user_can( 'edit_theme_options' ) ) {
@@ -419,18 +421,25 @@ if ( !class_exists('RTMEGA_MENU_Admin_Ajax')) {
 
         public function rtmega_create_new_template() {
             check_ajax_referer( 'rtmega_templates_import_nonce', 'nonce' );
-            if ( ! current_user_can( 'edit_posts' ) ) {
+            if ( ! current_user_can( 'edit_theme_options' ) ) {
                 wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to create a template.', 'rt-mega-menu' ) ) );
             }
 
             $template_source = isset($_POST['template_source']) ? sanitize_text_field(wp_unslash($_POST['template_source'])) : '';
-            $menu_item_id = isset($_POST['menu_item_id']) ? sanitize_text_field(wp_unslash($_POST['menu_item_id'])) : '';
+            if ( ! in_array( $template_source, array( 'elementor', 'gutenberg' ), true ) ) {
+                $template_source = 'gutenberg';
+            }
+
+            $menu_item_id = isset($_POST['menu_item_id']) ? absint( wp_unslash($_POST['menu_item_id']) ) : 0;
+            if ( ! $menu_item_id || 'nav_menu_item' !== get_post_type( $menu_item_id ) ) {
+                wp_send_json_error( array( 'message' => esc_html__( 'Invalid menu item.', 'rt-mega-menu' ) ) );
+            }
+
             $rtmega_menu_item_settings = get_post_meta($menu_item_id, 'rtmega_menu_settings', true);
             $post_type = $template_source == 'elementor' ? 'elementor_library' : 'rtmega_menu';
             $template_data = array();
-            
-            if(isset($_POST['menu_item_id'])){
-                $menu_item_id = sanitize_text_field(wp_unslash($_POST['menu_item_id']));
+
+            if($menu_item_id){
                 $template_id = wp_insert_post(array(
                     'post_title'    => 'Mega Menu Template - '  . wp_rand(1000, 9999),
                     'post_status'   => 'publish',

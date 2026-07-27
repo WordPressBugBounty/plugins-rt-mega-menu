@@ -36,12 +36,46 @@ class RTMEGA_Helper {
 		return $value;
 	}
 
+	/**
+	 * Sanitize a single CSS property name.
+	 *
+	 * CSS property names contain only ASCII letters and hyphens (including
+	 * custom properties like --my-var), so anything else is stripped.
+	 */
+	public static function rtmega_sanitize_css_property ( $prop ) {
+		return preg_replace( '/[^a-zA-Z\-]/', '', (string) $prop );
+	}
+
+	/**
+	 * Sanitize a single CSS declaration value.
+	 *
+	 * Strips characters that could break out of a declaration or rule
+	 * ( { } ; < > ) and neutralizes known CSS-based injection vectors
+	 * (javascript:, expression(), @import, behavior:, url(javascript|data:)).
+	 * Legitimate values (colors, lengths, keywords, gradients, shadows,
+	 * font stacks) use none of these and pass through unchanged.
+	 */
+	public static function rtmega_sanitize_css_value ( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return '';
+		}
+		$value = str_replace( array( '{', '}', ';', '<', '>' ), '', (string) $value );
+		if ( preg_match( '/(javascript\s*:|expression\s*\(|@import|behavior\s*:|url\s*\(\s*[\'"]?\s*(?:javascript|data)\s*:)/i', $value ) ) {
+			return '';
+		}
+		return trim( $value );
+	}
+
 	public static function get_inline_styles ($style_map) {
 		$styles = [];
-    if ( ! is_array( $style_map ) ) return '';
+    	if ( ! is_array( $style_map ) ) return '';
 		foreach ( $style_map as $prop => $value ) {
 			if ( $value !== '' && $value !== null && $value !== 'inherit' ) {
-				$styles[] = $prop . ':' . $value;
+				$safe_prop  = self::rtmega_sanitize_css_property( $prop );
+				$safe_value = self::rtmega_sanitize_css_value( $value );
+				if ( $safe_prop !== '' && $safe_value !== '' ) {
+					$styles[] = $safe_prop . ':' . $safe_value;
+				}
 			}
 		}
 		return implode( ';', $styles );
@@ -60,7 +94,11 @@ class RTMEGA_Helper {
 				$decls = "";
 				foreach ($responsive_data[$device] as $prop => $val) {
 					if ( $val !== '' && $val !== null ) {
-						$decls .= $prop . ":" . $val . ";";
+						$safe_prop = self::rtmega_sanitize_css_property( $prop );
+						$safe_val  = self::rtmega_sanitize_css_value( $val );
+						if ( $safe_prop !== '' && $safe_val !== '' ) {
+							$decls .= $safe_prop . ":" . $safe_val . ";";
+						}
 					}
 				}
 				
@@ -89,9 +127,6 @@ class RTMEGA_Helper {
 		}
 
 		if ( ! empty( $output_css ) ) {
-            // Always echo for blocks to ensure it works even if enqueued too late.
-            // CSS is generated from widget settings; strip any HTML tags that could
-            // break out of the <style> block but keep CSS syntax (>, {}, etc.) intact.
             echo "<!-- RT Mega Menu Styles -->\n";
             echo '<style type="text/css">' . wp_strip_all_tags( $output_css ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_strip_all_tags removes script/style injection while preserving CSS.
 		}
@@ -140,7 +175,40 @@ class RTMEGA_Helper {
       return $css;
   }
 
-  /**
+	/**
+	 * Narrow allowlist for lower-trust free-text fields such as nav menu
+	 * item descriptions. Permits only basic inline formatting — no style,
+	 * iframe, form, input, svg or data-* attributes.
+	 *
+	 * @return array Allowed HTML tags with their attributes.
+	 */
+	public static function rtmega_allowed_description_html() {
+		$attrs = array(
+			'class' => true,
+			'id'    => true,
+			'title' => true,
+		);
+
+		$allowed = array(
+			'a'      => array_merge( $attrs, array( 'href' => true, 'target' => true, 'rel' => true ) ),
+			'br'     => array(),
+			'em'     => $attrs,
+			'i'      => $attrs,
+			'strong' => $attrs,
+			'b'      => $attrs,
+			'span'   => $attrs,
+			'small'  => $attrs,
+			'sub'    => $attrs,
+			'sup'    => $attrs,
+			'mark'   => $attrs,
+			'u'      => $attrs,
+			'code'   => $attrs,
+		);
+
+		return apply_filters( 'rtmega_allowed_description_html', $allowed );
+	}
+
+  	/**
 	 * Returns allowed HTML tags and attributes for wp_kses.
 	 *
 	 * Covers all HTML used in the product gallery output including
